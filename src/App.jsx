@@ -1,9 +1,11 @@
-import React from 'react'
+import React from 'react';
+
+import Auth from './components/auth/Auth';
 
 
 const App = () => {
     return (
-        <div>Hello from App</div>
+        <Auth />
     )
 }
 
