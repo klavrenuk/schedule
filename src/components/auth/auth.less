@@ -18,12 +18,13 @@
     height: 100%;
     width: 100%;
     z-index: 1;
-    background: rgba(0,0,0,.5);
+    background: rgba(0,0,0,.8);
   }
 
   & .auth-form {
     position: relative;
-    padding: 4rem 6rem;
+    width: 450px;
+    padding: 4rem;
     z-index: 2;
     color: #fff;
     background: rgba(0,0,0,.5);
@@ -78,6 +79,20 @@
 
         &.fill {
           color: @colorMain;
+        }
+      }
+    }
+
+    & .form-buttons {
+      margin-top: 3.5rem;
+      justify-content: space-between;
+
+      & button {
+        padding: 14px 20px;
+        border-radius: 30px;
+
+        :first-child {
+          margin-right: 1rem;
         }
       }
     }

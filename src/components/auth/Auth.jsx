@@ -45,15 +45,17 @@ const Auth = () => {
                                 <Input
                                     id={option.name}
                                     name={option.name}
+                                    type={option.type}
                                     value={option.value}
                                     placeholder={option.placeholder}
+                                    autoComplete={'off'}
                                 />
                             </FormGroup>
                         )
                     })
                 }
 
-                <FormGroup>
+                <FormGroup className={'form-buttons flex_center_center'}>
                     <Button color={'primary'}
                             onClick={run}
                     >Sign in</Button>

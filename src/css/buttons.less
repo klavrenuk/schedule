@@ -13,13 +13,14 @@
 }
 
 .btn,
-.btn.btn-primary {
+.btn.btn-default {
   @default();
 
   &:hover,
   &:active,
   &:focus {
-    
+    @primary();
+    box-shadow: none !important;
   }
 }
 
