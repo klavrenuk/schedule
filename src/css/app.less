@@ -3,10 +3,15 @@
 
 body {
   font-family: 'Noto Sans JP', sans-serif;
+  background: #000;
 }
 
 ::selection {
-  padding: .5rem;
+  background: @colorMain;
+}
+
+::placeholder {
+  color: #CCCCCC;
 }
 
 a {
@@ -34,4 +39,8 @@ li {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.form-control {
+  box-shadow: none !important;
 }

@@ -32,9 +32,9 @@ const Auth = () => {
 
     return (
         <div className={'auth'}>
-            <Form>
+            <Form className={'auth-form'}>
                 <FormGroup>
-                    <h2>Authorization</h2>
+                    <h2 className={'form-title'}>Authorization</h2>
                 </FormGroup>
 
                 {

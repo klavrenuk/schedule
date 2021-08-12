@@ -1,1 +1,46 @@
 @import "config.less";
+
+@default: {
+  border: 1px solid @colorMain;
+  color: #206AA1 !important;
+  background: none;
+}
+
+@primary: {
+  border: 1px solid @colorMain;
+  color: #fff !important;
+  background: @colorMain;
+}
+
+.btn,
+.btn.btn-primary {
+  @default();
+
+  &:hover,
+  &:active,
+  &:focus {
+    
+  }
+}
+
+.btn {
+  &.btn-primary {
+    @primary();
+
+    &:hover,
+    &:active,
+    &:focus {
+      @default();
+    }
+  }
+
+  &.btn-secondary {
+    @default();
+
+    &:hover,
+    &:active,
+    &:focus {
+      @primary();
+    }
+  }
+}

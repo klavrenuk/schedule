@@ -1,0 +1,85 @@
+@import "./../../css/config.less";
+
+.auth {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: url("./auth.jpg") center center no-repeat;
+  background-size: cover;
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 1;
+    background: rgba(0,0,0,.5);
+  }
+
+  & .auth-form {
+    position: relative;
+    padding: 4rem 6rem;
+    z-index: 2;
+    color: #fff;
+    background: rgba(0,0,0,.5);
+    //display: none;
+
+    &.active {
+      display: block;
+    }
+
+    & .form-title {
+      margin-bottom: 3rem;
+      font-weight: 700;
+    }
+
+    & .form-group {
+      margin-bottom: 2rem;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      & label {
+        font-size: 14px;
+        text-transform: uppercase;
+      }
+
+      & input {
+        padding-left: 0;
+        border: none;
+        border-bottom: 1px solid #333333;
+        border-radius: 0;
+        background: none;
+
+        &:focus,
+        &:active {
+          color: @colorMain !important;
+          border-color: @colorMain !important;
+          background: none !important;
+        }
+
+        &:hover {
+          border-color: @colorMain;
+        }
+
+        &::selection {
+          background: #333333;
+        }
+
+        &::placeholder {
+          color: #333333;
+        }
+
+        &.fill {
+          color: @colorMain;
+        }
+      }
+    }
+  }
+}
