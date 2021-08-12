@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Form, FormGroup, Button, Label, Input} from "reactstrap";
 
 import './auth.min.css';
@@ -21,6 +21,28 @@ const options = [
 ];
 
 const Auth = () => {
+    const [user, setUser] = useState({});
+
+    const onChange = (event) => {
+        setUser({
+            ...user,
+            [event.target.name]: event.target.value
+        });
+
+        const input = document.getElementById(event.target.name);
+        if(input) {
+            if(event.target.value !== null && event.target.value !== undefined && event.target.value.trim()) {
+                if(!input.classList.contains('fill')) {
+                    input.classList.add('fill');
+                }
+
+            } else {
+                if(input.classList.contains('fill')) {
+                    input.classList.remove('fill');
+                }
+            }
+        }
+    }
 
     const run = () => {
         console.log('run');
@@ -49,6 +71,7 @@ const Auth = () => {
                                     value={option.value}
                                     placeholder={option.placeholder}
                                     autoComplete={'off'}
+                                    onChange={(event) => onChange(event)}
                                 />
                             </FormGroup>
                         )
