@@ -1,4 +1,4 @@
-import React, {useReducer} from 'react';
+import React, {useEffect, useReducer, useState} from 'react';
 import {Form, FormGroup, Button, Label, Input} from "reactstrap";
 
 import './auth.min.css';
@@ -42,14 +42,13 @@ const optionsRegistration = [
         placeholder: 'Crazy'
     },
     {
-        name: 'password',
+        name: 'password1',
         label: 'password',
         type: 'password',
         value: null,
         placeholder: 'Crazy'
     }
 ];
-
 const defaultState = {
     options: optionsSingIn,
     typeView: 'auth',
@@ -69,7 +68,7 @@ function reducer(state, action) {
                 typeView: 'registration',
                 user: {},
                 title: 'Registration',
-                btnRightText: 'Save'
+                btnRightText: 'Create'
             };
 
         case 'updateUser':
@@ -89,6 +88,9 @@ function reducer(state, action) {
 
 const Auth = () => {
     const [state, dispatch] = useReducer(reducer, defaultState);
+    const [isLoading, setIsLoading] = useState(false);
+
+    useEffect(() => setTimeout(() => setIsLoading(false), 500), [state.typeView])
 
     const onChange = (event) => {
         dispatch({
@@ -112,49 +114,70 @@ const Auth = () => {
         }
     }
 
-    const run = () => {
-        console.log('run', state.user);
-    }
+    const run = (action) => {
+        if(action === 'create') {
+            if(state.typeView !== 'registration') {
+                setIsLoading(true);
+                dispatch({
+                    type: 'showViewRegistration'
+                });
 
-    const createAccount = () => {
-        console.log('createAccount');
+            } else {
+                console.log('run', state.user);
+            }
+
+        } else {
+            if(state.typeView !== 'auth') {
+                setIsLoading(true);
+                dispatch({
+                    type: 'showViewAuth'
+                });
+
+            } else {
+                console.log('run', state.user);
+            }
+        }
     }
 
     return (
         <div className={'auth'}>
-            <Form className={'auth-form'}>
-                <FormGroup>
-                    <h2 className={'form-title'}>{state.title}</h2>
-                </FormGroup>
+            {
+                isLoading ? ''
+                    :
+                    <Form className={'auth-form'}>
+                        <FormGroup>
+                            <h2 className={'form-title'}>{state.title}</h2>
+                        </FormGroup>
 
-                {
-                    state.options.map((option) => {
-                        return (
-                            <FormGroup key={option.name}>
-                                <Label for={option.name}>{option.name}</Label>
-                                <Input
-                                    id={option.name}
-                                    name={option.name}
-                                    type={option.type}
-                                    value={option.value}
-                                    placeholder={option.placeholder}
-                                    autoComplete={'off'}
-                                    onChange={(event) => onChange(event)}
-                                />
-                            </FormGroup>
-                        )
-                    })
-                }
+                        {
+                            state.options.map((option) => {
+                                return (
+                                    <FormGroup key={option.name}>
+                                        <Label for={option.name}>{option.label}</Label>
+                                        <Input
+                                            id={option.name}
+                                            name={option.name}
+                                            type={option.type}
+                                            value={option.value}
+                                            placeholder={option.placeholder}
+                                            autoComplete={'off'}
+                                            onChange={(event) => onChange(event)}
+                                        />
+                                    </FormGroup>
+                                )
+                            })
+                        }
 
-                <FormGroup className={'form-buttons flex_center_center'}>
-                    <Button color={'primary'}
-                            onClick={run}
-                    >Sign in</Button>
-                    <Button color={'default'}
-                            onClick={createAccount}
-                    >{state.btnRightText}</Button>
-                </FormGroup>
-            </Form>
+                        <FormGroup className={'form-buttons flex_center_center'}>
+                            <Button color={'primary'}
+                                    onClick={() => run('auth')}
+                            >Sign in</Button>
+                            <Button color={'default'}
+                                    onClick={() => run('create')}
+                            >{state.btnRightText}</Button>
+                        </FormGroup>
+                    </Form>
+            }
         </div>
     )
 }
