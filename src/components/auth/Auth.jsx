@@ -1,32 +1,100 @@
-import React, {useState} from 'react';
+import React, {useReducer} from 'react';
 import {Form, FormGroup, Button, Label, Input} from "reactstrap";
 
 import './auth.min.css';
 
-const options = [
+const optionsSingIn = [
     {
         name: 'username',
         label: 'username',
         type: 'text',
         value: null,
-        placeholder: 'Emma Stone'
+        placeholder: 'Emma'
     },
     {
         name: 'password',
         label: 'password',
         type: 'password',
         value: null,
-        placeholder: 'Crazy, Stupid, Love'
+        placeholder: 'Crazy'
+    }
+];
+const optionsRegistration = [
+    {
+        name: 'Name',
+        label: 'Name',
+        type: 'text',
+        value: null,
+        placeholder: 'Emma Stone'
+    },
+    {
+        name: 'username',
+        label: 'username',
+        type: 'text',
+        value: null,
+        placeholder: 'Alex'
+    },
+    {
+        name: 'password',
+        label: 'password',
+        type: 'password',
+        value: null,
+        placeholder: 'Crazy'
+    },
+    {
+        name: 'password',
+        label: 'password',
+        type: 'password',
+        value: null,
+        placeholder: 'Crazy'
     }
 ];
 
+const defaultState = {
+    options: optionsSingIn,
+    typeView: 'auth',
+    user: {},
+    title: 'Authorization',
+    btnRightText: 'Create account'
+};
+
+function reducer(state, action) {
+    switch (action.type) {
+        case 'showViewAuth':
+            return defaultState;
+
+        case 'showViewRegistration':
+            return {
+                options: optionsRegistration,
+                typeView: 'registration',
+                user: {},
+                title: 'Registration',
+                btnRightText: 'Save'
+            };
+
+        case 'updateUser':
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    [action.prop]: action.value
+                }
+            }
+
+        default:
+            throw new Error();
+    }
+}
+
+
 const Auth = () => {
-    const [user, setUser] = useState({});
+    const [state, dispatch] = useReducer(reducer, defaultState);
 
     const onChange = (event) => {
-        setUser({
-            ...user,
-            [event.target.name]: event.target.value
+        dispatch({
+            type: 'updateUser',
+            prop: event.target.name,
+            value: event.target.value
         });
 
         const input = document.getElementById(event.target.name);
@@ -45,7 +113,7 @@ const Auth = () => {
     }
 
     const run = () => {
-        console.log('run');
+        console.log('run', state.user);
     }
 
     const createAccount = () => {
@@ -56,11 +124,11 @@ const Auth = () => {
         <div className={'auth'}>
             <Form className={'auth-form'}>
                 <FormGroup>
-                    <h2 className={'form-title'}>Authorization</h2>
+                    <h2 className={'form-title'}>{state.title}</h2>
                 </FormGroup>
 
                 {
-                    options.map((option) => {
+                    state.options.map((option) => {
                         return (
                             <FormGroup key={option.name}>
                                 <Label for={option.name}>{option.name}</Label>
@@ -84,7 +152,7 @@ const Auth = () => {
                     >Sign in</Button>
                     <Button color={'default'}
                             onClick={createAccount}
-                    >Create account</Button>
+                    >{state.btnRightText}</Button>
                 </FormGroup>
             </Form>
         </div>
