@@ -1,11 +1,16 @@
 import React from 'react';
+import {Container} from "reactstrap";
 
 import DashboardHeader from "./DashboardHeader";
+
+import './dashboard.min.css';
 
 const Dashboard = () => {
     return (
         <div>
-            <DashboardHeader />
+            <Container fluid={true}>
+                <DashboardHeader />
+            </Container>
         </div>
     )
 }
