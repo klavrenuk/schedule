@@ -1,12 +1,31 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import Auth from './components/auth/Auth';
 import Dashboard from "./components/dashboard/Dashboard";
 
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Redirect,
+} from "react-router-dom";
 
 const App = () => {
+    const [isAuthorized, setIsAuthorized] = useState(true);
+
     return (
-        <Dashboard />
+        <div>
+            <Router>
+                <Switch>
+                    <Route path={'/dashboard'}>
+                        <Dashboard />
+                    </Route>
+                    <Route path={'/'}>
+                        { isAuthorized ? <Redirect to={'/dashboard'} /> : <Auth /> }
+                    </Route>
+                </Switch>
+            </Router>
+        </div>
     )
 }
 
