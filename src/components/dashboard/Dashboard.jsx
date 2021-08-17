@@ -1,9 +1,11 @@
 import React from 'react';
 
+import DashboardHeader from "./DashboardHeader";
+
 const Dashboard = () => {
     return (
         <div>
-            Hello from dashboard
+            <DashboardHeader />
         </div>
     )
 }
