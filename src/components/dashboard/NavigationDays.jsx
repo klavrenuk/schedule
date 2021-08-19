@@ -4,21 +4,41 @@ import { BsChevronLeft, BsChevronRight } from "react-icons/bs";
 
 import './css/navigationDays.min.css';
 
+const buttons = [
+    {
+        classNames: 'navigation_days-button navigation_days-button--arrow navigation_days-button--arrow_prev',
+        text: <BsChevronLeft />,
+        name: 'prev'
+    },
+    {
+        classNames: 'navigation_days-button navigation_days-button--text',
+        text: 'Today',
+        name: 'today'
+    },
+    {
+        classNames: 'navigation_days-button navigation_days-button--arrow navigation_days-button--arrow_next',
+        text: <BsChevronRight />,
+        name: 'next'
+    }
+];
+
 const NavigationDays = () => {
     return (
         <div className={'navigation_days'}>
-            <Button
-                color={'link'}
-                className={'navigation_days-button navigation_days-button--arrow navigation_days-button--arrow_prev'}
-            ><BsChevronLeft /></Button>
-
-            <Button color={'link'}
-                    className={'navigation_days-button'}
-            >Today</Button>
-            <Button
-                color={'link'}
-                className={'navigation_days-button navigation_days-button--arrow navigation_days-button--arrow_next'}
-            ><BsChevronRight /></Button>
+            {
+                buttons.map((button) => {
+                    return (
+                        <Button
+                            color={'link'}
+                            key={button.name}
+                            name={button.name}
+                            className={button.classNames}
+                        >
+                            {button.text}
+                        </Button>
+                    )
+                })
+            }
         </div>
     )
 }
