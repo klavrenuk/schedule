@@ -3,7 +3,7 @@ import {Container} from "reactstrap";
 
 import DashboardHeader from "./DashboardHeader";
 
-import './dashboard.min.css';
+import './css/dashboard.min.css';
 
 const Dashboard = () => {
     return (

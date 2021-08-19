@@ -1,0 +1,30 @@
+@borderColor: #ccc;
+@borderRadius: 6px;
+
+.navigation_days-button {
+  border: 1px solid @borderColor;
+  color: #666666 !important;
+  font-size: 13px;
+  text-decoration: none;
+  background: #fff;
+
+  &:hover,
+  &:active,
+  &:focus {
+    border-color: #999;
+    color: #000 !important;
+    background: rgba(153,153,153, .5);
+  }
+
+  &.navigation_days-button--arrow_prev {
+    border-right: none;
+    border-top-left-radius: @borderRadius;
+    border-bottom-left-radius: @borderRadius;
+  }
+
+  &.navigation_days-button--arrow_next {
+    border-left: none;
+    border-top-right-radius: @borderRadius;
+    border-bottom-right-radius: @borderRadius;
+  }
+}

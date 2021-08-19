@@ -6,7 +6,7 @@ import UserAccount from "./UserAccount";
 
 const DashboardHeader = () => {
     return (
-        <header>
+        <header className={'dashboard_header'}>
             <Row>
                 <Col sm={6}>
                     <NavigationDays />
