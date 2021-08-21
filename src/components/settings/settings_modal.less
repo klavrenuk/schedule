@@ -1,7 +1,64 @@
+@innerPaddingSide: 54px;
+
 .settings_modal {
+  position: fixed;
+  top: 50px;
+  right: 0;
+  width: 440px;
+  height: calc(100% - 50px);
+  box-sizing: border-box;
+  border-radius: 4px 0 0;
   display: none;
+  overflow-x: hidden;
+  overflow-y: auto;
+  box-shadow: -1px 0 #e5e5e5, inset 0 1px #e5e5e5;
+  background: #fff;
 
   &.show {
     display: block;
+  }
+
+  & .settings_modal-header {
+    background: #f6f6f6;
+
+    & .settings_modal-header-title {
+      margin-bottom: 0;
+      padding-left: @innerPaddingSide;
+      color: #000;
+      text-align: left;
+    }
+
+    & .settings_modal-header-close {
+      position: relative;
+      top: -15px;
+      height: 30px;
+      padding: 0 !important;
+      font-size: 30px;
+
+      &:hover,
+      &:active,
+      &:focus {
+        color: #000;
+      }
+    }
+  }
+
+  & .settings_modal-body {
+    padding-left: @innerPaddingSide;
+    padding-right: @innerPaddingSide;
+
+    & .form-group {
+      margin-bottom: 1rem;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  & label {
+    margin-bottom: 5px;
+    color: #999;
+    font-size: 13px;
   }
 }
