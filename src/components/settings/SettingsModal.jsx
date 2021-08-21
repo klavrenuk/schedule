@@ -2,6 +2,8 @@ import React from 'react';
 import {Row, Col, Button, FormGroup, Form, Label, Input} from 'reactstrap';
 import {BsX} from 'react-icons/bs';
 
+import './settings_modal.min.css';
+
 const options = [
     {
         name: 'firstDay',
@@ -36,7 +38,7 @@ const options = [
 
 const SettingsModal = () => {
     return (
-        <div className={'settings_modal'}>
+        <div id={'SettingsModal'} className={'settings_modal'}>
             <div className={'settings_modal-header'}>
                 <Row>
                     <Col sm={8}><h5>Settings</h5></Col>
@@ -98,3 +100,5 @@ const SettingsModal = () => {
         </div>
     )
 }
+
+export default SettingsModal;
