@@ -3,6 +3,7 @@ import {Row, Col, Button} from 'reactstrap';
 
 import NavigationDays from "./NavigationDays";
 import UserAccount from "./UserAccount";
+import Settings from '../settings/Settings';
 
 const DashboardHeader = () => {
     return (
@@ -14,9 +15,7 @@ const DashboardHeader = () => {
                 <Col sm={6}
                      className={'text-right'}
                 >
-                    <Button color={'icon'}>
-                        Icon
-                    </Button>
+                    <Settings />
                     <UserAccount />
                 </Col>
             </Row>
