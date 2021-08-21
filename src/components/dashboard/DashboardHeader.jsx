@@ -9,14 +9,19 @@ const DashboardHeader = () => {
     return (
         <header className={'dashboard_header'}>
             <Row>
-                <Col sm={6}>
-                    <NavigationDays />
-                </Col>
-                <Col sm={6}
+                <Col sm={8}><NavigationDays /></Col>
+
+                <Col sm={4}
                      className={'text-right'}
                 >
-                    <Settings />
-                    <UserAccount />
+                    <Row>
+                        <Col sm={8}
+                             className={'text-right'}
+                        >
+                            <Settings />
+                        </Col>
+                        <Col sm={4}><UserAccount /></Col>
+                    </Row>
                 </Col>
             </Row>
         </header>
