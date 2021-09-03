@@ -37,6 +37,14 @@ const options = [
 ];
 
 const SettingsModal = () => {
+    const closeModal = () => {
+        const elem = document.getElementById('SettingsModal');
+
+        if(elem) {
+            elem.classList.remove('show');
+        }
+    }
+
     return (
         <div id={'SettingsModal'} className={'settings_modal'}>
             <div className={'settings_modal-header'}>
@@ -45,7 +53,11 @@ const SettingsModal = () => {
                     <Col sm={4}
                          className={'text-right'}
                     >
-                        <Button color={'icon'} className={'settings_modal-header-close'}><BsX /></Button>
+                        <Button
+                            color={'icon'}
+                            className={'settings_modal-header-close'}
+                            onClick={() => closeModal()}
+                        ><BsX /></Button>
                     </Col>
                 </Row>
             </div>

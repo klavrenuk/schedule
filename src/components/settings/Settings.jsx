@@ -5,10 +5,8 @@ import {Button} from "reactstrap";
 import SettingsModal from "./SettingsModal";
 
 const Settings = () => {
-    const toggleSettingsModal = () => {
+    const toggleViewSettingsModal = () => {
         const elem = document.getElementById('SettingsModal');
-
-        console.log(elem);
 
         if(elem) {
             if(elem.classList.contains('show')) {
@@ -23,7 +21,7 @@ const Settings = () => {
         <div className={'settings'}>
             <Button
                 color={'icon'}
-                onClick={() => toggleSettingsModal()}
+                onClick={() => toggleViewSettingsModal()}
             ><BsFillGearFill /></Button>
 
             <SettingsModal />
