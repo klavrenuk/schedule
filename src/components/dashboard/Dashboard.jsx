@@ -3,17 +3,19 @@ import {Container} from "reactstrap";
 
 import DashboardHeader from "./DashboardHeader";
 import Aside from './../aside/Aside';
+import Schedule from './../schedule/Schedule';
 
 import './css/dashboard.min.css';
 
 const Dashboard = () => {
     return (
-        <div>
-            <Container fluid={true}>
-                <DashboardHeader />
+        <Container className={'dashboard'} fluid={true}>
+            <DashboardHeader />
+            <main className={'dashboard-main'}>
                 <Aside />
-            </Container>
-        </div>
+                <Schedule />
+            </main>
+        </Container>
     )
 }
 
