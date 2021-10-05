@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 
+import Demo from './components/demo/Demo';
 import Auth from './components/auth/Auth';
 import Dashboard from "./components/dashboard/Dashboard";
 
@@ -17,9 +18,8 @@ const App = () => {
         <div>
             <Router>
                 <Switch>
-                    <Route path={'/dashboard'}>
-                        <Dashboard />
-                    </Route>
+                    <Route path={'/demo'}><Demo /></Route>
+                    <Route path={'/dashboard'}><Dashboard /></Route>
                     <Route path={'/'}>
                         { isAuthorized ? <Redirect to={'/dashboard'} /> : <Auth /> }
                     </Route>

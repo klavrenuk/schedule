@@ -4,9 +4,11 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 const ModalWithComponent = forwardRef((props, ref) => {
     const [isOpen, setIsOpen] = useState(false);
     const [title, setTitle] = useState(null);
+    const [component, setComponent] = useState(null);
 
     useEffect(() => {
         setTitle(props.title);
+        setComponent(props.component);
 
     }, [props]);
 
@@ -16,7 +18,6 @@ const ModalWithComponent = forwardRef((props, ref) => {
 
     useImperativeHandle(ref, () => ({
         show() {
-            console.log('show');
             toggle();
         }
     }));
@@ -25,8 +26,7 @@ const ModalWithComponent = forwardRef((props, ref) => {
         <Modal isOpen={isOpen} toggle={toggle}>
             <ModalHeader toggle={toggle}>{title}</ModalHeader>
 
-            <ModalBody>
-            </ModalBody>
+            <ModalBody>{component}</ModalBody>
 
             <ModalFooter>
                 <Button color="link" onClick={toggle}>cancel</Button>
