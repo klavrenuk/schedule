@@ -11,7 +11,8 @@ const buttons = [
     'warning',
     'danger',
     'link',
-    'icon'
+    'icon',
+    'white'
 ];
 
 export default function Demo() {
