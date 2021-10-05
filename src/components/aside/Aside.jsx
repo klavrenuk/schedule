@@ -21,6 +21,7 @@ const Aside = () => {
             <ModalWithComponent ref={ModalWithComponentRef}
                                 title={'Create EventForm'}
                                 component={EventForm}
+                                textButtonAccept={'Save'}
             />
         </aside>
     )

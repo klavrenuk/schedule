@@ -4,11 +4,21 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 const ModalWithComponent = forwardRef((props, ref) => {
     const [isOpen, setIsOpen] = useState(false);
     const [title, setTitle] = useState(null);
+    const [btnAcceptText, setBtnAcceptText] = useState('accept');
     const [component, setComponent] = useState(null);
 
     useEffect(() => {
-        setTitle(props.title);
-        setComponent(props.component);
+        if(props.title) {
+            setTitle(props.title);
+        }
+
+        if(props.component) {
+            setComponent(props.component);
+        }
+
+        if(props.textButtonAccept) {
+            setBtnAcceptText(props.textButtonAccept);
+        }
 
     }, [props]);
 
@@ -30,7 +40,7 @@ const ModalWithComponent = forwardRef((props, ref) => {
 
             <ModalFooter>
                 <Button color="link" onClick={toggle}>cancel</Button>
-                <Button color="primary" onClick={toggle}>accept</Button>
+                <Button color="primary" onClick={toggle}>{btnAcceptText}</Button>
             </ModalFooter>
         </Modal>
     )
