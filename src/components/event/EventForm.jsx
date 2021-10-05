@@ -1,25 +1,33 @@
 import React from 'react';
-import {Form, FormGroup} from "reactstrap";
+import {Form} from "reactstrap";
 
-const arr = [
+import EventFormItem from './EventFormItem';
+
+const options = [
     {
-        prop: 'name',
+        type: 'name',
         label: 'Name'
     },
     {
-        prop: 'description',
+        type: 'description',
         label: 'description'
     },
     {
-        prop: 'date',
+        type: 'date',
         label: 'Date and time'
     }
 ];
 
 export default function EventForm() {
     return (
-        <div>
-
-        </div>
+        <Form className={'event_form'}>
+            {
+                options.map((option) => {
+                    return <EventFormItem key={option.type}
+                                          data={option}
+                    />
+                })
+            }
+        </Form>
     )
 }
