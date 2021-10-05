@@ -49,3 +49,19 @@ li {
 form {
   text-align: left;
 }
+
+.modal {
+  & .modal-header {
+    & button.close {
+      border: none;
+      color: #999;
+      background: none;
+
+      &:hover,
+      &:active,
+      &:focus {
+        color: @colorMain;
+      }
+    }
+  }
+}
