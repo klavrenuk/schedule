@@ -6,15 +6,18 @@ import EventFormItem from './EventFormItem';
 const options = [
     {
         type: 'name',
-        label: 'Name'
+        label: 'Name',
+        value: ''
     },
     {
         type: 'description',
-        label: 'description'
+        label: 'description',
+        value: ''
     },
     {
         type: 'date',
-        label: 'Date and time'
+        label: 'Date and time',
+        value: null
     }
 ];
 
