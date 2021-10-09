@@ -33,7 +33,7 @@ const ModalWithComponent = forwardRef((props, ref) => {
     }));
 
     return (
-        <Modal isOpen={isOpen} toggle={toggle}>
+        <Modal isOpen={isOpen} toggle={toggle} size={props.size}>
             <ModalHeader toggle={toggle}>{title}</ModalHeader>
 
             <ModalBody>{component}</ModalBody>

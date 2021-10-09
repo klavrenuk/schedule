@@ -22,6 +22,7 @@ const Aside = () => {
                                 title={'Create EventForm'}
                                 component={EventForm}
                                 textButtonAccept={'Save'}
+                                size="lg"
             />
         </aside>
     )
