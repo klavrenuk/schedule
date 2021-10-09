@@ -30,6 +30,7 @@ export default function EventFormItem(props) {
     const onChangeItem = (event) => data.value = event.target.value;
 
     const onChangeDate = (date) => {
+        setStartDate(date);
         data.value = new Date(date).toLocaleDateString('ru', {
             year: 'numeric',
             month: 'numeric',
@@ -74,7 +75,9 @@ export default function EventFormItem(props) {
 
         case 'date':
             return renderWithFromGroup(
-                <DatePicker selected={startDate} onChange={(date) => onChangeDate(date)} />
+                <DatePicker selected={startDate}
+                            dateFormat="dd/MM/yyyy"
+                            onChange={(date) => onChangeDate(date)} />
             )
 
         default:
