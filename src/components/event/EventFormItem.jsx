@@ -19,9 +19,7 @@ export default function EventFormItem(props) {
                     <Col sm={4} className={'text-right'}>
                         <Label for={data.type}>{data.label}</Label>
                     </Col>
-                    <Col sm={4}>
-                        {content}
-                    </Col>
+                    <Col sm={6}>{content}</Col>
                 </Row>
             </FormGroup>
         )
@@ -64,7 +62,7 @@ export default function EventFormItem(props) {
 
             } else {
                 return renderWithFromGroup(
-                    <Input id="{data.type}"
+                    <Input id={data.type}
                            name={data.type}
                            type="textarea"
                            rows="4"
@@ -75,7 +73,8 @@ export default function EventFormItem(props) {
 
         case 'date':
             return renderWithFromGroup(
-                <DatePicker selected={startDate}
+                <DatePicker id={data.type}
+                            selected={startDate}
                             dateFormat="dd/MM/yyyy"
                             onChange={(date) => onChangeDate(date)} />
             )

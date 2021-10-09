@@ -44,6 +44,10 @@ li {
 
 .form-control {
   box-shadow: none !important;
+
+  &:focus {
+    border-color: @colorMain !important;
+  }
 }
 
 form {
@@ -69,5 +73,17 @@ form {
         color: @colorMain;
       }
     }
+  }
+}
+
+.react-datepicker-wrapper input {
+  width: 100%;
+  border: 1px solid #999 !important;
+  padding: 6px 12px;
+
+  &:hover,
+  &:active,
+  &:focus {
+    border-color: @colorMain !important;
   }
 }

@@ -3,6 +3,8 @@ import {Form} from "reactstrap";
 
 import EventFormItem from './EventFormItem';
 
+import './event_form.min.css';
+
 const options = [
     {
         type: 'name',

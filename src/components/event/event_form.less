@@ -1,0 +1,31 @@
+.inputStyles {
+  border-color: #999;
+  color: #000;
+  font-size: 13px;
+}
+
+.event_form {
+  & .event_item {
+    margin-bottom: 1rem;
+
+    & label {
+      padding-top: 5px;
+      color: #999;
+      font-size: 13px;
+    }
+
+    & .form-control {
+      .inputStyles();
+    }
+
+    &.event_item--description textarea {
+      resize: none;
+    }
+
+    &.event_item--date {
+      & .react-datepicker-wrapper input {
+        .inputStyles();
+      }
+    }
+  }
+}
