@@ -1,9 +1,13 @@
 import React, {useState} from 'react';
 import {FormGroup, Input, Label, Button} from "reactstrap";
+import DatePicker from 'react-datepicker';
+
+import "react-datepicker/dist/react-datepicker.css";
 
 
 export default function EventFormItem(props) {
     const [isShowDescription, setIsShowDescription] = useState(false);
+    const [startDate, setStartDate] = useState(new Date());
     const data = props.data;
 
     function renderWithFromGroup(content) {
@@ -18,6 +22,14 @@ export default function EventFormItem(props) {
     }
 
     const onChangeItem = (event) => data.value = event.target.value;
+
+    const onChangeDate = (date) => {
+        data.value = new Date(date).toLocaleDateString('ru', {
+            year: 'numeric',
+            month: 'numeric',
+            day: 'numeric'
+        });
+    }
 
     const toggleViewDescription = () => setIsShowDescription(true);
 
@@ -54,8 +66,8 @@ export default function EventFormItem(props) {
             }
 
         case 'date':
-            return (
-                <div>DatePicker</div>
+            return renderWithFromGroup(
+                <DatePicker selected={startDate} onChange={(date) => onChangeDate(date)} />
             )
 
         default:
