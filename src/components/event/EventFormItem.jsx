@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {FormGroup, Input, Label, Button} from "reactstrap";
+import {FormGroup, Input, Label, Button, Row, Col} from "reactstrap";
 import DatePicker from 'react-datepicker';
 
 import "react-datepicker/dist/react-datepicker.css";
@@ -15,8 +15,14 @@ export default function EventFormItem(props) {
 
         return (
             <FormGroup className={itemClassName}>
-                <Label for={data.type}>{data.label}</Label>
-                {content}
+                <Row>
+                    <Col sm={4} className={'text-right'}>
+                        <Label for={data.type}>{data.label}</Label>
+                    </Col>
+                    <Col sm={4}>
+                        {content}
+                    </Col>
+                </Row>
             </FormGroup>
         )
     }
@@ -60,6 +66,7 @@ export default function EventFormItem(props) {
                     <Input id="{data.type}"
                            name={data.type}
                            type="textarea"
+                           rows="4"
                            onChange={(event) => onChangeItem(event)}
                     />
                 )

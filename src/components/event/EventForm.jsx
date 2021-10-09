@@ -11,7 +11,7 @@ const options = [
     },
     {
         type: 'description',
-        label: 'description',
+        label: 'Description',
         value: ''
     },
     {
