@@ -79,9 +79,7 @@ const SettingsModal = () => {
                                             {
                                                 option.options.map((item) => {
                                                     return (
-                                                        <option key={item.id}
-                                                                value={item.id}
-                                                        >
+                                                        <option key={item.value} value={item.id}>
                                                             {option.text}
                                                         </option>
                                                     )
@@ -93,7 +91,7 @@ const SettingsModal = () => {
 
                             case 'checkbox':
                                 return (
-                                    <FormGroup>
+                                    <FormGroup key={option.name}>
                                         <Label>
                                             <Input
                                                 type="checkbox"
