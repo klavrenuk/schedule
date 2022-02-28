@@ -1,11 +1,13 @@
 import React, {useState} from 'react';
 import {FormGroup, Input, Label, Button, Row, Col} from "reactstrap";
 import DatePicker from 'react-datepicker';
+import {useDispatch} from 'react-redux';
 
 import "react-datepicker/dist/react-datepicker.css";
 
 
 export default function EventFormItem(props) {
+    const dispatch = useDispatch();
     const [isShowDescription, setIsShowDescription] = useState(false);
     const [startDate, setStartDate] = useState(new Date());
     const data = props.data;
@@ -17,7 +19,10 @@ export default function EventFormItem(props) {
             <FormGroup className={itemClassName}>
                 <Row>
                     <Col sm={4} className={'text-right'}>
-                        <Label for={data.type}>{data.label}</Label>
+                        <Label
+                            className={'event_item-label'}
+                            for={data.type}
+                        >{data.name}</Label>
                     </Col>
                     <Col sm={6}>{content}</Col>
                 </Row>
@@ -25,14 +30,21 @@ export default function EventFormItem(props) {
         )
     }
 
-    const onChangeItem = (event) => data.value = event.target.value;
+    const onChangeItem = (event) => {
+        dispatch({
+            type: 'event',
+            prop: event.target.name,
+            value: event.target.value
+        });
+    }
 
     const onChangeDate = (date) => {
         setStartDate(date);
-        data.value = new Date(date).toLocaleDateString('ru', {
-            year: 'numeric',
-            month: 'numeric',
-            day: 'numeric'
+
+        dispatch({
+            type: 'event',
+            prop: data.name,
+            value: new Date(date).getTime()
         });
     }
 
@@ -41,7 +53,7 @@ export default function EventFormItem(props) {
     switch (data.type) {
         case 'name':
             const input = <Input id={data.type}
-                                 name={data.type}
+                                 name={data.name}
                                  placeholder={'Enter text'}
                                  onChange={(event) => onChangeItem(event)}
             />
@@ -63,7 +75,7 @@ export default function EventFormItem(props) {
             } else {
                 return renderWithFromGroup(
                     <Input id={data.type}
-                           name={data.type}
+                           name={data.name}
                            type="textarea"
                            rows="4"
                            onChange={(event) => onChangeItem(event)}

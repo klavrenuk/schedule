@@ -8,17 +8,17 @@ import './event_form.min.css';
 const options = [
     {
         type: 'name',
-        label: 'Name',
+        name: 'name',
         value: ''
     },
     {
         type: 'description',
-        label: 'Description',
+        name: 'description',
         value: ''
     },
     {
         type: 'date',
-        label: 'Date and time',
+        name: 'date',
         value: null
     }
 ];

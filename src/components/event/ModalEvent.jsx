@@ -1,10 +1,12 @@
-import React, {useState, useImperativeHandle, forwardRef} from 'react'
+import React, {useState, useImperativeHandle, forwardRef, useEffect} from 'react'
 import {Modal, ModalHeader, ModalBody, ModalFooter, Button} from "reactstrap";
+import {useSelector} from "react-redux";
 
 import EventForm from './EventForm';
 
 const ModalEvent = forwardRef((props, ref) => {
     const [isShowModal, setIsShowModal] = useState(false);
+    const state = useSelector(state => state);
 
     useImperativeHandle(ref, () => ({
         show() {
@@ -13,7 +15,10 @@ const ModalEvent = forwardRef((props, ref) => {
     }))
 
     const onSave = () => {
-        toggle();
+        console.log('onSave');
+        console.log(state.event);
+
+        //toggle();
     }
 
     const toggle = () => setIsShowModal(!isShowModal);

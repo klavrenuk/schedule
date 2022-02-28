@@ -1,8 +1,22 @@
-const initStore = {};
+const initState = {
+    event: {}
+};
 
-const reducer = (state = initState, action) => {
+const reducers = (state = initState, action) => {
     switch(action.type) {
+        case 'event':
+            return {
+                ...state,
+                event: {
+                    ...state.event,
+                    [action.prop]: action.value
+                }
+            }
+            break;
+
         default:
             return state;
     }
 }
+
+export default reducers;
