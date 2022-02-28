@@ -73,10 +73,13 @@ export default function EventFormItem(props) {
 
         case 'date':
             return renderWithFromGroup(
-                <DatePicker id={data.type}
-                            selected={startDate}
-                            dateFormat="dd/MM/yyyy"
-                            onChange={(date) => onChangeDate(date)} />
+                <DatePicker 
+                    id={data.type}
+                    selected={startDate}
+                    dateFormat="dd/MM/yyyy"
+                    onChange={(date) => onChangeDate(date)} 
+                    showTimeSelect
+                />
             )
 
         default:

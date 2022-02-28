@@ -2,10 +2,14 @@ import React from 'react';
 
 import './schedule.min.css';
 
+import TimeGrid from "./TimeGrid";
+
 const Schedule = () => {
     return (
         <div className={'schedule'}>
-            Schedule
+            <div>Day</div>
+            <div>Tasks for all day</div>
+            <TimeGrid />
         </div>
     )
 }

@@ -1,15 +1,16 @@
 import React, {useRef} from 'react';
 import {Button} from 'reactstrap';
 
-import ModalWithComponent from "../general/ModalWithComponent";
-import EventForm from "../event/EventForm";
+import ModalEvent from '../event/ModalEvent';
 
 import './aside.min.css';
 
 const Aside = () => {
-    const ModalWithComponentRef = useRef();
+    
 
-    const openModalCreateEvent = () => ModalWithComponentRef.current.show();
+
+
+    const openModalCreateEvent = () => Event.current.show();
 
     return (
         <aside className={'aside'}>
