@@ -6,25 +6,19 @@ import ModalEvent from '../event/ModalEvent';
 import './aside.min.css';
 
 const Aside = () => {
+    const ModalEventRef = useRef();
     
 
-
-
-    const openModalCreateEvent = () => Event.current.show();
+    const createEvent = () => ModalEventRef.current.show();
 
     return (
         <aside className={'aside'}>
             <Button color={'white'}
                     block={true}
-                    onClick={openModalCreateEvent}
+                    onClick={createEvent}
             >Create event</Button>
 
-            <ModalWithComponent ref={ModalWithComponentRef}
-                                title={'Create EventForm'}
-                                component={EventForm}
-                                textButtonAccept={'Save'}
-                                size="lg"
-            />
+            <ModalEvent ref={ModalEventRef} />
         </aside>
     )
 }
