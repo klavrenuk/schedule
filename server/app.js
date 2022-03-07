@@ -10,7 +10,7 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-require('router')(app);
+require('./router')(app);
 
 mongoose.connect('mongodb://localhost:27017/stockmarket', function(err) {
     if(err) {
