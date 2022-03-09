@@ -19,7 +19,7 @@ const options = [
     {
         type: 'date',
         name: 'date',
-        value: null
+        value: new Date()
     }
 ];
 

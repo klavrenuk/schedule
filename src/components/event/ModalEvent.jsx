@@ -4,9 +4,11 @@ import {useSelector} from "react-redux";
 import axios from 'axios';
 
 import EventForm from './EventForm';
+import Loading from "../general/Loading";
 
 const ModalEvent = forwardRef((props, ref) => {
     const [isShowModal, setIsShowModal] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
     const state = useSelector(state => state);
 
     useImperativeHandle(ref, () => ({
@@ -16,7 +18,8 @@ const ModalEvent = forwardRef((props, ref) => {
     }))
 
     const onSave = () => {
-        console.log(state.event);
+        setIsLoading(true);
+
         let incorrectOption = null;
 
         if(!state.event.name) {
@@ -39,16 +42,27 @@ const ModalEvent = forwardRef((props, ref) => {
                 date: state.event.date
             }
         }).then((resp) => {
-            console.log(resp);
-        })
+            setIsLoading(false);
+            alert('Success!');
+            setTimeout(() => toggle(), 600);
 
-        //toggle();
+        }).catch(() => {
+            setIsLoading(false);
+            alert('Error! Please, check form and try later');
+        })
     }
 
     const toggle = () => setIsShowModal(!isShowModal);
 
     return (
         <Modal isOpen={isShowModal} toggle={toggle}>
+            {
+                isLoading ?
+                    <Loading type="modal" />
+                    :
+                    null
+            }
+
             <ModalHeader toggle={toggle}>Event</ModalHeader>
 
             <ModalBody>

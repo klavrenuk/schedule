@@ -1,5 +1,7 @@
 const initState = {
-    event: {}
+    event: {
+        date: new Date().getTime()
+    }
 };
 
 const reducers = (state = initState, action) => {
