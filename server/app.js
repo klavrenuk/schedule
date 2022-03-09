@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 
 require('./router')(app);
 
-mongoose.connect('mongodb://localhost:27017/stockmarket', function(err) {
+mongoose.connect('mongodb://localhost:27017/schedule', function(err) {
     if(err) {
         return console.log('Connection error to database');
 
