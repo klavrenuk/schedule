@@ -22,19 +22,41 @@ const ModelEvent = mongoose.model('Event', new Schema({
 }));
 
 const Event = {
-    add(request, response) {
+    edit(event) {
+        return new Promise((resolve, reject) => {
+            ModelEvent.findOneAndUpdate(
+                {_id: event._id},
+                event, (err) => {
+                    if(err) {
+                        reject(err);
+                    }
+
+                    resolve(true);
+                }
+            )
+        })
+    },
+
+    add(event) {
+        return new Promise((resolve, reject) => {
+            event.save((err) => {
+                if(err) {
+                    reject(err);
+                }
+
+                resolve(true);
+            })
+        })
+    },
+
+    async save(request, response) {
         let status = 200;
 
         try {
-            console.log('in method add');
-            console.log(request.body);
-
-
             if(!request.body && !isObject(request.body)) {
                 status = 400;
                 throw new Error('Bad request');
             }
-
 
             const requiredOptions = [
                 {
@@ -46,9 +68,7 @@ const Event = {
                     type: 'Number'
                 }
             ];
-
             const validation = validationItem(requiredOptions, request.body);
-            console.log('validation', validation);
             
             if(!validation.value) {
                 status = 400;
@@ -62,28 +82,26 @@ const Event = {
                 isDeleted: false
             });
 
-            event.save((err) => {
-                if(err) {
-                    status = 500;
-                    trow new Error();
-                }
+            if(request.method === 'POST') {
+                await this.add(event);
+            } else {
+                await this.edit(event);
+            }
 
-                response.sendStatus(200);
-            })
+            response.sendStatus(200);
 
         } catch(err) {
             console.log(err);
-            console.log(status);
+
+            if(err === 200) {
+                err = 500;
+            }
 
             response.status(status).json({
                 errorMessage: err.message || null
             });
         }
     },
-
-    edit(request, response) {
-
-    }
 }
 
 module.exports = Event;
