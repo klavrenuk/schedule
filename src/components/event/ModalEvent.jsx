@@ -1,6 +1,7 @@
 import React, {useState, useImperativeHandle, forwardRef, useEffect} from 'react'
 import {Modal, ModalHeader, ModalBody, ModalFooter, Button} from "reactstrap";
 import {useSelector} from "react-redux";
+import axios from 'axios';
 
 import EventForm from './EventForm';
 
@@ -15,8 +16,31 @@ const ModalEvent = forwardRef((props, ref) => {
     }))
 
     const onSave = () => {
-        console.log('onSave');
         console.log(state.event);
+        let incorrectOption = null;
+
+        if(!state.event.name) {
+            incorrectOption = 'Name';
+        } else if(!state.event.date) {
+            incorrectOption = 'Date';
+        }
+
+        if(incorrectOption) {
+            alert(`Please, enter option "${incorrectOption}"`);
+            return false;
+        }
+
+        axios({
+            method: 'POST',
+            url: '/api/event',
+            data: {
+                name: state.event.name,
+                description: state.event.description || null,
+                date: state.event.date
+            }
+        }).then((resp) => {
+            console.log(resp);
+        })
 
         //toggle();
     }
