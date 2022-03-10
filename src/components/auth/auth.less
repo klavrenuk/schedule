@@ -89,7 +89,15 @@
 
       & button {
         padding: 14px 20px;
-        border-radius: 30px;
+        color: #fff;
+        border: none;
+        background: none;
+
+        &:hover,
+        &:active,
+        &:focus {
+          color: @colorMain;
+        }
 
         :first-child {
           margin-right: 1rem;
