@@ -1,6 +1,8 @@
 import React, {useEffect, useReducer, useState} from 'react';
 import {Form, FormGroup, Button, Label, Input} from "reactstrap";
 
+import Loading from "../general/Loading";
+
 import './auth.min.css';
 
 const optionsSingIn = [
@@ -8,14 +10,14 @@ const optionsSingIn = [
         name: 'username',
         label: 'username',
         type: 'text',
-        value: null,
+        value: '',
         placeholder: 'Emma'
     },
     {
         name: 'password',
         label: 'password',
         type: 'password',
-        value: null,
+        value: '',
         placeholder: 'Crazy'
     }
 ];
@@ -24,28 +26,28 @@ const optionsRegistration = [
         name: 'Name',
         label: 'Name',
         type: 'text',
-        value: null,
+        value: '',
         placeholder: 'Emma Stone'
     },
     {
         name: 'username',
         label: 'username',
         type: 'text',
-        value: null,
+        value: '',
         placeholder: 'Alex'
     },
     {
         name: 'password',
         label: 'password',
         type: 'password',
-        value: null,
+        value: '',
         placeholder: 'Crazy'
     },
     {
         name: 'password1',
         label: 'password',
         type: 'password',
-        value: null,
+        value: '',
         placeholder: 'Crazy'
     }
 ];
@@ -89,8 +91,11 @@ function reducer(state, action) {
 const Auth = () => {
     const [state, dispatch] = useReducer(reducer, defaultState);
     const [isLoading, setIsLoading] = useState(false);
+    const [isShowContent, setIsShowContent] = useState(true);
 
-    useEffect(() => setTimeout(() => setIsLoading(false), 500), [state.typeView])
+    useEffect(() => {
+        setIsShowContent(false);
+    }, [state.typeView])
 
     const onChange = (event) => {
         dispatch({
@@ -114,27 +119,38 @@ const Auth = () => {
         }
     }
 
-    const run = (action) => {
+    const createAccount = () => {
+        setIsLoading(true);
+        setTimeout(() => {
+            setIsLoading(false);
+        }, 1000);
+    }
+
+    const signIn = () => {
+        setIsLoading(true);
+        setTimeout(() => {
+            setIsLoading(false);
+        }, 1000);
+    }
+
+    const onAction = (action) => {
         if(action === 'create') {
             if(state.typeView !== 'registration') {
-                setIsLoading(true);
                 dispatch({
                     type: 'showViewRegistration'
                 });
-
             } else {
-                console.log('run', state.user);
+                createAccount();
             }
 
         } else {
             if(state.typeView !== 'auth') {
-                setIsLoading(true);
                 dispatch({
                     type: 'showViewAuth'
                 });
 
             } else {
-                console.log('run', state.user);
+                signIn();
             }
         }
     }
@@ -142,7 +158,14 @@ const Auth = () => {
     return (
         <div className={'auth'}>
             {
-                isLoading ? ''
+                isLoading ? <Loading type={'modal'} />
+                    :
+                    null
+            }
+
+
+            {
+                isShowContent ? null
                     :
                     <Form className={'auth-form'}>
                         <FormGroup>
@@ -170,10 +193,10 @@ const Auth = () => {
 
                         <FormGroup className={'form-buttons flex_center_center'}>
                             <Button color={'primary'}
-                                    onClick={() => run('auth')}
+                                    onClick={() => onAction('auth')}
                             >Sign in</Button>
                             <Button color={'default'}
-                                    onClick={() => run('create')}
+                                    onClick={() => onAction('create')}
                             >{state.btnRightText}</Button>
                         </FormGroup>
                     </Form>
