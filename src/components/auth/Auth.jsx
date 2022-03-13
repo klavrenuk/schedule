@@ -5,7 +5,7 @@ import Loading from "../general/Loading";
 
 import './auth.min.css';
 
-const optionsSingIn = [
+const optionsSignIn = [
     {
         name: 'username',
         label: 'username',
@@ -44,7 +44,7 @@ const optionsRegistration = [
         placeholder: 'Crazy'
     },
     {
-        name: 'password1',
+        name: 'passwordRepeat',
         label: 'password',
         type: 'password',
         value: '',
@@ -52,11 +52,14 @@ const optionsRegistration = [
     }
 ];
 const defaultState = {
-    options: optionsSingIn,
+    options: optionsSignIn,
     typeView: 'auth',
-    user: {},
-    title: 'Authorization',
-    btnRightText: 'Create account'
+    user: {
+        username: '',
+        password: ''
+    },
+    title: 'Sign in',
+    btnRightText: 'Create an account'
 };
 
 function reducer(state, action) {
@@ -68,9 +71,14 @@ function reducer(state, action) {
             return {
                 options: optionsRegistration,
                 typeView: 'registration',
-                user: {},
+                user: {
+                    name: '',
+                    username: '',
+                    password: '',
+                    passwordRepeat: ''
+                },
                 title: 'Registration',
-                btnRightText: 'Create'
+                btnRightText: 'Continue'
             };
 
         case 'updateUser':
@@ -103,20 +111,6 @@ const Auth = () => {
             prop: event.target.name,
             value: event.target.value
         });
-
-        const input = document.getElementById(event.target.name);
-        if(input) {
-            if(event.target.value !== null && event.target.value !== undefined && event.target.value.trim()) {
-                if(!input.classList.contains('fill')) {
-                    input.classList.add('fill');
-                }
-
-            } else {
-                if(input.classList.contains('fill')) {
-                    input.classList.remove('fill');
-                }
-            }
-        }
     }
 
     const createAccount = () => {
@@ -127,10 +121,8 @@ const Auth = () => {
     }
 
     const signIn = () => {
-        setIsLoading(true);
-        setTimeout(() => {
-            setIsLoading(false);
-        }, 1000);
+        console.log('sign in');
+        console.log(state);
     }
 
     const onAction = (action) => {
@@ -155,6 +147,15 @@ const Auth = () => {
         }
     }
 
+    const showInfo = (event, option) => {
+        console.log(state);
+
+        console.log(option.name);
+        console.log(state.user[option.name]);
+
+        event.preventDefault();
+    }
+
     return (
         <div className={'auth'}>
             {
@@ -162,7 +163,6 @@ const Auth = () => {
                     :
                     null
             }
-
 
             {
                 isShowContent ? null
@@ -181,7 +181,7 @@ const Auth = () => {
                                             id={option.name}
                                             name={option.name}
                                             type={option.type}
-                                            value={option.value}
+                                            value={state.user[option.name]}
                                             placeholder={option.placeholder}
                                             autoComplete={'off'}
                                             onChange={(event) => onChange(event)}
