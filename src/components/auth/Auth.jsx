@@ -1,5 +1,6 @@
 import React, {useEffect, useReducer, useState} from 'react';
 import {Form, FormGroup, Button, Label, Input} from "reactstrap";
+import axios from 'axios';
 
 import Loading from "../general/Loading";
 
@@ -121,8 +122,43 @@ const Auth = () => {
     }
 
     const signIn = () => {
-        console.log('sign in');
-        console.log(state);
+        setIsLoading(true);
+
+        if(!state || !state.user) {
+            return false;
+        }
+
+        for(let option of optionsSignIn) {
+            if(!state.user[option.name] || !state.user[option.name].trim()) {
+                alert(`Please, check ${option.name}`);
+                return false;
+            }
+        }
+
+        axios({
+            method: 'POST',
+            url: '/api/auth',
+            data: {
+                userName: state.user.username,
+                password: state.user.password
+            }
+        }).then((response) => {
+            setIsLoading(false);
+
+            if(response.data.status) {
+                location.href = '/dashboard';
+            } else {
+                if(response.data.message) {
+                    alert(response.data.message);
+                } else {
+                    throw new Error();
+                }
+            }
+
+        }).catch(() => {
+            setIsLoading(false);
+            alert('Error! Please, try later');
+        })
     }
 
     const onAction = (action) => {
@@ -145,15 +181,6 @@ const Auth = () => {
                 signIn();
             }
         }
-    }
-
-    const showInfo = (event, option) => {
-        console.log(state);
-
-        console.log(option.name);
-        console.log(state.user[option.name]);
-
-        event.preventDefault();
     }
 
     return (
