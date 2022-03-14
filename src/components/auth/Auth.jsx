@@ -8,8 +8,8 @@ import './auth.min.css';
 
 const optionsSignIn = [
     {
-        name: 'username',
-        label: 'username',
+        name: 'login',
+        label: 'login',
         type: 'text',
         value: '',
         placeholder: 'Emma'
@@ -24,15 +24,15 @@ const optionsSignIn = [
 ];
 const optionsRegistration = [
     {
-        name: 'Name',
+        name: 'name',
         label: 'Name',
         type: 'text',
         value: '',
         placeholder: 'Emma Stone'
     },
     {
-        name: 'username',
-        label: 'username',
+        name: 'login',
+        label: 'Login',
         type: 'text',
         value: '',
         placeholder: 'Alex'
@@ -56,7 +56,7 @@ const defaultState = {
     options: optionsSignIn,
     typeView: 'auth',
     user: {
-        username: '',
+        login: '',
         password: ''
     },
     title: 'Sign in',
@@ -74,7 +74,7 @@ function reducer(state, action) {
                 typeView: 'registration',
                 user: {
                     name: '',
-                    username: '',
+                    login: '',
                     password: '',
                     passwordRepeat: ''
                 },
@@ -114,32 +114,33 @@ const Auth = () => {
         });
     }
 
-    const createAccount = () => {
-        setIsLoading(true);
-        setTimeout(() => {
-            setIsLoading(false);
-        }, 1000);
+    const validationUser = (options) => {
+        return new Promise((resolve) => {
+            for(let option of options) {
+                if(!state.user[option.name] || !state.user[option.name].trim()) {
+                    resolve(option.name);
+                }
+            }
+
+            resolve(null);
+        })
     }
 
-    const signIn = () => {
+    const signIn = async () => {
         setIsLoading(true);
 
-        if(!state || !state.user) {
+        const inValidOption = await validationUser(optionsSignIn);
+        if(inValidOption) {
+            setIsLoading(false);
+            alert(`Please, check ${inValidOption}`);
             return false;
-        }
-
-        for(let option of optionsSignIn) {
-            if(!state.user[option.name] || !state.user[option.name].trim()) {
-                alert(`Please, check ${option.name}`);
-                return false;
-            }
         }
 
         axios({
             method: 'POST',
             url: '/api/auth',
             data: {
-                userName: state.user.username,
+                login: state.user.login,
                 password: state.user.password
             }
         }).then((response) => {
@@ -155,6 +156,51 @@ const Auth = () => {
                 }
             }
 
+        }).catch(() => {
+            setIsLoading(false);
+            alert('Error! Please, try later');
+        })
+    }
+
+    const createAccount = async() => {
+        console.log('createAccount', state.user);
+        setIsLoading(true);
+
+        const inValidOption = await validationUser(optionsRegistration);
+        if(inValidOption) {
+            setIsLoading(false);
+            alert(`Please, check ${inValidOption}`);
+            return false;
+        }
+
+        if(state.user.password !== state.user.passwordRepeat) {
+            setIsLoading(false);
+            alert('Passwords have to equal');
+            return false;
+        }
+
+        axios({
+            url: '/api/registration',
+            method: 'POST',
+            data: {
+                name: state.user.name,
+                login: state.user.login,
+                password: state.user.password,
+                passwordRepeat: state.user.passwordRepeat
+            }
+        }).then((response) => {
+            setIsLoading(false);
+
+            if(response.data.status) {
+                alert('User created');
+                location.href = '/dashboard';
+            } else {
+                if(response.data.message) {
+                    alert(response.data.message);
+                } else {
+                    throw new Error();
+                }
+            }
         }).catch(() => {
             setIsLoading(false);
             alert('Error! Please, try later');
