@@ -3,8 +3,9 @@ import {Form, FormGroup, Button, Label, Input} from "reactstrap";
 import axios from 'axios';
 
 import Loading from "../general/Loading";
+import ButtonPasswordView from "./ButtonPasswordView";
 
-import './auth.min.css';
+import './styles/auth.min.css';
 
 const optionsSignIn = [
     {
@@ -18,6 +19,7 @@ const optionsSignIn = [
         name: 'password',
         label: 'password',
         type: 'password',
+        inputType: 'password',
         value: '',
         placeholder: 'Crazy'
     }
@@ -41,6 +43,7 @@ const optionsRegistration = [
         name: 'password',
         label: 'password',
         type: 'password',
+        inputType: 'password',
         value: '',
         placeholder: 'Crazy'
     },
@@ -48,6 +51,7 @@ const optionsRegistration = [
         name: 'passwordRepeat',
         label: 'password',
         type: 'password',
+        inputType: 'password',
         value: '',
         placeholder: 'Crazy'
     }
@@ -60,11 +64,18 @@ const defaultState = {
         password: ''
     },
     title: 'Sign in',
-    btnRightText: 'Create an account'
+    btnRightText: 'Create an account',
+    listOpenPass: []
 };
 
 function reducer(state, action) {
     switch (action.type) {
+        case 'updateListOpenPass':
+            return {
+                ...state,
+                listOpenPass: action.list
+            }
+
         case 'showViewAuth':
             return defaultState;
 
@@ -79,7 +90,8 @@ function reducer(state, action) {
                     passwordRepeat: ''
                 },
                 title: 'Registration',
-                btnRightText: 'Continue'
+                btnRightText: 'Continue',
+                listOpenPass: []
             };
 
         case 'updateUser':
@@ -104,7 +116,7 @@ const Auth = () => {
 
     useEffect(() => {
         setIsShowContent(false);
-    }, [state.typeView])
+    }, [state])
 
     const onChange = (event) => {
         dispatch({
@@ -163,7 +175,6 @@ const Auth = () => {
     }
 
     const createAccount = async() => {
-        console.log('createAccount', state.user);
         setIsLoading(true);
 
         const inValidOption = await validationUser(optionsRegistration);
@@ -205,6 +216,23 @@ const Auth = () => {
             setIsLoading(false);
             alert('Error! Please, try later');
         })
+    }
+
+    const onShowPassword = (name) => {
+        let arr;
+
+        if(state.listOpenPass.includes(name)) {
+            arr = state.listOpenPass.filter((item) => name !== item);
+
+        } else {
+            arr = state.listOpenPass;
+            arr.push(name);
+        }
+
+        dispatch({
+            type: 'updateListOpenPass',
+            list: arr
+        });
     }
 
     const onAction = (action) => {
@@ -253,11 +281,18 @@ const Auth = () => {
                                         <Input
                                             id={option.name}
                                             name={option.name}
-                                            type={option.type}
+                                            type={
+                                                state.listOpenPass.includes(option.name) ?
+                                                    'text':
+                                                    option.inputType
+                                            }
                                             value={state.user[option.name]}
                                             placeholder={option.placeholder}
                                             autoComplete={'off'}
                                             onChange={(event) => onChange(event)}
+                                        />
+                                        <ButtonPasswordView data={option}
+                                                            onShowPassword={onShowPassword}
                                         />
                                     </FormGroup>
                                 )
