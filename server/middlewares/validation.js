@@ -10,7 +10,6 @@ const validationItem = (options, item) => {
         message = null;
 
     for(let option of options) {
-        console.log(option);
         if(!item[option.prop] || item[option.prop] === null) {
             value = false;
             message = `Option ${option.prop} is required`;
