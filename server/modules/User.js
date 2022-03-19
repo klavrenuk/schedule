@@ -4,6 +4,10 @@ const {validationItem} = require('./../middlewares/validation');
 const bcrypt = require("bcryptjs");
 
 const ModelUser = mongoose.model('User', new Schema({
+    _id: {
+        type: Schema.ObjectId,
+        required: false
+    },
     name: {
         type: String,
         required: true
@@ -21,7 +25,6 @@ const ModelUser = mongoose.model('User', new Schema({
 const isExistUser = (user) => {
     return new Promise((resolve, reject) => {
         if(!user) {
-            console.log('Function isExistUser params user is not default');
             reject();
 
         } else {
@@ -118,6 +121,28 @@ const User = {
             response.status(status).json({
                 errorMessage: err.message || null
             });
+        }
+    },
+
+    getUser(response) {
+        try {
+            ModelUser.findOne({
+                _id: '623220b9d3664625b857daa5'
+            }, (err, item) => {
+                if(err) {
+                    throw new Error(err);
+                }
+
+                response.json({
+                    name: item.name,
+                    login: item.login,
+                    id: item._id
+                })
+            })
+
+        } catch(err) {
+            console.log(err);
+            response.sendStatus(500);
         }
     }
 }
