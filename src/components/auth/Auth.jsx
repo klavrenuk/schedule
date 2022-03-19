@@ -299,7 +299,7 @@ const Auth = () => {
                             })
                         }
 
-                        <FormGroup className={'form-buttons flex_center_center'}>
+                        <FormGroup className={'form-buttons flex flex--align_center flex--center'}>
                             <Button color={'primary'}
                                     onClick={() => onAction('auth')}
                             >Sign in</Button>

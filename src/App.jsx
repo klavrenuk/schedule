@@ -12,7 +12,7 @@ import {
 } from "react-router-dom";
 
 const App = () => {
-    const [isAuthorized, setIsAuthorized] = useState(false);
+    const [isAuthorized, setIsAuthorized] = useState(true);
 
     return (
         <div>
