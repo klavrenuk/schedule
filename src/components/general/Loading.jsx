@@ -7,11 +7,8 @@ import './styles/loader.min.css';
 export default function Loading(props) {
     let classNames = 'loading';
 
-    switch (props.type) {
-        case 'modal':
-            classNames += ' loading--modal';
-            break;
-
+    if(props.type) {
+        classNames += ' loading--' + props.type;
     }
 
     return(
