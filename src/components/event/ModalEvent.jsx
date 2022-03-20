@@ -1,4 +1,4 @@
-import React, {useState, useImperativeHandle, forwardRef, useEffect} from 'react'
+import React, {useState, useImperativeHandle, forwardRef} from 'react'
 import {Modal, ModalHeader, ModalBody, ModalFooter, Button} from "reactstrap";
 import {useSelector} from "react-redux";
 import axios from 'axios';

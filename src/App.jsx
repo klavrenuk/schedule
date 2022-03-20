@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
+import {useSelector, useDispatch} from "react-redux";
 
 import Demo from './components/demo/Demo';
 import Auth from './components/auth/Auth';
@@ -14,6 +15,8 @@ import {
 import Loading from "./components/general/Loading";
 
 const App = () => {
+    const dispatch = useDispatch();
+
     const [isAuthorized, setIsAuthorized] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
     const [isQuery, setIsQuery] = useState(true);
@@ -30,6 +33,8 @@ const App = () => {
     }, [isQuery]);
 
     const whoIAM = () => {
+        let user = {};
+
         axios({
             url: '/api/who-i-am',
             method: 'GET'
@@ -38,6 +43,7 @@ const App = () => {
                 throw new Error();
             }
 
+            user = response.data;
             setIsAuthorized(true);
 
         }).catch(() => {
@@ -45,6 +51,7 @@ const App = () => {
             setIsAuthorized(false);
 
         }).finally(() => {
+            dispatch({type: 'setUser', user: user});
             setIsLoading(false);
         })
     }
