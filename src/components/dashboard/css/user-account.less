@@ -1,0 +1,35 @@
+.user_account {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
+  & .user_account-name {
+    margin-right: .5rem;
+  }
+
+  & .user_account-logo {
+    position: relative;
+    @borderRadius: 100px;
+
+    & img {
+      height: 42px;
+      width: 42px;
+      object-fit: cover;
+      border-radius: @borderRadius;
+    }
+
+    &:after {
+      content: '';
+      position: absolute;
+      top: -4px;
+      left: -4px;
+      width: calc(100% + 8px);
+      height: calc(100% + 8px);
+      border-radius: @borderRadius;
+      background-image: linear-gradient(to right, #FF6600, #9900CC, #0099FF);
+      mask-image: radial-gradient(circle at center, transparent 63%, white 68%);
+      -webkit-mask-image: radial-gradient(circle at center, transparent 63%, white 68%);
+    }
+
+  }
+}

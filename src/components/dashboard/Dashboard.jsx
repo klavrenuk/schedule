@@ -11,6 +11,7 @@ const Dashboard = () => {
     return (
         <Container className={'dashboard'} fluid={true}>
             <DashboardHeader />
+
             <main className={'dashboard-main'}>
                 <Aside />
                 <Schedule />
