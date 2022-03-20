@@ -2,7 +2,7 @@ import React from 'react';
 import {Row, Col, Button, FormGroup, Form, Label, Input} from 'reactstrap';
 import {BsX} from 'react-icons/bs';
 
-import './settings_modal.min.css';
+import './css/settings_modal.min.css';
 
 const options = [
     {

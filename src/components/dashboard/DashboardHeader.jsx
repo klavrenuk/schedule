@@ -14,7 +14,7 @@ const DashboardHeader = () => {
                 <Col sm={8}><NavigationDays /></Col>
 
                 <Col sm={4} className={'text-right'}>
-                    <Row>
+                    <Row className={'flex flex--align_center'}>
                         <Col sm={8} className={'text-right'}>
                             <Settings />
                         </Col>

@@ -4,6 +4,8 @@ import {Button} from "reactstrap";
 
 import SettingsModal from "./SettingsModal";
 
+import './css/settings.min.css';
+
 const Settings = () => {
     const toggleViewSettingsModal = () => {
         const elem = document.getElementById('SettingsModal');
@@ -20,6 +22,7 @@ const Settings = () => {
     return (
         <div className={'settings'}>
             <Button
+                className={'settings-button'}
                 color={'icon'}
                 onClick={() => toggleViewSettingsModal()}
             ><BsFillGearFill /></Button>

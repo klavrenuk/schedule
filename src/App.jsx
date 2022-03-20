@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
-import {useSelector, useDispatch} from "react-redux";
+import {useDispatch} from "react-redux";
 
 import Demo from './components/demo/Demo';
 import Auth from './components/auth/Auth';
 import Dashboard from "./components/dashboard/Dashboard";
+import Loading from "./components/general/Loading";
 
 import {
     BrowserRouter as Router,
@@ -12,7 +13,6 @@ import {
     Route,
     Redirect,
 } from "react-router-dom";
-import Loading from "./components/general/Loading";
 
 const App = () => {
     const dispatch = useDispatch();
