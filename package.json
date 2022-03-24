@@ -28,6 +28,7 @@
     "react-scripts": "4.0.0",
     "reactstrap": "^8.9.0",
     "redux": "^4.0.5",
+    "sweetalert2": "^11.4.7",
     "web-vitals": "^0.2.4"
   },
   "scripts": {

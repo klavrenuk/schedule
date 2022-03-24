@@ -2,6 +2,7 @@ import React, {useState, useImperativeHandle, forwardRef} from 'react'
 import {Modal, ModalHeader, ModalBody, ModalFooter, Button} from "reactstrap";
 import {useSelector} from "react-redux";
 import axios from 'axios';
+import Swal from 'sweetalert2'
 
 import EventForm from './EventForm';
 import Loading from "../general/Loading";
@@ -29,7 +30,7 @@ const ModalEvent = forwardRef((props, ref) => {
         }
 
         if(incorrectOption) {
-            alert(`Please, enter option "${incorrectOption}"`);
+            Swal.fire(`Please, enter option "${incorrectOption}"`);
             return false;
         }
 
@@ -41,14 +42,14 @@ const ModalEvent = forwardRef((props, ref) => {
                 description: state.event.description || null,
                 date: state.event.date
             }
-        }).then((resp) => {
+        }).then(() => {
             setIsLoading(false);
-            alert('Success!');
+            Swal.fire('Success!');
             setTimeout(() => toggle(), 600);
 
         }).catch(() => {
             setIsLoading(false);
-            alert('Error! Please, check form and try later');
+            Swal.fire('Error! Please, check form and try later');
         })
     }
 

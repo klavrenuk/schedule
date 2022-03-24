@@ -1,6 +1,7 @@
 import React, {useEffect, useReducer, useState} from 'react';
 import {Form, FormGroup, Button, Label, Input} from "reactstrap";
 import axios from 'axios';
+import Swal from 'sweetalert2'
 
 import Loading from "../general/Loading";
 import ButtonPasswordView from "./ButtonPasswordView";
@@ -144,7 +145,7 @@ const Auth = () => {
         const inValidOption = await validationUser(optionsSignIn);
         if(inValidOption) {
             setIsLoading(false);
-            alert(`Please, check ${inValidOption}`);
+            Swal.fire(`Please, check ${inValidOption}`);
             return false;
         }
 
@@ -162,7 +163,7 @@ const Auth = () => {
                 location.href = '/dashboard';
             } else {
                 if(response.data.message) {
-                    alert(response.data.message);
+                    Swal.fire(response.data.message);
                 } else {
                     throw new Error();
                 }
@@ -170,7 +171,7 @@ const Auth = () => {
 
         }).catch(() => {
             setIsLoading(false);
-            alert('Error! Please, try later');
+            Swal.fire('Error! Please, try later');
         })
     }
 
@@ -180,13 +181,13 @@ const Auth = () => {
         const inValidOption = await validationUser(optionsRegistration);
         if(inValidOption) {
             setIsLoading(false);
-            alert(`Please, check ${inValidOption}`);
+            Swal.fire(`Please, check ${inValidOption}`);
             return false;
         }
 
         if(state.user.password !== state.user.passwordRepeat) {
             setIsLoading(false);
-            alert('Passwords have to equal');
+            Swal.fire('Passwords have to equal');
             return false;
         }
 
@@ -203,18 +204,19 @@ const Auth = () => {
             setIsLoading(false);
 
             if(response.data.status) {
-                alert('User created');
+                Swal.fire('User created');
                 location.href = '/dashboard';
+
             } else {
                 if(response.data.message) {
-                    alert(response.data.message);
+                    Swal.fire(response.data.message);
                 } else {
                     throw new Error();
                 }
             }
         }).catch(() => {
             setIsLoading(false);
-            alert('Error! Please, try later');
+            Swal.fire('Error! Please, try later');
         })
     }
 
