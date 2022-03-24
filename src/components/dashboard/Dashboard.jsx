@@ -4,6 +4,7 @@ import {Container} from "reactstrap";
 import DashboardHeader from "./DashboardHeader";
 import Aside from './../aside/Aside';
 import Schedule from './../schedule/Schedule';
+import Tasks from "../tasks/Tasks";
 
 import './css/dashboard.min.css';
 
@@ -15,6 +16,7 @@ const Dashboard = () => {
             <main className={'dashboard-main'}>
                 <Aside />
                 <Schedule />
+                <Tasks />
             </main>
         </Container>
     )
