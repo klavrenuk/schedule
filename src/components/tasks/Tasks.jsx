@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import {Row, Col} from "reactstrap";
 
 import Tabs from './Tabs';
 
@@ -9,9 +10,22 @@ export default function Tasks() {
 
     return (
         <aside className={'tasks'}>
-            <Tabs setActionView={setView}
-                  activeView={view}
-            />
+            <Row className={'tasks-header'}>
+                <Col sm={8}>
+                    <Tabs setActionView={setView}
+                          activeView={view}
+                    />
+                </Col>
+                <Col sm={4} className={'text-right'}>
+                    close
+                </Col>
+            </Row>
+
+            <Row>
+                <Col sm={12}>
+                    active view = { view }
+                </Col>
+            </Row>
         </aside>
     )
 }
