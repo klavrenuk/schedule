@@ -37,13 +37,6 @@ mongoose.connect('mongodb://localhost:27017/schedule', function(err) {
         });
 
         const io = socketIo(server);
-
-        io.on('connection', (socket) => {
-            console.log('client connected', socket.id);
-
-            socket.on('disconnect', (reason) => {
-                console.log('disconnect', reason);
-            })
-        });
+        require('./socket')(io);
     }
 })
