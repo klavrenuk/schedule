@@ -24,7 +24,7 @@ export default function Tasks() {
         return null;
     } else {
         return (
-            <aside className={'tasks'}>
+            <aside className={'tasks border_top border_top--grey'}>
                 <Row className={'tasks-header'}>
                     <Col sm={8}>
                         <div className={'tasks-container'}>

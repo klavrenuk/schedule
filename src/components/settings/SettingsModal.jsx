@@ -6,32 +6,8 @@ import './css/settings_modal.min.css';
 
 const options = [
     {
-        name: 'firstDay',
-        label: 'First day of week',
-        type: 'select',
-        options: [
-            {
-                value: 'monday',
-                text: 'Monday'
-            },
-            {
-                value: 'saturday',
-                text: 'Saturday'
-            },
-            {
-                value: 'sunday',
-                text: 'Sunday'
-            }
-        ]
-    },
-    {
         name: 'isShowNumberWeek',
         label: 'Show number week',
-        type: 'checkbox'
-    },
-    {
-        name: 'isShowWeekends',
-        label: 'Show weekends',
         type: 'checkbox'
     }
 ];
@@ -46,16 +22,16 @@ const SettingsModal = () => {
     }
 
     return (
-        <div id={'SettingsModal'} className={'settings_modal'}>
+        <div id={'SettingsModal'} className={'settings_modal border_top border_top--grey'}>
             <div className={'settings_modal-header'}>
-                <Row>
-                    <Col sm={8}><h6 className={'settings_modal-header-title'}>Settings</h6></Col>
+                <Row className={'header_row'}>
+                    <Col sm={8}><h6 className={'header_row-title'}>Settings</h6></Col>
                     <Col sm={4}
                          className={'text-right'}
                     >
                         <Button
                             color={'icon'}
-                            className={'settings_modal-header-close'}
+                            className={'header_row-close'}
                             onClick={() => closeModal()}
                         ><BsX /></Button>
                     </Col>
@@ -91,7 +67,7 @@ const SettingsModal = () => {
 
                             case 'checkbox':
                                 return (
-                                    <FormGroup key={option.name}>
+                                    <FormGroup key={option.name} className={'flex flex--align_center'}>
                                         <Label>
                                             <Input
                                                 type="checkbox"
