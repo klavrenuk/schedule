@@ -28,6 +28,10 @@ export default function Tasks() {
             console.log('connect', socket.id);
         });
 
+        socket.on('tasks', (data) => {
+            console.log('tasks', data);
+        })
+
         socket.on('connect_error', (err) => {
             console.log('error', err);
         });
