@@ -16,14 +16,14 @@ export default function Tasks() {
     const [view, setView] = useState('tasks');
     const state = useSelector(state => state);
 
+    const socket = io('/');
+
     useEffect(() => {
         setConnection();
     }, []);
 
 
     const setConnection = () => {
-        const socket = io('/');
-
         socket.on('connect', () => {
             console.log('connect', socket.id);
         });
@@ -41,6 +41,12 @@ export default function Tasks() {
         })
     }
 
+
+    const createSection = () => {
+        console.log('function createSection');
+
+        socket.emit('tasks', {name: 'Kirill'})
+    }
 
     const onCloseModalTasks = () => dispatch({
         type: 'toggleModalTasks'
@@ -70,7 +76,7 @@ export default function Tasks() {
                 </Row>
 
                 <TasksList />
-                <TasksFooter />
+                <TasksFooter createSection={createSection}/>
             </aside>
         )
     }
