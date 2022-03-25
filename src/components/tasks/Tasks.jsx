@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch} from 'react-redux';
 import {Row, Col, Button} from "reactstrap";
 import { IoCloseOutline } from "react-icons/io5";
+import {io} from 'socket.io-client'
 
 import Tabs from './Tabs';
 import TasksFooter from './TasksFooter';
@@ -15,10 +16,31 @@ export default function Tasks() {
     const [view, setView] = useState('tasks');
     const state = useSelector(state => state);
 
+    useEffect(() => {
+        setConnection();
+    }, []);
+
+
+    const setConnection = () => {
+        const socket = io('/');
+
+        socket.on('connect', () => {
+            console.log('connect', socket.id);
+        });
+
+        socket.on('connect_error', (err) => {
+            console.log('error', err);
+        });
+
+        socket.on('disconnect', () => {
+            console.log('disconnect');
+        })
+    }
+
+
     const onCloseModalTasks = () => dispatch({
         type: 'toggleModalTasks'
     });
-
 
     if(!state.isShowModalTasks) {
         return null;

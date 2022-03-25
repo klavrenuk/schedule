@@ -1,12 +1,12 @@
 const express = require('express');
-const cors = require("cors");
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const app = express();
 const mongoose = require('mongoose');
 const passport = require('passport');
 const cookieParser = require('cookie-parser');
-const session = require("express-session");
-
+const session = require('express-session');
+const socketIo = require('socket.io');
 
 app.use(express.Router());
 app.use(cors());
@@ -32,8 +32,18 @@ mongoose.connect('mongodb://localhost:27017/schedule', function(err) {
         return console.log('Connection error to database');
 
     } else {
-        app.listen(9000, () => {
+        const server = app.listen(9000, () => {
             console.log('Server listening');
+        });
+
+        const io = socketIo(server);
+
+        io.on('connection', (socket) => {
+            console.log('client connected', socket.id);
+
+            socket.on('disconnect', (reason) => {
+                console.log('disconnect', reason);
+            })
         });
     }
 })
