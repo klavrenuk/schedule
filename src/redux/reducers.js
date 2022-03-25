@@ -2,11 +2,24 @@ const initState = {
     event: {
         date: new Date().getTime()
     },
-    user: {}
+    user: {},
+    isShowModalTasks: false
 };
 
 const reducers = (state = initState, action) => {
     switch(action.type) {
+        case 'toggleModalTasks':
+            let value = true;
+
+            if(state.isShowModalTasks) {
+                value = false;
+            }
+
+            return {
+                ...state,
+                isShowModalTasks: value
+            }
+
         case 'setUser':
             return {
                 ...state,
