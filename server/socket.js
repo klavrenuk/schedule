@@ -1,6 +1,8 @@
 const Section = require('./modules/Section');
 
 module.exports = (io) => {
+    console.log('---------------');
+
     io.on('connection', (socket) => {
         console.log('connected', socket.id);
 
@@ -13,9 +15,12 @@ module.exports = (io) => {
         socket.on('tasks', (data) => {
             console.log('onTasks');
             console.log('item', data);
-        })
+        });
 
-        sendTasks();
+        socket.on('getTasks', () => {
+            console.log('event getTasks');
+            sendTasks();
+        })
     });
 
     const sendTasks = async() => {
@@ -25,6 +30,5 @@ module.exports = (io) => {
         console.log('function = sendTasks', list);
 
         io.to('tasks').emit('tasks', list);
-
     }
 }

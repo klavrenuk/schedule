@@ -36,6 +36,7 @@ mongoose.connect('mongodb://localhost:27017/schedule', function(err) {
             console.log('Server listening');
         });
 
+        console.log('listening');
         const io = socketIo(server);
         require('./socket')(io);
     }
