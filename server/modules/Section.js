@@ -5,10 +5,6 @@ const ModelSection = mongoose.model('Section', new Schema({
     name: {
         type: String,
         required: true
-    },
-    order: {
-        type: Number,
-        required: true
     }
 }));
 
@@ -21,13 +17,7 @@ const Section = {
                     reject(err);
                 }
 
-                console.log(arr);
-
-                console.log('before timeout');
-                setTimeout(() => {
-                    console.log('timeout');
-                    resolve(arr);
-                }, 2000);
+                resolve(arr);
             })
         })
     },
@@ -35,9 +25,10 @@ const Section = {
     create(item) {
         return new Promise((resolve, reject) => {
             const section = new ModelSection(item);
+
             section.save((err) => {
                 if(err) {
-                    console.log('err', err);
+                    console.log(err);
                     reject(err);
                 }
 

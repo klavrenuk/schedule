@@ -1,56 +1,29 @@
 import React, {useEffect, useState} from 'react';
-import {useDispatch} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {Row, Col, Button} from "reactstrap";
 import { IoCloseOutline } from "react-icons/io5";
-import {io} from 'socket.io-client'
 
 import Tabs from './Tabs';
 import TasksFooter from './TasksFooter';
+import TasksList from "./TasksList";
 
 import './css/tasks.min.css';
-import TasksList from "./TasksList";
-import {useSelector} from "react-redux";
 
 export default function Tasks() {
-    const dispatch = useDispatch();
     const [view, setView] = useState('tasks');
+
     const state = useSelector(state => state);
+    const dispatch = useDispatch();
+
 
     useEffect(() => {
-        console.log('useEffect');
-
-        setConnection();
-    }, []);
+        console.log('effect', state);
+    }, [state.tasks]);
 
 
-    const setConnection = () => {
-        const socket = io('ws://');
-
-        console.log('setConnection');
-
-        socket.on('connect', () => {
-            console.log('connect', socket.id);
-        });
-
-        socket.on('tasks', (data) => {
-            console.log('tasks', data);
-        })
-
-        socket.on('connect_error', (err) => {
-            console.log('error', err);
-        });
-
-        socket.on('disconnect', () => {
-            console.log('disconnect');
-        })
-    }
-
-
-    const createSection = (socket) => {
-        console.log('function createSection');
-
-        socket.emit('tasks', {name: 'Kirill'})
-    }
+    const createSection = () => dispatch({
+        type: 'createSection'
+    });
 
     const onCloseModalTasks = () => dispatch({
         type: 'toggleModalTasks'
@@ -58,6 +31,7 @@ export default function Tasks() {
 
     if(!state.isShowModalTasks) {
         return null;
+
     } else {
         return (
             <aside className={'tasks border_top border_top--grey'}>

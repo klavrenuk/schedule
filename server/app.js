@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
-const socketIo = require('socket.io');
+const socketIO = require('socket.io');
 
 app.use(express.Router());
 app.use(cors());
@@ -36,8 +36,7 @@ mongoose.connect('mongodb://localhost:27017/schedule', function(err) {
             console.log('Server listening');
         });
 
-        console.log('listening');
-        const io = socketIo(server);
+        const io = socketIO(server);
         require('./socket')(io);
     }
 })
