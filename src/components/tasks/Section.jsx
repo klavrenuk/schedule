@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
-import { AiOutlineDown, AiOutlineUp } from "react-icons/ai";
+import {AiFillDelete, AiFillEdit, AiOutlineDown, AiOutlineUp} from "react-icons/ai";
+import {Row, Col, Button} from 'reactstrap';
 
 import SectionListTasks from "./SectionListTasks";
 
@@ -8,18 +9,31 @@ import './css/section.min.css';
 export default function Section(props) {
     const [isOpenList, setIsOpenList] = useState(false);
 
-    console.log('section', props);
-
     return (
         <li className={'section'}>
-            <a className={'section-link'}
-               onClick={() => setIsOpenList(!isOpenList)}
-            >
-                <span>{ props.data.name}</span>
-                {
-                    isOpenList ? <AiOutlineUp /> : <AiOutlineDown />
-                }
-            </a>
+            <Row>
+                <Col sm={8}>
+                    <a className={'section-link'}
+                       onClick={() => setIsOpenList(!isOpenList)}
+                    >
+                        <span className={'section-link-name'}>{ props.data.name}</span>
+                        {
+                            isOpenList ? <AiOutlineUp /> : <AiOutlineDown />
+                        }
+                    </a>
+                </Col>
+
+                <Col sm={4}>
+                    <div className={'section-controller'}>
+                        <Button color={'icon'}>
+                            <AiFillEdit />
+                        </Button>
+                        <Button color={'icon'}>
+                            <AiFillDelete />
+                        </Button>
+                    </div>
+                </Col>
+            </Row>
 
             {
                 isOpenList ? <SectionListTasks list={props.data.tasks} /> : null

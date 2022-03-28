@@ -1,7 +1,8 @@
 import React from 'react';
 
-import './css/tasks_list.min.css';
 import Section from "./Section";
+
+import './css/tasks_list.min.css';
 
 export default function TasksList(props) {
     return (

@@ -1,0 +1,28 @@
+.section {
+  padding: 8px 0;
+
+  & .section-link {
+    color: #000;
+    font-size: 14px;
+    line-height: 17px;
+    font-weight: 600;
+
+    & .section-link-name {
+      margin-right: .5rem;
+    }
+  }
+
+  & .section-controller {
+    text-align: right;
+    opacity: 0;
+    transition: opacity 150ms ease-out;
+  }
+
+  &:hover,
+  &:active,
+  &:focus {
+    & .section-controller {
+      opacity: 1;
+    }
+  }
+}

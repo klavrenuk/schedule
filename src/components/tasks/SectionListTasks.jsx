@@ -10,11 +10,11 @@ export default function SectionListTasks(props) {
                     return (
                         <li key={task._id}>
                             <Row>
-                                <Col sm={9}>
+                                <Col sm={8}>
                                     <Input type="checkbox" />
                                     <Label>{ task.name }</Label>
                                 </Col>
-                                <Col sm={3} className={'text-right'}>
+                                <Col sm={4} className={'text-right'}>
                                     <Button color={'icon'}>
                                         <AiFillEdit />
                                     </Button>
