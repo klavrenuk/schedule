@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {Row, Col, Button} from "reactstrap";
-import { IoCloseOutline } from "react-icons/io5";
 
 import Tabs from './Tabs';
 import TasksFooter from './TasksFooter';
@@ -40,12 +39,9 @@ export default function Tasks() {
                         </div>
                     </Col>
                     <Col sm={4} className={'text-right'}>
-                        <Button color={'icon'}
-                                className={'tasks-header-btn_close'}
+                        <Button color={'close'}
                                 onClick={() => onCloseModalTasks()}
-                        >
-                            <IoCloseOutline />
-                        </Button>
+                        />
                     </Col>
                 </Row>
 

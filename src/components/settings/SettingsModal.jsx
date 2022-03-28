@@ -1,6 +1,5 @@
 import React from 'react';
 import {Row, Col, Button, FormGroup, Form, Label, Input} from 'reactstrap';
-import {BsX} from 'react-icons/bs';
 
 import './css/settings_modal.min.css';
 
@@ -30,10 +29,9 @@ const SettingsModal = () => {
                          className={'text-right'}
                     >
                         <Button
-                            color={'icon'}
-                            className={'header_row-close'}
+                            color={'close'}
                             onClick={() => closeModal()}
-                        ><BsX /></Button>
+                        />
                     </Col>
                 </Row>
             </div>
