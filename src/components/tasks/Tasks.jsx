@@ -15,11 +15,7 @@ export default function Tasks() {
     const state = useSelector(state => state);
     const dispatch = useDispatch();
 
-
-    useEffect(() => {
-        console.log('effect', state);
-    }, [state.tasks]);
-
+    useEffect(() => {}, [state.tasks]);
 
     const createSection = () => dispatch({
         type: 'createSection'
@@ -53,7 +49,7 @@ export default function Tasks() {
                     </Col>
                 </Row>
 
-                <TasksList />
+                <TasksList list={state.tasks} />
                 <TasksFooter createSection={createSection}/>
             </aside>
         )

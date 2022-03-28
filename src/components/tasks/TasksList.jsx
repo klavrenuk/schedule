@@ -1,28 +1,21 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import {useSelector} from 'react-redux';
 
 import './css/tasks_list.min.css';
+import Section from "./Section";
 
-export default function TasksList() {
+export default function TasksList(props) {
     return (
         <div className={'tasks_list'}>
             <div className={'tasks-container'}>
                 <ul>
-                    <li>item</li>
-                    <li>item</li>
-                    <li>item</li>
-                    <li>item</li>
-                    <li>item</li>
-                    <li>item</li>
-                    <li>item</li>
-                    <li>item</li>
-                    <li>item</li>
-                    <li>item</li>
-                    <li>item</li>
-                    <li>item</li>
-                    <li>item</li>
-                    <li>item</li>
-                    <li>item</li>
-                    <li>item</li>
+                    {
+                        props.list.map((section) => {
+                            return <Section key={section._id}
+                                            data={section}
+                            ></Section>
+                        })
+                    }
                 </ul>
             </div>
         </div>
