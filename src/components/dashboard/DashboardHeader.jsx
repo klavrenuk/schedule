@@ -25,7 +25,7 @@ const DashboardHeader = () => {
                     <Row className={'flex flex--align_center'}>
                         <Col sm={8} className={'text-right'}>
                             <Button color={'icon'}
-                                    className={'dashboard_header-btn_open_tasks'}
+                                    className={'dashboard_header-btn_open_tasks btn-icon--20'}
                                     onClick={() => onShowTasks()}
                             >
                                 <AiOutlineDownSquare />

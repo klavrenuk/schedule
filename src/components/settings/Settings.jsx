@@ -21,9 +21,8 @@ const Settings = () => {
 
     return (
         <div className={'settings'}>
-            <Button
-                className={'settings-button'}
-                color={'icon'}
+            <Button color={'icon'}
+                className={'settings-button btn-icon--20'}
                 onClick={() => toggleViewSettingsModal()}
             ><BsFillGearFill /></Button>
 
