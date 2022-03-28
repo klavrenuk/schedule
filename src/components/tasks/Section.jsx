@@ -3,6 +3,8 @@ import { AiOutlineDown, AiOutlineUp } from "react-icons/ai";
 
 import SectionListTasks from "./SectionListTasks";
 
+import './css/section.min.css';
+
 export default function Section(props) {
     const [isOpenList, setIsOpenList] = useState(false);
 
@@ -20,7 +22,7 @@ export default function Section(props) {
             </a>
 
             {
-                isOpenList ? <SectionListTasks /> : null
+                isOpenList ? <SectionListTasks list={props.data.tasks} /> : null
 
             }
         </li>

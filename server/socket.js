@@ -25,19 +25,19 @@ module.exports = (io) => {
                     _id: 1,
                     tasks: [
                         {
-                            id: 1,
+                            _id: 1,
                             sectionId: 1,
                             isChecked: false,
                             name: 'Task#1'
                         },
                         {
-                            id: 2,
+                            _id: 2,
                             sectionId: 1,
                             isChecked: false,
                             name: 'Task#2'
                         },
                         {
-                            id: 3,
+                            _id: 3,
                             sectionId: 1,
                             isChecked: false,
                             name: 'Task#3'
@@ -49,19 +49,19 @@ module.exports = (io) => {
                     _id: 2,
                     tasks: [
                         {
-                            id: 1,
+                            _id: 1,
                             sectionId: 2,
                             isChecked: false,
                             name: 'Task#1'
                         },
                         {
-                            id: 2,
+                            _id: 2,
                             sectionId: 2,
                             isChecked: false,
                             name: 'Task#2'
                         },
                         {
-                            id: 3,
+                            _id: 3,
                             sectionId: 2,
                             isChecked: false,
                             name: 'Task#3'
