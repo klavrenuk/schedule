@@ -18,7 +18,59 @@ module.exports = (io) => {
 
         const sendTasks = async() => {
             const list = await Section.getList();
-            socket.emit('getTasks', list);
+
+            const fakeList = [
+                {
+                    name: 'English',
+                    _id: 1,
+                    tasks: [
+                        {
+                            id: 1,
+                            sectionId: 1,
+                            isChecked: false,
+                            name: 'Task#1'
+                        },
+                        {
+                            id: 2,
+                            sectionId: 1,
+                            isChecked: false,
+                            name: 'Task#2'
+                        },
+                        {
+                            id: 3,
+                            sectionId: 1,
+                            isChecked: false,
+                            name: 'Task#3'
+                        }
+                    ]
+                },
+                {
+                    name: 'Travel',
+                    _id: 2,
+                    tasks: [
+                        {
+                            id: 1,
+                            sectionId: 2,
+                            isChecked: false,
+                            name: 'Task#1'
+                        },
+                        {
+                            id: 2,
+                            sectionId: 2,
+                            isChecked: false,
+                            name: 'Task#2'
+                        },
+                        {
+                            id: 3,
+                            sectionId: 2,
+                            isChecked: false,
+                            name: 'Task#3'
+                        }
+                    ]
+                }
+            ]
+
+            socket.emit('getTasks', fakeList);
         };
 
         const createSection = async (section) => {
