@@ -1,12 +1,28 @@
-import React from 'react';
+import React, {useState} from 'react';
+import { AiOutlineDown, AiOutlineUp } from "react-icons/ai";
 
+import SectionListTasks from "./SectionListTasks";
 
 export default function Section(props) {
+    const [isOpenList, setIsOpenList] = useState(false);
+
     console.log('section', props);
 
     return (
-        <li>
-            Section { props.data._id }
+        <li className={'section'}>
+            <a className={'section-link'}
+               onClick={() => setIsOpenList(!isOpenList)}
+            >
+                <span>{ props.data.name}</span>
+                {
+                    isOpenList ? <AiOutlineUp /> : <AiOutlineDown />
+                }
+            </a>
+
+            {
+                isOpenList ? <SectionListTasks /> : null
+
+            }
         </li>
     )
 }
