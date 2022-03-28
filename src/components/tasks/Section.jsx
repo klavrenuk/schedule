@@ -17,9 +17,11 @@ export default function Section(props) {
                        onClick={() => setIsOpenList(!isOpenList)}
                     >
                         <span className={'section-link-name'}>{ props.data.name}</span>
-                        {
-                            isOpenList ? <AiOutlineUp /> : <AiOutlineDown />
-                        }
+                        <span className={'section-link-icon'}>
+                            {
+                                isOpenList ? <AiOutlineUp /> : <AiOutlineDown />
+                            }
+                        </span>
                     </a>
                 </Col>
 
