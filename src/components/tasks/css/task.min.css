@@ -1,0 +1,1 @@
+.task .task-label{margin-left:.5rem;color:#666;font-size:13px;line-height:17px}.task .task-controller{opacity:0;transition:opacity 150ms ease-out}.task:active .task-controller,.task:focus .task-controller,.task:hover .task-controller{opacity:1}

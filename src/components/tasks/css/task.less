@@ -1,0 +1,21 @@
+.task {
+  & .task-label {
+    margin-left: .5rem;
+    color: #666;
+    font-size: 13px;
+    line-height: 17px;
+  }
+
+  & .task-controller {
+    opacity: 0;
+    transition: opacity 150ms ease-out;
+  }
+
+  &:hover,
+  &:active,
+  &:focus {
+    & .task-controller {
+      opacity: 1;
+    }
+  }
+}

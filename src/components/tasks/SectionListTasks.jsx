@@ -1,30 +1,14 @@
 import React from 'react';
-import {Row, Col, Button, Label, Input} from 'reactstrap';
-import { AiFillEdit, AiFillDelete } from "react-icons/ai";
+import Task from "./Task";
+
+import './css/section_list_taks.min.css';
 
 export default function SectionListTasks(props) {
     return (
-        <ul>
+        <ul className={'section_list_tasks'}>
             {
                 props.list.map((task) => {
-                    return (
-                        <li key={task._id}>
-                            <Row>
-                                <Col sm={8}>
-                                    <Input type="checkbox" />
-                                    <Label>{ task.name }</Label>
-                                </Col>
-                                <Col sm={4} className={'text-right'}>
-                                    <Button color={'icon'}>
-                                        <AiFillEdit />
-                                    </Button>
-                                    <Button color={'icon'}>
-                                        <AiFillDelete />
-                                    </Button>
-                                </Col>
-                            </Row>
-                        </li>
-                    )
+                    return <Task key={task._id} task={task} />
                 })
             }
         </ul>

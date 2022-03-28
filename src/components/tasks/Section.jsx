@@ -11,7 +11,7 @@ export default function Section(props) {
 
     return (
         <li className={'section'}>
-            <Row>
+            <Row className={'flex flex--align_center'}>
                 <Col sm={8}>
                     <a className={'section-link'}
                        onClick={() => setIsOpenList(!isOpenList)}
@@ -26,7 +26,7 @@ export default function Section(props) {
                 </Col>
 
                 <Col sm={4}>
-                    <div className={'section-controller'}>
+                    <div className={'text-right'}>
                         <Button color={'icon'}>
                             <AiFillEdit />
                         </Button>
