@@ -2,13 +2,13 @@ import React from 'react';
 import { AiOutlinePlus } from "react-icons/ai";
 import {Button} from "reactstrap";
 
-import './css/create_task.min.css';
+import './css/new_task.min.css';
 
-export default function CreateTask() {
+export default function NewTask() {
     return (
-        <li className={'create_task'}>
+        <li className={'new_task'}>
             <Button color={'empty'}
-                    className={'create_task-btn'}
+                    className={'new_task-btn'}
             >
                 <AiOutlinePlus /> new task
             </Button>
