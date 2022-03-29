@@ -1,5 +1,7 @@
 import React from 'react';
+
 import Task from "./Task";
+import CreateTask from "./CreateTask";
 
 import './css/section_list_taks.min.css';
 
@@ -11,6 +13,7 @@ export default function SectionListTasks(props) {
                     return <Task key={task._id} task={task} />
                 })
             }
+            <CreateTask />
         </ul>
     )
 }
