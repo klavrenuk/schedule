@@ -1,9 +1,15 @@
+@import "config";
+
 .section {
-  padding: 8px 0;
+  margin-bottom: 5px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
 
   & .section-link {
     color: #000;
-    font-size: 15px;
+    font-size: @fontSizeBig;
     line-height: 17px;
     font-weight: 600;
 

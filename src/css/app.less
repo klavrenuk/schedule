@@ -22,6 +22,7 @@ a {
 }
 
 ul {
+  margin-bottom: 0;
   padding-left: 0;
 
   & li {
@@ -103,5 +104,12 @@ form {
 .border_top {
   &.border_top--grey {
     border-top: 1px solid rgba(229,229,229, .4);
+  }
+}
+
+input {
+  &:disabled {
+    border-color: #E5E5E5 !important;
+    background: #E5E5E5;
   }
 }
