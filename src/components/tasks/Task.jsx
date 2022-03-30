@@ -49,7 +49,7 @@ export default function Task(props) {
             className={isEdit ? 'task task--editing' : 'task'}
         >
             <Row className={'flex flex--align_center row--task'}>
-                <Col sm={ isEdit ? 12 : 10 }>
+                <Col sm={ isEdit ? 12 : 9 }>
                     <Input className={'task-checkbox'}
                            type={'checkbox'}
                            disabled={isEdit}
@@ -64,7 +64,7 @@ export default function Task(props) {
                            onClick={() => onEdit()}
                     />
                 </Col>
-                <Col sm={2} className={'text-right task-controller'}>
+                <Col sm={3} className={'text-right task-controller'}>
                     <Button color={'icon'}
                             onClick={() => onEdit()}
                     >
