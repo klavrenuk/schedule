@@ -5,10 +5,8 @@ import {AiFillDelete, AiFillEdit} from "react-icons/ai";
 import './css/task.min.css';
 
 export default function Task(props) {
-    const [task, setTask] = useState(props.task, {});
+    const [task, setTask] = useState(props.task ? props.task : {});
     const [isEdit, setIsEdit] = useState(false);
-
-    const id = `task-${task.sectionId}-${task._id}`;
 
     const clickPressListener = (event) => {
         if(!event.target.closest('.task')) {
@@ -38,17 +36,25 @@ export default function Task(props) {
 
     const onEdit = () => setIsEdit(true);
 
+    const id = () => {
+        if(task.hasOwnProperty('_id')) {
+            return `task-${task.sectionId}-${task._id}`;
+        } else {
+            return 'TaskNew';
+        }
+    }
+
     return (
-        <li id={id}
+        <li id={id()}
             className={isEdit ? 'task task--editing' : 'task'}
         >
-            <Row className={'flex flex--align_center'}>
-                <Col sm={ isEdit ? 12 : 8 }>
+            <Row className={'flex flex--align_center row--task'}>
+                <Col sm={ isEdit ? 12 : 10 }>
                     <Input className={'task-checkbox'}
                            type={'checkbox'}
                            disabled={isEdit}
                     />
-                    <Input id={task._id.toString()}
+                    <Input id={task._id ? task._id.toString() : 'TaskNewInput'}
                            value={task.name}
                            placeholder={'Please, enter name of task'}
                            className={'task-text'}
@@ -58,7 +64,7 @@ export default function Task(props) {
                            onClick={() => onEdit()}
                     />
                 </Col>
-                <Col sm={4} className={'text-right task-controller'}>
+                <Col sm={2} className={'text-right task-controller'}>
                     <Button color={'icon'}
                             onClick={() => onEdit()}
                     >

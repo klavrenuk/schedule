@@ -31,7 +31,7 @@
   }
 
   & .task-controller {
-    //opacity: 0;
+    opacity: 0;
     transition: opacity 150ms ease-out;
   }
 
@@ -57,5 +57,15 @@
     & .task-controller {
       display: none;
     }
+  }
+}
+
+.row--task {
+  & div:first-child {
+    padding-right: 0;
+  }
+
+  & .task-controller {
+    padding: 0;
   }
 }
