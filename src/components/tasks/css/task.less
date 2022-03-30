@@ -1,11 +1,32 @@
 @import "config";
+@yellow: #FFDB4D;
 
 .task {
-  & .task-label {
-    margin-left: .5rem;
-    color: #666;
+  position: relative;
+
+  & .task-checkbox {
+    position: absolute;
+    top: 9px;
+    left: 10px;
+    margin: 0;
+  }
+
+  & .task-text {
+    padding-top: 7px;
+    padding-left: 33px;
+    border: 1px solid transparent;
     font-size: @fontSizeSmall;
-    line-height: 17px;
+
+    &:disabled,
+    &:active,
+    &:hover,
+    &:focus {
+      border: 1px solid transparent !important;
+    }
+
+    &:disabled {
+      background: none;
+    }
   }
 
   & .task-controller {
@@ -16,6 +37,16 @@
   &:hover,
   &:active,
   &:focus {
+    & .task-controller {
+      opacity: 1;
+    }
+  }
+
+  &.editing {
+    & .task-text {
+      border: 1px solid @yellow;
+    }
+
     & .task-controller {
       opacity: 1;
     }
