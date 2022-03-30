@@ -1,18 +1,38 @@
 import React, {useEffect, useMemo, useState} from 'react';
-import {Button, Col, Input, Label, Row} from "reactstrap";
+import {Button, Col, Input, Row} from "reactstrap";
 import {AiFillDelete, AiFillEdit} from "react-icons/ai";
 
 import './css/task.min.css';
 
 export default function Task(props) {
     const [task, setTask] = useState(props.task, {});
-    const [isDisabled, setIsDisabled] = useState(false);
+    const [isEdit, setIsEdit] = useState(false);
+
+    const id = `task-${task.sectionId}-${task._id}`;
 
     const clickPressListener = (event) => {
-        if(!event.target.closest('.create_task')) {
-            console.log('close');
-            // props.toggleViewCreateTask(false);
+        const taskDOM = document.querySelector('#' + id);
+
+
+        //console.log(event.target.class);
+        //console.log(taskDOM.getElementsByClassName(event.target.className));
+        // console.log(taskDOM.closest(event.target));
+
+        // console.log('taskDOM', taskDOM);
+        console.log(event.target);
+
+        console.log('clickPressListener');
+        console.log(event.target.closest('.task'));
+        //
+        // return false;
+
+
+        if(!event.target.closest('.task')) {
+            console.log('close', task.name);
+            setIsEdit(false);
         }
+
+        // else if(!isEdit) === setIsEdit(true);
     }
 
     const memoizedListener = useMemo(() => clickPressListener, []);
@@ -27,7 +47,7 @@ export default function Task(props) {
 
     const onKeyDown = (event) => {
         if(event.code === 'Enter') {
-            props.toggleViewCreateTask(false);
+            setIsEdit(false);
         }
     }
 
@@ -36,28 +56,32 @@ export default function Task(props) {
         name: event.target.value
     });
 
-    console.log(task.name);
+    const onEdit = () => setIsEdit(true);
 
     return (
-        <li className={'task'}>
+        <li id={id}
+            className={isEdit ? 'task task--editing' : 'task'}
+        >
             <Row className={'flex flex--align_center'}>
-                <Col sm={8}>
+                <Col sm={ isEdit ? 12 : 8 }>
                     <Input className={'task-checkbox'}
                            type={'checkbox'}
-                           disabled={isDisabled}
+                           disabled={isEdit}
                     />
                     <Input id={task._id.toString()}
                            value={task.name}
                            placeholder={'Please, enter name of task'}
                            className={'task-text'}
                            type="text"
-                           disabled={true}
+                           disabled={!isEdit}
                            onKeyDown={(event) => onKeyDown(event)}
                            onChange={(event) => onChange(event)}
                     />
                 </Col>
                 <Col sm={4} className={'text-right task-controller'}>
-                    <Button color={'icon'}>
+                    <Button color={'icon'}
+                            onClick={() => onEdit()}
+                    >
                         <AiFillEdit />
                     </Button>
                     <Button color={'icon'}>
