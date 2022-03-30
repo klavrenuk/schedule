@@ -1,10 +1,14 @@
 import {io} from 'socket.io-client'
 import store from './store';
+import Swal from "sweetalert2";
 
 const socket = io('ws://');
-let tasks = [];
+let tasks = [],
+    isConnected = false;
 
 socket.on('connect', () => {
+    isConnected = true;
+
     socket.on('getTasks', (list) => {
         tasks = list;
         store.dispatch({
@@ -14,10 +18,12 @@ socket.on('connect', () => {
     });
 
     socket.on('connect_error', (err) => {
+        isConnected = false;
         console.log('error', err);
     });
 
     socket.on('disconnect', () => {
+        isConnected = false;
         console.log('disconnect');
     })
 });
@@ -28,10 +34,21 @@ const Tasks = {
     },
 
     createSection() {
-        const fakeSection = {
-            name: 'English'
-        };
-        socket.emit('createSection', fakeSection);
+        try {
+            const fakeSection = {
+                name: 'English'
+            };
+            socket.emit('createSection', fakeSection);
+
+        } catch (err) {
+            Swal.fire('Error');
+
+            if(isConnected) {
+                socket.emit('updateTask', fakeSection);
+            } else {
+                Swal.fire('Please, update page');
+            }
+        }
     }
 }
 

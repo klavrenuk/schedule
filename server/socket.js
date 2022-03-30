@@ -12,7 +12,7 @@ module.exports = (io) => {
             createSection(section);
         });
 
-        socket.on('getTasks', () => {
+        socket.on('updateTask', () => {
             sendTasks();
         });
 
