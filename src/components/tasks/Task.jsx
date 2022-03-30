@@ -11,39 +11,19 @@ export default function Task(props) {
     const id = `task-${task.sectionId}-${task._id}`;
 
     const clickPressListener = (event) => {
-        const taskDOM = document.querySelector('#' + id);
-
-
-        //console.log(event.target.class);
-        //console.log(taskDOM.getElementsByClassName(event.target.className));
-        // console.log(taskDOM.closest(event.target));
-
-        // console.log('taskDOM', taskDOM);
-        console.log(event.target);
-
-        console.log('clickPressListener');
-        console.log(event.target.closest('.task'));
-        //
-        // return false;
-
-
         if(!event.target.closest('.task')) {
-            console.log('close', task.name);
             setIsEdit(false);
+            window.removeEventListener('click', memoizedListener);
         }
-
-        // else if(!isEdit) === setIsEdit(true);
     }
 
     const memoizedListener = useMemo(() => clickPressListener, []);
 
     useEffect(() => {
-        window.addEventListener('click', memoizedListener);
-
-        return() => {
-            window.removeEventListener('click', memoizedListener);
-        };
-    }, [memoizedListener]);
+        if(isEdit) {
+            window.addEventListener('click', memoizedListener);
+        }
+    }, [memoizedListener, isEdit]);
 
     const onKeyDown = (event) => {
         if(event.code === 'Enter') {
@@ -73,9 +53,9 @@ export default function Task(props) {
                            placeholder={'Please, enter name of task'}
                            className={'task-text'}
                            type="text"
-                           disabled={!isEdit}
                            onKeyDown={(event) => onKeyDown(event)}
                            onChange={(event) => onChange(event)}
+                           onClick={() => onEdit()}
                     />
                 </Col>
                 <Col sm={4} className={'text-right task-controller'}>
