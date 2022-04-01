@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {AiFillDelete, AiFillEdit, AiOutlineDown, AiOutlineUp} from "react-icons/ai";
-import {Row, Col, Button} from 'reactstrap';
+import {Row, Col, Button, Input} from 'reactstrap';
 
 import SectionListTasks from "./SectionListTasks";
 
@@ -8,26 +8,56 @@ import './css/section.min.css';
 
 export default function Section(props) {
     const [isOpenList, setIsOpenList] = useState(false);
+    const [isEdit, setIsEdit] = useState(false);
+    const [section, setSection] = useState(props.data);
+
+    const onKeyDown = (event) => {
+        if(event.code === 'Enter') {
+            setIsEdit(false);
+        }
+    }
+
+    const onChange = (event) => setSection({
+        ...section,
+        name: event.target.value
+    });
 
     return (
-        <li className={'section'}>
+        <li className={'section item_for_editing'}>
             <Row className={'flex flex--align_center'}>
-                <Col sm={8}>
-                    <a className={'section-link'}
-                       onClick={() => setIsOpenList(!isOpenList)}
-                    >
-                        <span className={'section-link-name'}>{ props.data.name}</span>
-                        <span className={'section-link-icon'}>
-                            {
-                                isOpenList ? <AiOutlineUp /> : <AiOutlineDown />
-                            }
-                        </span>
-                    </a>
+                <Col sm={isEdit ? 12 : 8}>
+                    {
+                        isEdit ?
+                            <Input className={'section-name item_for_editing-text active'}
+                                value={section.name}
+                                onKeyDown={(event) => onKeyDown(event)}
+                                onChange={(event) => onChange(event)}
+                                disabled={!isEdit}
+                            />
+                            :
+                            <div className={'flex flex--align_center'}>
+                                <span className={'section-name section-name--static'}>{section.name}</span>
+                                <Button color={'icon'}
+                                        className={'section-btn_toggle'}
+                                        onClick={() => setIsOpenList(!isOpenList)}
+                                >
+                                    {
+                                        isOpenList ? <AiOutlineUp /> : <AiOutlineDown />
+                                    }
+                                </Button>
+                            </div>
+                    }
                 </Col>
 
-                <Col sm={4}>
+                <Col sm={4}
+                     className={
+                         `item_for_editing-controller ${isEdit ? 'active' : ''}`
+                     }
+                >
                     <div className={'text-right'}>
-                        <Button color={'icon'}>
+                        <Button color={'icon'}
+                                onClick={() => setIsEdit(true)}
+                        >
                             <AiFillEdit />
                         </Button>
                         <Button color={'icon'}>
@@ -39,7 +69,6 @@ export default function Section(props) {
 
             {
                 isOpenList ? <SectionListTasks list={props.data.tasks} /> : null
-
             }
         </li>
     )

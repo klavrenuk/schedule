@@ -46,7 +46,7 @@ export default function Task(props) {
 
     return (
         <li id={id()}
-            className={isEdit ? 'task task--editing' : 'task'}
+            className={'task item_for_editing'}
         >
             <Row className={'flex flex--align_center row--task'}>
                 <Col sm={ isEdit ? 12 : 9 }>
@@ -55,16 +55,15 @@ export default function Task(props) {
                            disabled={isEdit}
                     />
                     <Input id={task._id ? task._id.toString() : 'TaskNewInput'}
+                           className={`task-text item_for_editing-text ${isEdit ? 'active' : ''}`}
                            value={task.name}
                            placeholder={'Please, enter name of task'}
-                           className={'task-text'}
-                           type="text"
                            onKeyDown={(event) => onKeyDown(event)}
                            onChange={(event) => onChange(event)}
                            onClick={() => onEdit()}
                     />
                 </Col>
-                <Col sm={3} className={'text-right task-controller'}>
+                <Col sm={3} className={`text-right task-controller item_for_editing-controller ${isEdit ? 'active' : ''}`}>
                     <Button color={'icon'}
                             onClick={() => onEdit()}
                     >

@@ -7,25 +7,33 @@
     margin-bottom: 0;
   }
 
-  & .section-link {
+  & .section-name {
+    margin: 0 .5rem 0 0;
     color: #000;
     font-size: @fontSizeBig;
     line-height: 17px;
     font-weight: 600;
 
-    & .section-link-name {
-      margin-right: .5rem;
+    &.section-name--static {
+      max-width: 80%;
+      display: inline-block;
+      overflow: hidden;
+      text-overflow: clip;
     }
+  }
 
-    & .section-link-icon {
-      color: #ccc;
-      transition: transform .1s ease-out,color .15s linear;
+  & .section-btn_toggle {
+    padding: 0 !important;
+  }
 
-      &:hover,
-      &:active,
-      &:focus {
-        color: #0099FF;
-      }
+  & .section-icon {
+    color: #ccc;
+    transition: transform .1s ease-out,color .15s linear;
+
+    &:hover,
+    &:active,
+    &:focus {
+      color: #0099FF;
     }
   }
 
