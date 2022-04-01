@@ -73,7 +73,9 @@ export default function Task(props) {
                             >
                                 <AiFillEdit />
                             </Button>
-                            <Button color={'icon'}>
+                            <Button color={'icon'}
+                                    onClick={() => props.deleteTask(task)}
+                            >
                                 <AiFillDelete />
                             </Button>
                         </Col>

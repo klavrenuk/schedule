@@ -25,12 +25,16 @@ socket.on('connect', () => {
     socket.on('disconnect', () => {
         isConnected = false;
         console.log('disconnect');
-    })
+    });
 });
 
 const Tasks = {
     getTasks() {
         return tasks;
+    },
+
+    deleteItem(task) {
+        socket.emit('deleteTask', task);
     },
 
     createSection() {

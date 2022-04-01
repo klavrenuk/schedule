@@ -12,6 +12,10 @@ const initState = {
 
 const reducers = (state = initState, action) => {
     switch(action.type) {
+        case 'deleteTask':
+            tasks.deleteItem(action.task);
+            return state;
+
         case 'createSection':
             tasks.createSection();
             return state;

@@ -16,6 +16,10 @@ module.exports = (io) => {
             sendTasks();
         });
 
+        socket.on('deleteTask', (task) => {
+            console.log('task deleted', task)
+        });
+
         const sendTasks = async() => {
             const list = await Section.getList();
 
