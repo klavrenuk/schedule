@@ -2,29 +2,27 @@ import React, {useEffect, useMemo, useState} from 'react';
 import {Button, Col, Input, Row} from "reactstrap";
 import {AiFillDelete, AiFillEdit} from "react-icons/ai";
 
+import WrapClickListener from "./WrapClickListener";
+
 import './css/task.min.css';
 
 export default function Task(props) {
     const [task, setTask] = useState(props.task ? props.task : {});
     const [isEdit, setIsEdit] = useState(false);
+    const [colInput, setColInput] = useState(9);
+    const [isShowTaskController, setIsShowTaskController] = useState(true);
 
-    const clickPressListener = (event) => {
-        if(!event.target.closest('.task')) {
-            setIsEdit(false);
-            window.removeEventListener('click', memoizedListener);
-        }
+    const destroyListener = () => {
+        setIsEdit(false);
+
+        setTimeout(() => {
+            setColInput(9);
+            setIsShowTaskController(true);
+        }, 300);
     }
 
-    const memoizedListener = useMemo(() => clickPressListener, []);
-
-    useEffect(() => {
-        if(isEdit) {
-            window.addEventListener('click', memoizedListener);
-        }
-    }, [memoizedListener, isEdit]);
-
     const onKeyDown = (event) => {
-        if(event.code === 'Enter') {
+        if(event.code === 'Enter' || event.code === 'Escape') {
             setIsEdit(false);
         }
     }
@@ -34,7 +32,11 @@ export default function Task(props) {
         name: event.target.value
     });
 
-    const onEdit = () => setIsEdit(true);
+    const onEdit = () => {
+        setIsEdit(true);
+        setColInput(12);
+        setIsShowTaskController(false);
+    }
 
     const id = () => {
         if(task.hasOwnProperty('_id')) {
@@ -49,7 +51,7 @@ export default function Task(props) {
             className={'task item_for_editing'}
         >
             <Row className={'flex flex--align_center row--task'}>
-                <Col sm={ isEdit ? 12 : 9 }>
+                <Col sm={colInput}>
                     <Input className={'task-checkbox'}
                            type={'checkbox'}
                            disabled={isEdit}
@@ -63,17 +65,27 @@ export default function Task(props) {
                            onClick={() => onEdit()}
                     />
                 </Col>
-                <Col sm={3} className={`text-right task-controller item_for_editing-controller ${isEdit ? 'active' : ''}`}>
-                    <Button color={'icon'}
-                            onClick={() => onEdit()}
-                    >
-                        <AiFillEdit />
-                    </Button>
-                    <Button color={'icon'}>
-                        <AiFillDelete />
-                    </Button>
-                </Col>
+                {
+                    isShowTaskController ?
+                        <Col sm={3} className={`text-right task-controller`}>
+                            <Button color={'icon'}
+                                    onClick={() => onEdit()}
+                            >
+                                <AiFillEdit />
+                            </Button>
+                            <Button color={'icon'}>
+                                <AiFillDelete />
+                            </Button>
+                        </Col>
+                        :
+                        null
+                }
             </Row>
+
+            <WrapClickListener parentElem={'#' + id()}
+                               isEdit={isEdit}
+                               destroyListener={destroyListener}
+            />
         </li>
     )
 }

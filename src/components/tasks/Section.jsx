@@ -3,6 +3,7 @@ import {AiFillDelete, AiFillEdit, AiOutlineDown, AiOutlineUp} from "react-icons/
 import {Row, Col, Button, Input} from 'reactstrap';
 
 import SectionListTasks from "./SectionListTasks";
+import WrapClickListener from "./WrapClickListener";
 
 import './css/section.min.css';
 
@@ -10,9 +11,12 @@ export default function Section(props) {
     const [isOpenList, setIsOpenList] = useState(false);
     const [isEdit, setIsEdit] = useState(false);
     const [section, setSection] = useState(props.data);
+    const sectionId = `section-${section._id}`;
+
+    const destroyListener = () => setIsEdit(false);
 
     const onKeyDown = (event) => {
-        if(event.code === 'Enter') {
+        if(event.code === 'Enter' || event.code == 'Escape') {
             setIsEdit(false);
         }
     }
@@ -22,8 +26,12 @@ export default function Section(props) {
         name: event.target.value
     });
 
+    const onEdit = () => setIsEdit(true);
+
     return (
-        <li className={'section item_for_editing'}>
+        <li id={sectionId}
+            className={'section item_for_editing'}
+        >
             <Row className={'flex flex--align_center'}>
                 <Col sm={isEdit ? 12 : 8}>
                     {
@@ -56,7 +64,7 @@ export default function Section(props) {
                 >
                     <div className={'text-right'}>
                         <Button color={'icon'}
-                                onClick={() => setIsEdit(true)}
+                                onClick={() => onEdit()}
                         >
                             <AiFillEdit />
                         </Button>
@@ -70,6 +78,11 @@ export default function Section(props) {
             {
                 isOpenList ? <SectionListTasks list={props.data.tasks} /> : null
             }
+
+            <WrapClickListener parentElem={sectionId}
+                               isEdit={isEdit}
+                               destroyListener={destroyListener}
+            />
         </li>
     )
 }
