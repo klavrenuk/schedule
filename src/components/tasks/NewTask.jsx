@@ -9,7 +9,7 @@ export default function NewTask(props) {
         <li className={'new_task'}>
             <Button color={'empty'}
                     className={'new_task-btn'}
-                    onClick={() => props.toggleViewCreateTask(true)}
+                    onClick={() => props.toggleViewCreateTask(false)}
             >
                 <AiOutlinePlus /> new task
             </Button>

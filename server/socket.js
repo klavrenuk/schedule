@@ -20,6 +20,10 @@ module.exports = (io) => {
             console.log('task deleted', task)
         });
 
+        socket.on('createTask', (task) => {
+            console.log('createTask', task);
+        })
+
         const sendTasks = async() => {
             const list = await Section.getList();
 

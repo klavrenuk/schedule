@@ -7,10 +7,22 @@ import WrapClickListener from "./WrapClickListener";
 import './css/task.min.css';
 
 export default function Task(props) {
-    const [task, setTask] = useState(props.task ? props.task : {});
+    const [task, setTask] = useState(props.task || {name: ''});
     const [isEdit, setIsEdit] = useState(false);
     const [colInput, setColInput] = useState(9);
     const [isShowTaskController, setIsShowTaskController] = useState(true);
+    const [isChanging, setIsChanging] = useState(false);
+
+
+    useEffect(() => {
+        if(!isEdit && isChanging) {
+            console.log('save');
+            setIsChanging(false);
+            props.save(task);
+        }
+
+    }, [isEdit]);
+
 
     const destroyListener = () => {
         setIsEdit(false);
@@ -21,16 +33,21 @@ export default function Task(props) {
         }, 300);
     }
 
+
     const onKeyDown = (event) => {
         if(event.code === 'Enter' || event.code === 'Escape') {
             setIsEdit(false);
+            setIsChanging(true);
         }
     }
 
-    const onChange = (event) => setTask({
-        ...task,
-        name: event.target.value
-    });
+    const onChange = (event) => {
+        setTask({
+            ...task,
+            name: event.target.value
+        });
+        setIsChanging(true);
+    }
 
     const onEdit = () => {
         setIsEdit(true);
@@ -66,7 +83,7 @@ export default function Task(props) {
                     />
                 </Col>
                 {
-                    isShowTaskController ?
+                    isShowTaskController && task._id ?
                         <Col sm={3} className={`text-right task-controller`}>
                             <Button color={'icon'}
                                     onClick={() => onEdit()}

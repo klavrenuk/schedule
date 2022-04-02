@@ -6,6 +6,16 @@ const socket = io('ws://');
 let tasks = [],
     isConnected = false;
 
+const processingError = () => {
+    Swal.fire('Error');
+
+    if(isConnected) {
+        socket.emit('updateTask');
+    } else {
+        Swal.fire('Please, update page');
+    }
+}
+
 socket.on('connect', () => {
     isConnected = true;
 
@@ -45,13 +55,15 @@ const Tasks = {
             socket.emit('createSection', fakeSection);
 
         } catch (err) {
-            Swal.fire('Error');
+            processingError();
+        }
+    },
 
-            if(isConnected) {
-                socket.emit('updateTask', fakeSection);
-            } else {
-                Swal.fire('Please, update page');
-            }
+    createTask(task) {
+        try {
+            socket.emit('createTask', task);
+        } catch (err) {
+            processingError();
         }
     }
 }
