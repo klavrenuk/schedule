@@ -1,4 +1,5 @@
 const Section = require('./modules/Section');
+const Task = require('./modules/Task');
 
 module.exports = (io) => {
     io.on('connection', (socket) => {
@@ -21,7 +22,7 @@ module.exports = (io) => {
         });
 
         socket.on('createTask', (task) => {
-            console.log('createTask', task);
+            createTask(task);
         })
 
         const sendTasks = async() => {
@@ -29,32 +30,8 @@ module.exports = (io) => {
 
             const fakeList = [
                 {
-                    name: 'English',
-                    _id: 1,
-                    tasks: [
-                        {
-                            _id: 1,
-                            sectionId: 1,
-                            isChecked: false,
-                            name: 'Task#1'
-                        },
-                        {
-                            _id: 2,
-                            sectionId: 1,
-                            isChecked: false,
-                            name: 'Task#2'
-                        },
-                        {
-                            _id: 3,
-                            sectionId: 1,
-                            isChecked: false,
-                            name: 'Task#3'
-                        }
-                    ]
-                },
-                {
                     name: 'Travel',
-                    _id: 2,
+                    _id: '62408efab4f1dc1b88ab62e4',
                     tasks: [
                         {
                             _id: 1,
@@ -76,7 +53,7 @@ module.exports = (io) => {
                         }
                     ]
                 }
-            ]
+            ];
 
             socket.emit('getTasks', fakeList);
         };
@@ -87,6 +64,17 @@ module.exports = (io) => {
                 sendTasks();
 
             } catch (err) {
+                console.log(err);
+            }
+        }
+
+        const createTask = async (task) => {
+            try {
+                await Task.create(task);
+                //sendTasks();
+
+            } catch (err) {
+                console.log('section error create task');
                 console.log(err);
             }
         }
