@@ -1,7 +1,13 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useEffect, useMemo, useImperativeHandle, forwardRef} from 'react';
 
-export default function WrapClickListener(props) {
+const WrapClickListener = forwardRef(((props, ref) => {
     const parentElem = props.parentElem;
+
+    useImperativeHandle(ref, () => ({
+        removeListener() {
+            window.removeEventListener('click', memoizedListener);
+        }
+    }));
 
     const clickPressListener = (event) => {
         if(!event.target.closest(parentElem)) {
@@ -21,4 +27,6 @@ export default function WrapClickListener(props) {
 
 
     return null;
-}
+}));
+
+export default WrapClickListener;

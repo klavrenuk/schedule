@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {Button, Col, Input, Row} from "reactstrap";
 import {AiFillDelete, AiFillEdit} from "react-icons/ai";
 
@@ -13,18 +13,24 @@ export default function Task(props) {
     const [isShowTaskController, setIsShowTaskController] = useState(true);
     const [isChanging, setIsChanging] = useState(false);
 
+    const RefWrapClickListener = useRef();
+
 
     useEffect(() => {
         if(!isEdit && isChanging) {
-            console.log('save');
-            setIsChanging(false);
-            props.save(task);
+            RefWrapClickListener.current.removeListener();
+
+            setTimeout(() => {
+                setIsChanging(false);
+                props.save(task);
+            }, 300);
         }
 
     }, [isEdit]);
 
 
     const destroyListener = () => {
+        setIsChanging(true);
         setIsEdit(false);
 
         setTimeout(() => {
@@ -104,6 +110,7 @@ export default function Task(props) {
             <WrapClickListener parentElem={'#' + id()}
                                isEdit={isEdit}
                                destroyListener={destroyListener}
+                               ref={RefWrapClickListener}
             />
         </li>
     )
