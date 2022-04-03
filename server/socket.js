@@ -1,5 +1,6 @@
 const Section = require('./modules/Section');
 const Task = require('./modules/Task');
+const {sendError} = require('./middlewares/error');
 
 module.exports = (io) => {
     io.on('connection', (socket) => {
@@ -71,11 +72,10 @@ module.exports = (io) => {
         const createTask = async (task) => {
             try {
                 await Task.create(task);
-                //sendTasks();
 
             } catch (err) {
-                console.log('section error create task');
                 console.log(err);
+                sendError(err, socket);
             }
         }
 

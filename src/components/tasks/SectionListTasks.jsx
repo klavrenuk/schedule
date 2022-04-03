@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useDispatch} from 'react-redux';
 
 import Task from "./Task";
@@ -10,6 +10,16 @@ export default function SectionListTasks(props) {
     const dispatch = useDispatch();
     const [isShowCreateTask, setIsShowCreateTask] = useState(true);
     const [list, setList] = useState(props.list || []);
+    const [isShowList, setIsShowList] = useState(true);
+
+    useEffect(() => {
+        setIsShowList(false);
+        setList(props.list || []);
+
+        setTimeout(() => {
+            setIsShowList(true);
+        }, 0);
+    }, [props]);
 
     const section = props.section;
 
@@ -71,13 +81,14 @@ export default function SectionListTasks(props) {
     return (
         <ul className={'section_list_tasks'}>
             {
-                list.map((task) => {
-                    return <Task key={task._id}
-                                 task={task}
-                                 deleteTask={deleteTask}
-                                 save={save}
-                    />
-                })
+                !isShowList ? null :
+                    list.map((task) => {
+                        return <Task key={task._id}
+                                     task={task}
+                                     deleteTask={deleteTask}
+                                     save={save}
+                        />
+                    })
             }
 
             {

@@ -6,8 +6,12 @@ const socket = io('ws://');
 let tasks = [],
     isConnected = false;
 
-const processingError = () => {
-    Swal.fire('Error');
+const processingError = (message) => {
+    if(!message) {
+        message = 'Error! Please, try latter';
+    }
+
+    Swal.fire(message);
 
     if(isConnected) {
         socket.emit('updateTask');
@@ -35,6 +39,10 @@ socket.on('connect', () => {
     socket.on('disconnect', () => {
         isConnected = false;
         console.log('disconnect');
+    });
+
+    socket.on('action_error', (err) => {
+        processingError(err);
     });
 });
 
