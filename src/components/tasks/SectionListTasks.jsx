@@ -40,7 +40,10 @@ export default function SectionListTasks(props) {
             });
 
             const arr = list;
-            arr.push(task);
+            arr.push({
+                ...task,
+                _id: new Date().getTime()
+            });
             setList(arr);
 
             setIsShowCreateTask(true);
