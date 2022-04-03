@@ -26,6 +26,18 @@ export default function SectionListTasks(props) {
         }));
     }
 
+    const isValidTask = (task) => {
+        if(
+            !task.hasOwnProperty('name') ||
+            task.name === '' ||
+            task.name.trim() === ''
+        ) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
     const save = (task) => {
         if(task.hasOwnProperty('_id')) {
            dispatch({
@@ -34,17 +46,19 @@ export default function SectionListTasks(props) {
            });
 
         } else {
-            dispatch({
-                type: 'createTask',
-                task: task
-            });
+            if(isValidTask(task)) {
+                dispatch({
+                    type: 'createTask',
+                    task: task
+                });
 
-            const arr = list;
-            arr.push({
-                ...task,
-                _id: new Date().getTime()
-            });
-            setList(arr);
+                const arr = list;
+                arr.push({
+                    ...task,
+                    _id: new Date().getTime()
+                });
+                setList(arr);
+            }
 
             setIsShowCreateTask(true);
         }
