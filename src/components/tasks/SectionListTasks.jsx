@@ -11,6 +11,8 @@ export default function SectionListTasks(props) {
     const [isShowCreateTask, setIsShowCreateTask] = useState(true);
     const [list, setList] = useState(props.list || []);
 
+    const section = props.section;
+
     const toggleViewCreateTask = (value) => setIsShowCreateTask(value);
 
     const deleteTask = (task) => {
@@ -46,6 +48,8 @@ export default function SectionListTasks(props) {
            });
 
         } else {
+            task.sectionId = section._id;
+
             if(isValidTask(task)) {
                 dispatch({
                     type: 'createTask',

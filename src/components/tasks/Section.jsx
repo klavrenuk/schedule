@@ -76,7 +76,10 @@ export default function Section(props) {
             </Row>
 
             {
-                isOpenList ? <SectionListTasks list={props.data.tasks} /> : null
+                isOpenList ? <SectionListTasks
+                    list={props.data.tasks}
+                    section={section}
+                /> : null
             }
 
             <WrapClickListener parentElem={sectionId}
