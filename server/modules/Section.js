@@ -9,19 +9,6 @@ const ModelSection = mongoose.model('Section', new Schema({
 }));
 
 const Section = {
-    getList() {
-        return new Promise((resolve, reject) => {
-            ModelSection.find({}, (err, arr) => {
-                if(err) {
-                    console.log(err);
-                    reject(err);
-                }
-
-                resolve(arr);
-            })
-        })
-    },
-
     create(item) {
         return new Promise((resolve, reject) => {
             const section = new ModelSection(item);
@@ -38,4 +25,4 @@ const Section = {
     }
 }
 
-module.exports = Section;
+module.exports = {Section, ModelSection};

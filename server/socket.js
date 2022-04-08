@@ -1,5 +1,7 @@
 const Section = require('./modules/Section');
 const Task = require('./modules/Task');
+const Tasks = require('./modules/Tasks');
+const Sections = require('./modules/Sections');
 const {sendError} = require('./middlewares/error');
 
 module.exports = (io) => {
@@ -27,7 +29,11 @@ module.exports = (io) => {
         })
 
         const sendTasks = async() => {
-            const list = await Section.getList();
+            const sections = await Sections.getList();
+            const tasks = await Tasks.getList();
+
+            console.log('sections', sections);
+            console.log('tasks', tasks);
 
             const fakeList = [
                 {

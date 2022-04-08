@@ -88,4 +88,4 @@ const Task = {
     }
 }
 
-module.exports = Task;
+module.exports = {Task, ModelTask};
