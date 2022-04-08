@@ -19,7 +19,7 @@ module.exports = (io) => {
         });
 
         socket.on('deleteTask', (task) => {
-            console.log('task deleted', task)
+            deleteTask(task);
         });
 
         socket.on('createTask', (task) => {
@@ -47,10 +47,10 @@ module.exports = (io) => {
                             name: 'Task#2'
                         },
                         {
-                            _id: 3,
+                            _id: '624fc8a0d286902d4496da6c',
                             sectionId: 2,
                             isChecked: false,
-                            name: 'Task#3'
+                            name: 'new Task'
                         }
                     ]
                 }
@@ -72,6 +72,17 @@ module.exports = (io) => {
         const createTask = async (task) => {
             try {
                 await Task.create(task);
+
+            } catch (err) {
+                console.log(err);
+                sendError(err, socket);
+            }
+        }
+
+        const deleteTask = async(task) => {
+            try {
+                await Task.delete(task);
+                sendTasks()
 
             } catch (err) {
                 console.log(err);

@@ -67,6 +67,24 @@ const Task = {
                 resolve(true);
             })
         })
+    },
+
+    delete(task) {
+        return new Promise((resolve, reject) => {
+            if(!task || !task.hasOwnProperty('_id')) {
+                reject('Bad request');
+                return false;
+            }
+
+            ModelTask.findByIdAndDelete({_id: task._id}, (err) => {
+                if(err) {
+                    reject(err);
+                    return false;
+                }
+
+                resolve(true);
+            })
+        })
     }
 }
 
