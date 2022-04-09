@@ -8,6 +8,8 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const socketIO = require('socket.io');
 
+const error = require('./middlewares/error');
+
 app.use(express.Router());
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -23,7 +25,6 @@ app.use(
 app.use(cookieParser("secretcode"));
 app.use(passport.initialize());
 app.use(passport.session());
-
 
 require('./router')(app);
 
