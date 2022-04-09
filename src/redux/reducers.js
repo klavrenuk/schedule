@@ -1,4 +1,4 @@
-import tasks from './Tasks';
+import Tasks from './Tasks';
 
 const initState = {
     event: {
@@ -6,22 +6,22 @@ const initState = {
     },
     user: {},
     isShowModalTasks: false,
-    tasks: tasks.getTasks()
+    tasks: Tasks.getTasks()
 };
 
 
 const reducers = (state = initState, action) => {
     switch(action.type) {
         case 'createTask':
-            tasks.createTask(action.task);
+            Tasks.createTask(action.task);
             return state;
 
         case 'deleteTask':
-            tasks.deleteItem(action.task);
+            Tasks.deleteItem(action.task);
             return state;
 
         case 'createSection':
-            tasks.createSection();
+            Tasks.createSection();
             return state;
 
         case 'updateTasks':

@@ -1,5 +1,5 @@
 const Section = require('./modules/Section');
-const Task = require('./modules/Task');
+const Task = require('./modules/Task').Task;
 const Tasks = require('./modules/Tasks');
 const Sections = require('./modules/Sections');
 const {sendError} = require('./middlewares/error');
@@ -29,40 +29,30 @@ module.exports = (io) => {
         })
 
         const sendTasks = async() => {
-            const sections = await Sections.getList();
-            const tasks = await Tasks.getList();
+            let list = [];
 
-            console.log('sections', sections);
-            console.log('tasks', tasks);
+            try {
+                const sections = await Sections.getList();
+                const tasks = await Tasks.getList();
 
-            const fakeList = [
-                {
-                    name: 'Travel',
-                    _id: '62408efab4f1dc1b88ab62e4',
-                    tasks: [
-                        {
-                            _id: 1,
-                            sectionId: 2,
-                            isChecked: false,
-                            name: 'Task#1'
-                        },
-                        {
-                            _id: 2,
-                            sectionId: 2,
-                            isChecked: false,
-                            name: 'Task#2'
-                        },
-                        {
-                            _id: '624fc8a0d286902d4496da6c',
-                            sectionId: 2,
-                            isChecked: false,
-                            name: 'new Task'
-                        }
-                    ]
-                }
-            ];
+                list = sections.map((section) => {
+                    return {
+                        ...section._doc,
+                        tasks: tasks.filter((task) => {
+                            if(section._id.toString() === task.sectionId.toString()) {
+                                return task;
+                            }
+                        })
+                    }
+                });
 
-            socket.emit('getTasks', fakeList);
+            } catch(err) {
+                console.error(err);
+
+            } finally {
+                socket.emit('getTasks', list);
+            }
+
         };
 
         const createSection = async (section) => {
