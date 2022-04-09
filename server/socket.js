@@ -1,4 +1,4 @@
-const Section = require('./modules/Section');
+const Section = require('./modules/Section').Section;
 const Task = require('./modules/Task').Task;
 const Tasks = require('./modules/Tasks');
 const Sections = require('./modules/Sections');
