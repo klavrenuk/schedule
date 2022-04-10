@@ -6,12 +6,10 @@ const sendError = (message, socket = null, ) => {
 
 process.on('uncaughtException', (err) => {
     console.log(err);
-    process.exit(1);
 });
 
 process.on('unhandledrejection', (err) => {
     console.log(err);
-    process.exit(1);
 });
 
 module.exports = {sendError};
