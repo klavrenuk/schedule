@@ -9,7 +9,7 @@ export default function TasksFooter(props) {
             <div className={'tasks-container'}>
                 <Button color={'default'}
                         className={'btn--create_list'}
-                        onClick={() => props.createSection()}
+                        onClick={() => props.showSectionNew()}
                 >
                     create list
                 </Button>

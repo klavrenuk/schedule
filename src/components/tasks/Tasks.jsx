@@ -7,16 +7,24 @@ import TasksFooter from './TasksFooter';
 import TasksList from "./TasksList";
 
 import './css/tasks.min.css';
+import SectionNew from "./SectionNew";
 
 export default function Tasks() {
     const [view, setView] = useState('tasks');
+    const [isShowSectionNew, setIsShowSectionNew] = useState(false);
 
     const state = useSelector(state => state);
     const dispatch = useDispatch();
 
-    const createSection = () => dispatch({
-        type: 'createSection'
-    });
+    const createSection = (value) => {
+        console.log('createSection', value);
+        setIsShowSectionNew(false);
+        // dispatch({
+        //     type: 'createSection'
+        // });
+    }
+
+    const showSectionNew = () => setIsShowSectionNew(true);
 
     const onCloseModalTasks = () => dispatch({
         type: 'toggleModalTasks'
@@ -43,8 +51,17 @@ export default function Tasks() {
                     </Col>
                 </Row>
 
+                {
+                    isShowSectionNew ?
+                        <div className={'tasks-container'}>
+                            <SectionNew save={createSection} />
+                        </div>
+                        :
+                        null
+                }
+
                 <TasksList list={state.tasks} />
-                <TasksFooter createSection={createSection}/>
+                <TasksFooter showSectionNew={showSectionNew}/>
             </aside>
         )
     }

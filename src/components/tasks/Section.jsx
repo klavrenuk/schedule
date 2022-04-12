@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import {AiFillDelete, AiFillEdit, AiOutlineDown, AiOutlineUp} from "react-icons/ai";
-import {Row, Col, Button, Input} from 'reactstrap';
+import {Row, Col, Button} from 'reactstrap';
 
 import SectionListTasks from "./SectionListTasks";
-import WrapClickListener from "./WrapClickListener";
+import InputInList from "./InputInList";
 
 import './css/section.min.css';
 
@@ -11,20 +11,15 @@ export default function Section(props) {
     const [isOpenList, setIsOpenList] = useState(false);
     const [isEdit, setIsEdit] = useState(false);
     const [section, setSection] = useState(props.data);
-    const sectionId = `section-${section._id}`;
+    const sectionId = `Section-${section._id}`;
 
-    const destroyListener = () => setIsEdit(false);
-
-    const onKeyDown = (event) => {
-        if(event.code === 'Enter' || event.code == 'Escape') {
-            setIsEdit(false);
-        }
-    }
-
-    const onChange = (event) => setSection({
-        ...section,
-        name: event.target.value
-    });
+    const onSave = (value) => {
+        setSection({
+            ...section,
+            name: value
+        });
+        setIsEdit(false);
+    };
 
     const onEdit = () => setIsEdit(true);
 
@@ -36,11 +31,11 @@ export default function Section(props) {
                 <Col sm={isEdit ? 12 : 8}>
                     {
                         isEdit ?
-                            <Input className={'section-name item_for_editing-text active'}
+                            <InputInList
                                 value={section.name}
-                                onKeyDown={(event) => onKeyDown(event)}
-                                onChange={(event) => onChange(event)}
-                                disabled={!isEdit}
+                                close={onSave}
+                                parentElem={sectionId}
+                                isEdit={isEdit}
                             />
                             :
                             <div className={'flex flex--align_center'}>
@@ -81,11 +76,6 @@ export default function Section(props) {
                     section={section}
                 /> : null
             }
-
-            <WrapClickListener parentElem={sectionId}
-                               isEdit={isEdit}
-                               destroyListener={destroyListener}
-            />
         </li>
     )
 }

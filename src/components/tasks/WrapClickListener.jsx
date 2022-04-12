@@ -1,16 +1,10 @@
-import React, {useEffect, useMemo, useImperativeHandle, forwardRef} from 'react';
+import React, {useEffect, useMemo} from 'react';
 
-const WrapClickListener = forwardRef(((props, ref) => {
-    const parentElem = props.parentElem;
-
-    useImperativeHandle(ref, () => ({
-        removeListener() {
-            window.removeEventListener('click', memoizedListener);
-        }
-    }));
+export default function WrapClickListener(props) {
+    const parentId = '#' + props.parentElem;
 
     const clickPressListener = (event) => {
-        if(!event.target.closest(parentElem)) {
+        if(!event.target.closest(parentId)) {
             window.removeEventListener('click', memoizedListener);
             props.destroyListener();
         }
@@ -21,12 +15,12 @@ const WrapClickListener = forwardRef(((props, ref) => {
     useEffect(() => {
         if(props.isEdit) {
             window.addEventListener('click', memoizedListener);
+        } else {
+            window.removeEventListener('click', memoizedListener);
         }
 
     }, [memoizedListener, props]);
 
 
     return null;
-}));
-
-export default WrapClickListener;
+};

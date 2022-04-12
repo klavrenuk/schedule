@@ -1,8 +1,8 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useState} from 'react';
 import {Button, Col, Input, Row} from "reactstrap";
 import {AiFillDelete, AiFillEdit} from "react-icons/ai";
 
-import WrapClickListener from "./WrapClickListener";
+import InputInList from "./InputInList";
 
 import './css/task.min.css';
 
@@ -11,48 +11,18 @@ export default function Task(props) {
     const [isEdit, setIsEdit] = useState(false);
     const [colInput, setColInput] = useState(9);
     const [isShowTaskController, setIsShowTaskController] = useState(true);
-    const [isChanging, setIsChanging] = useState(false);
 
-    const RefWrapClickListener = useRef();
+    const onSave = (value) => {
+        setTask({
+            ...task,
+            name: value
+        });
 
-
-    useEffect(() => {
-        if(!isEdit && isChanging) {
-            RefWrapClickListener.current.removeListener();
-
-            setTimeout(() => {
-                setIsChanging(false);
-                props.save(task);
-            }, 300);
-        }
-
-    }, [isEdit]);
-
-
-    const destroyListener = () => {
-        setIsChanging(true);
         setIsEdit(false);
-
         setTimeout(() => {
             setColInput(9);
             setIsShowTaskController(true);
         }, 300);
-    }
-
-
-    const onKeyDown = (event) => {
-        if(event.code === 'Enter' || event.code === 'Escape') {
-            setIsEdit(false);
-            setIsChanging(true);
-        }
-    }
-
-    const onChange = (event) => {
-        setTask({
-            ...task,
-            name: event.target.value
-        });
-        setIsChanging(true);
     }
 
     const onEdit = () => {
@@ -79,14 +49,15 @@ export default function Task(props) {
                            type={'checkbox'}
                            disabled={isEdit}
                     />
-                    <Input id={task._id ? task._id.toString() : 'TaskNewInput'}
-                           className={`task-text item_for_editing-text ${isEdit ? 'active' : ''}`}
-                           value={task.name}
-                           placeholder={'Please, enter name of task'}
-                           onKeyDown={(event) => onKeyDown(event)}
-                           onChange={(event) => onChange(event)}
-                           onClick={() => onEdit()}
+                    <InputInList
+                        id={task._id ? task._id.toString() : 'TaskNewInput'}
+                        classNames={'with_checkbox'}
+                        value={task.name}
+                        close={onSave}
+                        parentElem={id()}
+                        isEdit={isEdit}
                     />
+
                 </Col>
                 {
                     isShowTaskController && task._id ?
@@ -106,12 +77,6 @@ export default function Task(props) {
                         null
                 }
             </Row>
-
-            <WrapClickListener parentElem={'#' + id()}
-                               isEdit={isEdit}
-                               destroyListener={destroyListener}
-                               ref={RefWrapClickListener}
-            />
         </li>
     )
 }

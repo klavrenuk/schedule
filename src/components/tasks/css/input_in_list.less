@@ -1,0 +1,24 @@
+@import "config";
+
+.input_in_list {
+  input {
+    border: 2px solid @yellow;
+    padding-top: 7px;
+    font-size: @fontSizeSmall;
+
+    &:hover,
+    &:active,
+    &:focus {
+      border: 2px solid @yellow !important;
+    }
+
+    &:disabled {
+      border: 2px solid transparent !important;
+      background: none;
+    }
+
+    &.with_checkbox {
+      padding-left: 33px;
+    }
+  }
+}

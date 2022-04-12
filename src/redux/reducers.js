@@ -21,7 +21,7 @@ const reducers = (state = initState, action) => {
             return state;
 
         case 'createSection':
-            Tasks.createSection();
+            Tasks.createSection(action);
             return state;
 
         case 'updateTasks':

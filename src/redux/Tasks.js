@@ -55,12 +55,13 @@ const Tasks = {
         socket.emit('deleteTask', task);
     },
 
-    createSection() {
+    createSection(section) {
         try {
-            const fakeSection = {
-                name: 'English'
-            };
-            socket.emit('createSection', fakeSection);
+            console.log(section);
+
+            console.log('createSection');
+
+            //socket.emit('createSection', fakeSection);
 
         } catch (err) {
             processingError();
