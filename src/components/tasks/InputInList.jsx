@@ -18,30 +18,27 @@ export default function InputInList(props) {
     }
 
     const [value, setValue] = useState(props.value || '');
+    const [isSave, setIsSave] = useState(false);
     const classNames = props.classNames ? props.classNames : '';
     const id = 'Input-' + props.parentElem;
 
+
     useEffect(() => {
-        // check
-    }, [props.isEdit, value]);
+        if(isSave) {
+            props.close(value);
+        }
+
+        return () => {
+            setIsSave(false);
+        }
+    }, [isSave]);
 
 
-    const destroyListener = () => {
-        console.log('destroyListener', value);
-        setTimeout(() => {
-            console.log('value timeout', value);
-        }, 2000);
-
-        // const input = document.getElementById('Input-' + props.parentElem);
-        // console.log(input);
-
-        props.close(value);
-    }
+    const destroyListener = () => setIsSave(true);
 
     const onKeyDown = (event) => {
         if(event.code === 'Enter' || event.code == 'Escape') {
-            console.log('onkeyDown');
-            props.close(value);
+            setIsSave(true);
         }
     }
 
