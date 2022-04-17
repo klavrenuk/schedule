@@ -12,6 +12,10 @@ const initState = {
 
 const reducers = (state = initState, action) => {
     switch(action.type) {
+        case 'editTask':
+             Tasks.editItem(action.task);
+             return state;
+
         case 'createTask':
             Tasks.createTask(action.task);
             return state;

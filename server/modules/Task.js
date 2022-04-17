@@ -40,7 +40,15 @@ const validationTask = (task) => {
         value: true,
         message: null
     };
-}
+};
+
+const checkItem = (item) => {
+    if(item && item.hasOwnProperty('_id')) {
+        return true;
+    } else {
+        return false;
+    }
+};
 
 const Task = {
     create(item) {
@@ -71,7 +79,7 @@ const Task = {
 
     delete(task) {
         return new Promise((resolve, reject) => {
-            if(!task || !task.hasOwnProperty('_id')) {
+            if(!checkItem(task)) {
                 reject('Bad request');
                 return false;
             }
@@ -84,6 +92,32 @@ const Task = {
 
                 resolve(true);
             })
+        })
+    },
+
+    edit(task) {
+        return new Promise((resolve, reject) => {
+            if(!checkItem(task)) {
+                reject('Bad request');
+                return false;
+            }
+
+            const validation = validationTask(task, true);
+            if(!validation.value) {
+                reject(validation.message);
+                return false;
+            }
+
+            ModelTask.findOneAndUpdate(
+                {_id: task._id}, task, (err) =>
+                {
+                    if(err) {
+                        reject(err);
+                    }
+
+                    resolve(true);
+                }
+            )
         })
     }
 }

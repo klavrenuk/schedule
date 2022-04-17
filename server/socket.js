@@ -12,21 +12,15 @@ module.exports = (io) => {
             console.log('disconnect', reason);
         });
         
-        socket.on('createSection', (section) => {
-            createSection(section);
-        });
+        socket.on('createSection', (section) => createSection(section));
 
-        socket.on('updateTask', () => {
-            sendTasks();
-        });
+        socket.on('updateTask', () => sendTasks());
 
-        socket.on('deleteTask', (task) => {
-            deleteTask(task);
-        });
+        socket.on('deleteTask', (task) => deleteTask(task));
 
-        socket.on('createTask', (task) => {
-            createTask(task);
-        })
+        socket.on('createTask', (task) => createTask(task));
+
+        socket.on('editTask', (task) => editTask(task));
 
         const sendTasks = async() => {
             let list = [];
@@ -61,7 +55,7 @@ module.exports = (io) => {
                 sendTasks();
 
             } catch (err) {
-                console.log(err);
+                sendError(err, socket);
             }
         }
 
@@ -70,7 +64,6 @@ module.exports = (io) => {
                 await Task.create(task);
 
             } catch (err) {
-                console.log(err);
                 sendError(err, socket);
             }
         }
@@ -81,7 +74,14 @@ module.exports = (io) => {
                 sendTasks()
 
             } catch (err) {
-                console.log(err);
+                sendError(err, socket);
+            }
+        }
+
+        const editTask = async (task) => {
+            try {
+                await Task.edit(task);
+            } catch (err) {
                 sendError(err, socket);
             }
         }
