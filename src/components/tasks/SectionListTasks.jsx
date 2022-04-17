@@ -51,6 +51,10 @@ export default function SectionListTasks(props) {
     }
 
     const save = (task) => {
+        if(!task) {
+            return false;
+        }
+
         if(task.hasOwnProperty('_id')) {
            dispatch({
                type: 'editTask',
@@ -98,6 +102,7 @@ export default function SectionListTasks(props) {
                     <Task task={null}
                           toggleViewCreateTask={toggleViewCreateTask}
                           save={save}
+                          isEdit={true}
                     />
             }
 

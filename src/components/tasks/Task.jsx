@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Button, Col, Input, Row} from "reactstrap";
 import {AiFillDelete, AiFillEdit} from "react-icons/ai";
 
@@ -12,17 +12,27 @@ export default function Task(props) {
     const [colInput, setColInput] = useState(9);
     const [isShowTaskController, setIsShowTaskController] = useState(true);
 
-    const onSave = (value) => {
-        setTask({
+    useEffect(() => {
+        if(props.isEdit) {
+            onEdit();
+        }
+
+    }, [props]);
+
+    const onSave = async (value) => {
+        const item = {
             ...task,
             name: value
-        });
+        };
 
+        props.save(item);
         setIsEdit(false);
+        setTask(item);
+
         setTimeout(() => {
             setColInput(9);
             setIsShowTaskController(true);
-        }, 300);
+        }, 400);
     }
 
     const onEdit = () => {
