@@ -112,7 +112,7 @@ const User = {
             })
 
         } catch (err) {
-            console.log(err);
+            console.error(err);
 
             if(status === 200) {
                 status = 500;
@@ -141,7 +141,7 @@ const User = {
             })
 
         } catch(err) {
-            console.log(err);
+            console.error(err);
             response.sendStatus(500);
         }
     }

@@ -15,7 +15,7 @@ const Section = {
 
             section.save((err) => {
                 if(err) {
-                    console.log(err);
+                    console.error(err);
                     reject(err);
                 }
 

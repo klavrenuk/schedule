@@ -91,7 +91,7 @@ const Event = {
             response.sendStatus(200);
 
         } catch(err) {
-            console.log(err);
+            console.error(err);
 
             if(err === 200) {
                 err = 500;

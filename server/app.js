@@ -8,8 +8,6 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const socketIO = require('socket.io');
 
-const error = require('./middlewares/error');
-
 app.use(express.Router());
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -30,7 +28,8 @@ require('./router')(app);
 
 mongoose.connect('mongodb://localhost:27017/schedule', function(err) {
     if(err) {
-        return console.log('Connection error to database');
+        console.error('Connection error to database');
+        return;
 
     } else {
         const server = app.listen(9000, () => {

@@ -84,6 +84,8 @@ const Task = {
                 return false;
             }
 
+            throw Error('Custom error');
+
             ModelTask.findByIdAndDelete({_id: task._id}, (err) => {
                 if(err) {
                     reject(err);

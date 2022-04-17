@@ -1,15 +1,15 @@
-const sendError = (message, socket = null, ) => {
+const sendError = (err, socket = null, ) => {
     if(socket) {
-        socket.emit('action_error', message);
+        socket.emit('action_error', err.message);
     }
 }
 
 process.on('uncaughtException', (err) => {
-    console.log(err);
+    console.error(err);
 });
 
 process.on('unhandledrejection', (err) => {
-    console.log(err);
+    console.error(err);
 });
 
 module.exports = {sendError};

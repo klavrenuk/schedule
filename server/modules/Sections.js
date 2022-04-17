@@ -5,7 +5,7 @@ const Sections = {
         return new Promise((resolve, reject) => {
             Section.ModelSection.find({}, (err, arr) => {
                 if(err) {
-                    console.log(err);
+                    console.error(err);
                     reject(err);
                 }
 
