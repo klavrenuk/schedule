@@ -13,18 +13,15 @@ const AlertError = forwardRef((props, ref) => {
         show(message = '') {
             setIsShow(true);
             setMessage(message);
-            setTimeout(() => close(), 10000);
         }
     }))
 
     const close = () => {
-        if(isShow) {
-            dispatch({
-                type: 'setError',
-                value: null
-            });
-            setIsShow(false);
-        }
+        dispatch({
+            type: 'setError',
+            value: null
+        });
+        setIsShow(false);
     }
 
     if(!isShow) {

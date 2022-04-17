@@ -11,13 +11,10 @@ const processingError = (message) => {
         message = 'Error! Please, try latter';
     }
 
-    Swal.fire(message);
-
-    if(isConnected) {
-        socket.emit('updateTask');
-    } else {
-        Swal.fire('Please, update page');
-    }
+    store.dispatch({
+        type: 'setError',
+        value: message
+    });
 }
 
 socket.on('connect', () => {
