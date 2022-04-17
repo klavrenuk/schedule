@@ -6,12 +6,19 @@ const initState = {
     },
     user: {},
     isShowModalTasks: false,
-    tasks: Tasks.getTasks()
+    tasks: Tasks.getTasks(),
+    error: null
 };
 
 
 const reducers = (state = initState, action) => {
     switch(action.type) {
+        case 'setError':
+            return {
+                ...state,
+                error: action.value
+            };
+
         case 'editTask':
              Tasks.editItem(action.task);
              return state;

@@ -1,13 +1,13 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {Row, Col, Button} from "reactstrap";
 
 import Tabs from './Tabs';
 import TasksFooter from './TasksFooter';
 import TasksList from "./TasksList";
+import SectionNew from "./SectionNew";
 
 import './css/tasks.min.css';
-import SectionNew from "./SectionNew";
 
 export default function Tasks() {
     const [view, setView] = useState('tasks');
