@@ -9,7 +9,7 @@ module.exports = (io) => {
         console.log('connected', socket.id);
 
         socket.on('disconnect', (reason) => {
-            console.log('disconnect', reason);
+            console.log('disconnect', socket.id, reason);
         });
         
         socket.on('createSection', (section) => createSection(section));

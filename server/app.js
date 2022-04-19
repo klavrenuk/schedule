@@ -7,6 +7,7 @@ const passport = require('passport');
 const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const socketIO = require('socket.io');
+const port = process.env.PORT || 9000;
 
 app.use(express.Router());
 app.use(cors());
@@ -32,8 +33,8 @@ mongoose.connect('mongodb://localhost:27017/schedule', function(err) {
         return;
 
     } else {
-        const server = app.listen(9000, () => {
-            console.log('Server listening');
+        const server = app.listen(port, () => {
+            console.log(`Server running at http://localhost:${port}`);
         });
 
         const io = socketIO(server);
