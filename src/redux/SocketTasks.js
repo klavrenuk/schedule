@@ -1,6 +1,5 @@
 import {io} from 'socket.io-client'
 import store from './store';
-import Swal from "sweetalert2";
 
 const socket = io('ws://');
 let tasks = [],
@@ -43,13 +42,17 @@ socket.on('connect', () => {
     });
 });
 
-const Tasks = {
+const SocketTasks = {
     getTasks() {
         return tasks;
     },
 
-    deleteItem(task) {
+    deleteTask(task) {
         socket.emit('deleteTask', task);
+    },
+
+    deleteSection(id) {
+        socket.emit('deleteSection', id);
     },
 
     createSection(section) {
@@ -84,4 +87,4 @@ const Tasks = {
     }
 }
 
-export default Tasks;
+export default SocketTasks;

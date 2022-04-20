@@ -1,4 +1,4 @@
-import Tasks from './Tasks';
+import SocketTasks from './SocketTasks';
 
 const initState = {
     event: {
@@ -6,7 +6,7 @@ const initState = {
     },
     user: {},
     isShowModalTasks: false,
-    tasks: Tasks.getTasks(),
+    tasks: SocketTasks.getTasks(),
     error: null
 };
 
@@ -20,19 +20,23 @@ const reducers = (state = initState, action) => {
             };
 
         case 'editTask':
-             Tasks.editItem(action.task);
+             SocketTasks.editItem(action.task);
              return state;
 
         case 'createTask':
-            Tasks.createTask(action.task);
+            SocketTasks.createTask(action.task);
             return state;
 
         case 'deleteTask':
-            Tasks.deleteItem(action.task);
+            SocketTasks.deleteTask(action.task);
             return state;
 
         case 'createSection':
-            Tasks.createSection(action);
+            SocketTasks.createSection(action);
+            return state;
+
+        case 'deleteSection':
+            SocketTasks.deleteSection(action.id);
             return state;
 
         case 'updateTasks':
