@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {AiFillDelete, AiFillEdit, AiOutlineDown, AiOutlineUp} from "react-icons/ai";
 import {Row, Col, Button} from 'reactstrap';
+import {useDispatch} from 'react-redux';
 
 import SectionListTasks from "./SectionListTasks";
 import InputInList from "./InputInList";
@@ -12,6 +13,7 @@ export default function Section(props) {
     const [isEdit, setIsEdit] = useState(false);
     const [section, setSection] = useState(props.data);
     const sectionId = `Section-${section._id}`;
+    const dispatch = useDispatch();
 
     const onSave = (value) => {
         setSection({
@@ -22,6 +24,11 @@ export default function Section(props) {
     };
 
     const onEdit = () => setIsEdit(true);
+
+    const onDelete = () => dispatch({
+        type: 'deleteSection',
+        id: section._id
+    });
 
     return (
         <li id={sectionId}
@@ -63,7 +70,9 @@ export default function Section(props) {
                         >
                             <AiFillEdit />
                         </Button>
-                        <Button color={'icon'}>
+                        <Button color={'icon'}
+                                onClick={() => onDelete()}
+                        >
                             <AiFillDelete />
                         </Button>
                     </div>

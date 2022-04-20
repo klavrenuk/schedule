@@ -22,6 +22,26 @@ const Section = {
                 resolve(true);
             })
         })
+    },
+
+    delete(id) {
+        return new Promise((resolve, reject) => {
+            if(!id) {
+                reject('Bad request');
+                return false;
+            }
+
+            ModelSection.findByIdAndDelete(
+                {_id: id}, (err) => {
+                    if(err) {
+                        reject(err);
+                        return false;
+                    }
+
+                    resolve(true);
+                }
+            )
+        })
     }
 }
 

@@ -14,11 +14,13 @@ module.exports = (io) => {
         
         socket.on('createSection', (section) => createSection(section));
 
+        socket.on('deleteSection', (id) => deleteSection(id));
+
         socket.on('updateTask', () => sendTasks());
 
-        socket.on('deleteTask', (task) => deleteTask(task));
-
         socket.on('createTask', (task) => createTask(task));
+
+        socket.on('deleteTask', (task) => deleteTask(task));
 
         socket.on('editTask', (task) => editTask(task));
 
@@ -56,6 +58,16 @@ module.exports = (io) => {
 
             } catch (err) {
                 sendError(err, socket);
+            }
+        }
+
+        const deleteSection = async (id) => {
+            try {
+                await Section.delete(id);
+                sendTasks();
+
+            } catch (err) {
+                sendError();
             }
         }
 
