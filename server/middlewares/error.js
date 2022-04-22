@@ -1,6 +1,17 @@
-const sendError = (err, socket = null, ) => {
+const getMessage = (err, customErrorMessage) => {
+    if(customErrorMessage) {
+        return customErrorMessage;
+    }
+
+    switch (err) {
+        default:
+            return 'Error! Please, try again';
+    }
+}
+
+const sendErrorSocket = (err, socket = null, customErrorMessage) => {
     if(socket) {
-        socket.emit('action_error', err.message);
+        socket.emit('action_error', getMessage(err, customErrorMessage));
     }
 }
 
@@ -12,4 +23,4 @@ process.on('unhandledrejection', (err) => {
     console.error(err);
 });
 
-module.exports = {sendError};
+module.exports = {sendErrorSocket};

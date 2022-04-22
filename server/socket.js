@@ -2,7 +2,7 @@ const Section = require('./modules/Section').Section;
 const Task = require('./modules/Task').Task;
 const Tasks = require('./modules/Tasks');
 const Sections = require('./modules/Sections');
-const {sendError} = require('./middlewares/error');
+const {sendErrorSocket} = require('./middlewares/error');
 
 module.exports = (io) => {
     io.on('connection', (socket) => {
@@ -58,7 +58,7 @@ module.exports = (io) => {
 
             } catch (err) {
                 console.log(err);
-                sendError(null, socket);
+                sendErrorSocket(err, socket);
             }
         }
 
@@ -69,7 +69,7 @@ module.exports = (io) => {
 
             } catch (err) {
                 console.log(err);
-                sendError(null, socket);
+                sendErrorSocket(err, socket);
             }
         }
 
@@ -79,7 +79,7 @@ module.exports = (io) => {
 
             } catch (err) {
                 console.log(err);
-                sendError(null, socket);
+                sendErrorSocket(err, socket);
             }
         }
 
@@ -90,7 +90,7 @@ module.exports = (io) => {
 
             } catch (err) {
                 console.log(err);
-                sendError(null, socket);
+                sendErrorSocket(err, socket);
             }
         }
 
@@ -99,7 +99,7 @@ module.exports = (io) => {
                 await Task.edit(task);
             } catch (err) {
                 console.log(err);
-                sendError(null, socket);
+                sendErrorSocket(err, socket);
             }
         }
 
