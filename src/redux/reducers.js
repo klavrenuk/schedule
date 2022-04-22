@@ -15,7 +15,8 @@ const reducers = (state = initState, action) => {
     switch(action.type) {
         case 'setError':
             return {
-                ...state,
+                ...initState,
+                tasks: SocketTasks.getTasks(),
                 error: action.value
             };
 
@@ -24,7 +25,7 @@ const reducers = (state = initState, action) => {
              return state;
 
         case 'createTask':
-            SocketTasks.createTask(action.section);
+            SocketTasks.createTask(action.task);
             return state;
 
         case 'deleteTask':

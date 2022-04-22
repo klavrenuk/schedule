@@ -2,7 +2,7 @@ const validationItem = (options, item) => {
     if(!item) {
         return {
             value: false,
-            message: 'Bad request'
+            message: 'Parameter item is null'
         }
     }
 
