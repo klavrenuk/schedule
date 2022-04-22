@@ -1,37 +1,71 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Col, Input, Row} from "reactstrap";
 import {AiFillDelete, AiFillEdit} from "react-icons/ai";
+import {useDispatch} from 'react-redux';
 
 import InputInList from "./InputInList";
 
 import './css/task.min.css';
 
 export default function Task(props) {
+    const dispatch = useDispatch();
+
     const [task, setTask] = useState(props.task || {name: ''});
-    const [isEdit, setIsEdit] = useState(false);
-    const [colInput, setColInput] = useState(9);
+    const [isEdit, setIsEdit] = useState(props.isEdit ? props.isEdit : false);
+    const [colInput, setColInput] = useState(props.isEdit ? 12 : 9);
     const [isShowTaskController, setIsShowTaskController] = useState(true);
 
-    useEffect(() => {
-        if(props.isEdit) {
-            onEdit();
+    const onDelete = () => dispatch({
+        type: 'deleteTask',
+        task: task
+    });
+
+    const isValidTask = (task) => {
+        if(
+            !task.hasOwnProperty('name') ||
+            task.name === '' ||
+            task.name.trim() === ''
+        ) {
+            return false;
+        } else {
+            return true;
         }
+    }
 
-    }, [props]);
-
-    const onSave = async (value) => {
+    const save = async (value) => {
         const item = {
             ...task,
-            name: value
+            name: value,
+            sectionId: props.section._id
         };
 
-        props.save(item);
+        if(!isValidTask(item)) {
+            // alert('incorrect item)
+
+            console.log('task invalid');
+
+            return false;
+
+        } else {
+            let dispatchType = 'editTask';
+
+            if(!item.hasOwnProperty('_id')) {
+                dispatchType = 'createTask';
+            }
+
+            dispatch({
+                type: dispatchType,
+                task: item
+            });
+        }
+
         setIsEdit(false);
-        setTask(item);
 
         setTimeout(() => {
+            setTask(item);
             setColInput(9);
             setIsShowTaskController(true);
+            props.toggleViewCreateTask(true);
         }, 400);
     }
 
@@ -63,7 +97,7 @@ export default function Task(props) {
                         id={task._id ? task._id.toString() : 'TaskNewInput'}
                         classNames={'with_checkbox'}
                         value={task.name}
-                        close={onSave}
+                        close={save}
                         parentElem={id()}
                         isEdit={isEdit}
                     />
@@ -78,7 +112,7 @@ export default function Task(props) {
                                 <AiFillEdit />
                             </Button>
                             <Button color={'icon'}
-                                    onClick={() => props.deleteTask(task)}
+                                    onClick={() => onDelete(task)}
                             >
                                 <AiFillDelete />
                             </Button>

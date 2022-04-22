@@ -32,7 +32,7 @@ const validationTask = (task) => {
     if(!task.hasOwnProperty('sectionId')) {
         return {
             value: false,
-            message: 'section id undefined'
+            message: 'sectionId is required'
         };
     }
 

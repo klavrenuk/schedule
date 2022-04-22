@@ -76,6 +76,7 @@ module.exports = (io) => {
         const createTask = async (task) => {
             try {
                 await Task.create(task);
+                sendTasks();
 
             } catch (err) {
                 console.log(err);
@@ -97,6 +98,7 @@ module.exports = (io) => {
         const editTask = async (task) => {
             try {
                 await Task.edit(task);
+
             } catch (err) {
                 console.log(err);
                 sendErrorSocket(err, socket);
