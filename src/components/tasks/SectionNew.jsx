@@ -1,5 +1,4 @@
-import React, {useState} from 'react';
-import {Input} from "reactstrap";
+import React from 'react';
 
 import InputInList from "./InputInList";
 
@@ -12,7 +11,8 @@ export default function SectionNew(props) {
         <div id={id} className={'section_new'}>
             <InputInList
                 close={props.save}
-                parentElem={`#${id}`}
+                parentElem={`${id}`}
+                isEdit={true}
             />
         </div>
     )

@@ -57,11 +57,7 @@ const SocketTasks = {
 
     createSection(section) {
         try {
-            console.log(section);
-
-            console.log('createSection');
-
-            //socket.emit('createSection', fakeSection);
+            socket.emit('createSection', section);
 
         } catch (err) {
             processingError();

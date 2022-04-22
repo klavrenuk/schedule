@@ -24,7 +24,7 @@ const reducers = (state = initState, action) => {
              return state;
 
         case 'createTask':
-            SocketTasks.createTask(action.task);
+            SocketTasks.createTask(action.section);
             return state;
 
         case 'deleteTask':
@@ -32,7 +32,7 @@ const reducers = (state = initState, action) => {
             return state;
 
         case 'createSection':
-            SocketTasks.createSection(action);
+            SocketTasks.createSection(action.section);
             return state;
 
         case 'deleteSection':

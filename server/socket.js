@@ -12,7 +12,7 @@ module.exports = (io) => {
             console.log('disconnect', socket.id, reason);
         });
         
-        socket.on('createSection', (section) => createSection(section));
+        socket.on('createSection', (name) => createSection(name));
 
         socket.on('deleteSection', (id) => deleteSection(id));
 
@@ -51,13 +51,14 @@ module.exports = (io) => {
 
         };
 
-        const createSection = async (section) => {
+        const createSection = async (name) => {
             try {
-                await Section.create(section);
+                await Section.create(name);
                 sendTasks();
 
             } catch (err) {
-                sendError(err, socket);
+                console.log(err);
+                sendError(null, socket);
             }
         }
 
@@ -67,7 +68,8 @@ module.exports = (io) => {
                 sendTasks();
 
             } catch (err) {
-                sendError();
+                console.log(err);
+                sendError(null, socket);
             }
         }
 
@@ -76,7 +78,8 @@ module.exports = (io) => {
                 await Task.create(task);
 
             } catch (err) {
-                sendError(err, socket);
+                console.log(err);
+                sendError(null, socket);
             }
         }
 
@@ -86,7 +89,8 @@ module.exports = (io) => {
                 sendTasks()
 
             } catch (err) {
-                sendError(err, socket);
+                console.log(err);
+                sendError(null, socket);
             }
         }
 
@@ -94,7 +98,8 @@ module.exports = (io) => {
             try {
                 await Task.edit(task);
             } catch (err) {
-                sendError(err, socket);
+                console.log(err);
+                sendError(null, socket);
             }
         }
 

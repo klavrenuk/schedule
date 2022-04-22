@@ -53,7 +53,6 @@ export default function InputInList(props) {
                    onChange={(event) => onChange(event)}
                    disabled={!props.isEdit}
             />
-
             <WrapClickListener parentElem={props.parentElem}
                                isEdit={props.isEdit}
                                destroyListener={destroyListener}

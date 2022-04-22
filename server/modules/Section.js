@@ -9,10 +9,12 @@ const ModelSection = mongoose.model('Section', new Schema({
 }));
 
 const Section = {
-    create(item) {
+    create(name) {
         return new Promise((resolve, reject) => {
-            const section = new ModelSection(item);
 
+            const section = new ModelSection({
+                name: name
+            });
             section.save((err) => {
                 if(err) {
                     console.error(err);

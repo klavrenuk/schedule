@@ -17,11 +17,11 @@ export default function Tasks() {
     const dispatch = useDispatch();
 
     const createSection = (value) => {
-        console.log('createSection', value);
         setIsShowSectionNew(false);
-        // dispatch({
-        //     type: 'createSection'
-        // });
+        dispatch({
+            type: 'createSection',
+            section: value
+        });
     }
 
     const showSectionNew = () => setIsShowSectionNew(true);
