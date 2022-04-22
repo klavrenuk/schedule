@@ -103,7 +103,7 @@ const User = {
 
             user.save((err) => {
                 if(err) {
-                    reject(err);
+                    throw new Error(err);
                 }
 
                 response.status(200).json({
