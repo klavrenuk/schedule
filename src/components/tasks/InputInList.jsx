@@ -7,7 +7,7 @@ import './css/input_in_list.min.css';
 
 export default function InputInList(props) {
     const requiredOptions = [
-        'close',
+        'save',
         'parentElem'
     ];
 

@@ -1,11 +1,17 @@
 @import "config";
 
 .tasks_footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
   height: @tasksFooterHeight;
+  z-index: 99;
   border-top: 1px solid #ccc;
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  background: #fff;
 
   & .btn.btn--create_list {
     padding: 6px 30px;

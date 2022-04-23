@@ -17,12 +17,14 @@ export default function Tasks() {
     const dispatch = useDispatch();
 
     const createSection = (value) => {
-        setIsShowSectionNew(false);
+        closeSectionNew();
         dispatch({
             type: 'createSection',
             section: value
         });
     }
+
+    const closeSectionNew = () => setIsShowSectionNew(false);
 
     const showSectionNew = () => setIsShowSectionNew(true);
 
@@ -54,7 +56,10 @@ export default function Tasks() {
                 {
                     isShowSectionNew ?
                         <div className={'tasks-container'}>
-                            <SectionNew save={createSection} />
+                            <SectionNew
+                                save={createSection}
+                                closeSectionNew={closeSectionNew}
+                            />
                         </div>
                         :
                         null

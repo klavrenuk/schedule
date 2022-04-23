@@ -11,6 +11,7 @@ export default function SectionNew(props) {
         <div id={id} className={'section_new'}>
             <InputInList
                 save={props.save}
+                close={props.closeSectionNew}
                 parentElem={`${id}`}
                 isEdit={true}
             />
