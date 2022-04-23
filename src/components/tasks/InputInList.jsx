@@ -22,10 +22,15 @@ export default function InputInList(props) {
     const classNames = props.classNames ? props.classNames : '';
     const id = 'Input-' + props.parentElem;
 
-
     useEffect(() => {
         if(isSave) {
-            props.close(value);
+            if(isEmptyValue(value) && props.hasOwnProperty('close')) {
+                setValue(props.value);
+                props.close();
+
+            } else {
+                props.save(value);
+            }
         }
 
         return () => {
@@ -33,6 +38,13 @@ export default function InputInList(props) {
         }
     }, [isSave]);
 
+    const isEmptyValue = (value) => {
+        if(value === '' || value.trim() === '') {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     const destroyListener = () => setIsSave(true);
 

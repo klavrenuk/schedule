@@ -20,29 +20,12 @@ export default function Task(props) {
         task: task
     });
 
-    const isValidTask = (task) => {
-        if(
-            !task.hasOwnProperty('name') ||
-            task.name === '' ||
-            task.name.trim() === ''
-        ) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-
     const save = async (value) => {
         const item = {
             ...task,
             name: value,
             sectionId: props.section._id
         };
-
-        if(!isValidTask(item)) {
-            closeEdit();
-            return false;
-        }
 
         let dispatchType = 'editTask';
         if(!item.hasOwnProperty('_id')) {
@@ -96,9 +79,10 @@ export default function Task(props) {
                         id={task._id ? task._id.toString() : 'TaskNewInput'}
                         classNames={'with_checkbox'}
                         value={task.name}
-                        close={save}
+                        save={save}
                         parentElem={id()}
                         isEdit={isEdit}
+                        close={closeEdit}
                     />
 
                 </Col>

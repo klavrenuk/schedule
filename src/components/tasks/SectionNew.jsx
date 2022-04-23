@@ -10,7 +10,7 @@ export default function SectionNew(props) {
     return (
         <div id={id} className={'section_new'}>
             <InputInList
-                close={props.save}
+                save={props.save}
                 parentElem={`${id}`}
                 isEdit={true}
             />

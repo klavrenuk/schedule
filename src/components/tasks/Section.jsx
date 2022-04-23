@@ -40,7 +40,7 @@ export default function Section(props) {
                         isEdit ?
                             <InputInList
                                 value={section.name}
-                                close={onSave}
+                                save={onSave}
                                 parentElem={sectionId}
                                 isEdit={isEdit}
                             />
