@@ -26,7 +26,14 @@ export default function Tasks() {
 
     const closeSectionNew = () => setIsShowSectionNew(false);
 
-    const showSectionNew = () => setIsShowSectionNew(true);
+    const showSectionNew = () => {
+        const taskListElem = document.querySelector('#TaskList');
+        if(taskListElem) {
+            taskListElem.scroll(0,0);
+        }
+
+        setIsShowSectionNew(true);
+    }
 
     const onCloseModalTasks = () => dispatch({
         type: 'toggleModalTasks'

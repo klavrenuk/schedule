@@ -6,7 +6,7 @@ import './css/tasks_list.min.css';
 
 export default function TasksList(props) {
     return (
-        <div className={'tasks_list'}>
+        <div id="TaskList" className={'tasks_list'}>
             <div className={'tasks-container'}>
                 <ul>
                     {
