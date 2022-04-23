@@ -40,36 +40,35 @@ export default function Task(props) {
         };
 
         if(!isValidTask(item)) {
-            // alert('incorrect item)
-
-            console.log('task invalid');
-
+            closeEdit();
             return false;
-
-        } else {
-            let dispatchType = 'editTask';
-
-            if(!item.hasOwnProperty('_id')) {
-                dispatchType = 'createTask';
-            }
-
-            dispatch({
-                type: dispatchType,
-                task: item
-            });
         }
 
-        setIsEdit(false);
+        let dispatchType = 'editTask';
+        if(!item.hasOwnProperty('_id')) {
+            dispatchType = 'createTask';
+        }
 
-        setTimeout(() => {
-            setTask(item);
-            setColInput(9);
-            setIsShowTaskController(true);
-            props.toggleViewCreateTask(true);
-        }, 400);
+        dispatch({
+            type: dispatchType,
+            task: item
+        });
+        setTask(item);
+
+        closeEdit();
     }
 
-    const onEdit = () => {
+    const closeEdit = () => {
+        setIsEdit(false);
+        setColInput(9);
+
+        setTimeout(() => {
+            setIsShowTaskController(true);
+            props.toggleViewCreateTask(true);
+        }, 500);
+    }
+
+    const openEdit = () => {
         setIsEdit(true);
         setColInput(12);
         setIsShowTaskController(false);
@@ -107,7 +106,7 @@ export default function Task(props) {
                     isShowTaskController && task._id ?
                         <Col sm={3} className={`text-right task-controller`}>
                             <Button color={'icon'}
-                                    onClick={() => onEdit()}
+                                    onClick={() => openEdit()}
                             >
                                 <AiFillEdit />
                             </Button>
