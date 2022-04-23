@@ -27,28 +27,25 @@ export default function Task(props) {
             sectionId: props.section._id
         };
 
-        let dispatchType = 'editTask';
-        if(!item.hasOwnProperty('_id')) {
-            dispatchType = 'createTask';
+        let type = 'createTask'
+        if(item.hasOwnProperty('_id')) {
+            type = 'editTask';
         }
 
         dispatch({
-            type: dispatchType,
+            type: type,
             task: item
         });
-        setTask(item);
 
+        setTask(item);
         closeEdit();
     }
 
     const closeEdit = () => {
+        props.toggleViewCreateTask(true);
         setIsEdit(false);
         setColInput(9);
-
-        setTimeout(() => {
-            setIsShowTaskController(true);
-            props.toggleViewCreateTask(true);
-        }, 500);
+        setIsShowTaskController(true);
     }
 
     const openEdit = () => {

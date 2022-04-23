@@ -7,16 +7,14 @@ import './css/section_list_taks.min.css';
 
 export default function SectionListTasks(props) {
     const [isShowCreateTask, setIsShowCreateTask] = useState(true);
-    const [list, setList] = useState(props.list || []);
-    const [isShowList, setIsShowList] = useState(true);
+    const [list, setList] = useState([]);
 
     useEffect(() => {
-        setIsShowList(false);
-        setList(props.list || []);
+        setList(props.list);
 
-        setTimeout(() => {
-            setIsShowList(true);
-        }, 0);
+        return () => {
+            setList([]);
+        }
     }, [props]);
 
     const toggleViewCreateTask = (value) => setIsShowCreateTask(value);
@@ -24,14 +22,14 @@ export default function SectionListTasks(props) {
     return (
         <ul className={'section_list_tasks'}>
             {
-                !isShowList ? null :
-                    list.map((task) => {
-                        return <Task key={task._id}
-                                     task={task}
-                                     section={props.section}
-                                     toggleViewCreateTask={toggleViewCreateTask}
-                        />
-                    })
+                list.map((task) => {
+                    return <Task key={task._id}
+                                 task={task}
+                                 section={props.section}
+                                 toggleViewCreateTask={toggleViewCreateTask}
+                    />
+                })
+
             }
 
             {
