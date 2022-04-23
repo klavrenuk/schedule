@@ -10,7 +10,7 @@ const Sections = {
                 }
 
                 resolve(arr);
-            })
+            }).sort({'_id': -1})
         })
     },
 }
