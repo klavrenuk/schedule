@@ -41,9 +41,15 @@ module.exports = (io) => {
                         })
                     }
 
-                    if(itemSection.tasks && itemSection.tasks.length > 0) {
+                    if(type === 'completed') {
+                        if(itemSection.tasks && itemSection.tasks.length > 0) {
+                            list.push(itemSection);
+                        }
+
+                    } else {
                         list.push(itemSection);
                     }
+
                 });
 
             } catch(err) {
