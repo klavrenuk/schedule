@@ -16,7 +16,7 @@ module.exports = (io) => {
 
         socket.on('deleteSection', (id) => deleteSection(id));
 
-        socket.on('updateTask', () => sendTasks());
+        socket.on('getTasks', (type) => sendTasks(type));
 
         socket.on('createTask', (task) => createTask(task));
 
@@ -24,25 +24,19 @@ module.exports = (io) => {
 
         socket.on('editTask', (task) => editTask(task));
 
-        socket.on('getTasksCompleted', () => sendTasks(true));
-
-        const sendTasks = async(isCompleted) => {
+        const sendTasks = async(type) => {
             let list = [];
 
             try {
                 const sections = await Sections.getList();
-                const tasks = await Tasks.getList();
+                const tasks = await Tasks.getList(type);
 
                 sections.forEach((section) => {
                     const itemSection = {
                         ...section._doc,
                         tasks: tasks.filter((task) => {
                             if(section._id.toString() === task.sectionId.toString()) {
-                                if(isCompleted && task.isChecked) {
-                                    return task;
-                                } else if(!task.isChecked) {
-                                    return task;
-                                }
+                                return task;
                             }
                         })
                     }
@@ -56,7 +50,7 @@ module.exports = (io) => {
                 console.error(err);
 
             } finally {
-                socket.emit('getTasks', list);
+                socket.emit('listTasksUpdated', list);
             }
 
         };

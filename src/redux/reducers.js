@@ -6,15 +6,21 @@ const initState = {
     },
     user: {},
     isShowModalTasks: false,
-    tasks: SocketTasks.getTasks(),
+    tasks: SocketTasks.tasks(),
     error: null
 };
 
 
 const reducers = (state = initState, action) => {
     switch(action.type) {
-        case 'getTasksCompleted':
-            SocketTasks.getTasksCompleted();
+        case 'tasksUpdated':
+            return {
+                ...state,
+                tasks: SocketTasks.tasks()
+            };
+
+        case 'getTasks':
+            SocketTasks.getTasks(action.listType);
             return state;
 
         case 'setError':
@@ -43,12 +49,6 @@ const reducers = (state = initState, action) => {
         case 'deleteSection':
             SocketTasks.deleteSection(action.id);
             return state;
-
-        case 'updateTasks':
-            return {
-                ...state,
-                tasks: action.list
-            };
 
         case 'toggleModalTasks':
             let value = true;

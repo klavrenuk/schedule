@@ -19,11 +19,11 @@ const processingError = (message) => {
 socket.on('connect', () => {
     isConnected = true;
 
-    socket.on('getTasks', (list) => {
+    socket.on('listTasksUpdated', (list) => {
         tasks = list;
+
         store.dispatch({
-            type: 'updateTasks',
-            list: list
+            type: 'tasksUpdated'
         });
     });
 
@@ -43,7 +43,7 @@ socket.on('connect', () => {
 });
 
 const SocketTasks = {
-    getTasks() {
+    tasks() {
         return tasks;
     },
 
@@ -82,8 +82,8 @@ const SocketTasks = {
         }
     },
 
-    getTasksCompleted() {
-        socket.emit('getTasksCompleted');
+    getTasks(type) {
+        socket.emit('getTasks', type);
     }
 }
 

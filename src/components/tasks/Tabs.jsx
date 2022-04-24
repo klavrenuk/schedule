@@ -3,7 +3,7 @@ import React from 'react';
 import './css/tabs.min.css';
 
 export default function Tabs(props) {
-    const options = ['Tasks', 'Completed'];
+    const options = props.options;
 
     return (
         <nav className={'tabs'}>
@@ -15,7 +15,7 @@ export default function Tabs(props) {
                                 'active tabs-link' : 'tabs-link'
                         }
                            key={option}
-                           onClick={() => props.setActionView(option.toLowerCase())}
+                           onClick={() => props.onChange(option.toLowerCase())}
                         >
                             {option}
                         </a>

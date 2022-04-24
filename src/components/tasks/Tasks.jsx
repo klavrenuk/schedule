@@ -9,12 +9,28 @@ import SectionNew from "./SectionNew";
 
 import './css/tasks.min.css';
 
+const options = ['tasks', 'completed'];
+
 export default function Tasks() {
     const [view, setView] = useState('tasks');
     const [isShowSectionNew, setIsShowSectionNew] = useState(false);
 
     const state = useSelector(state => state);
     const dispatch = useDispatch();
+
+    const onChange = (active) => {
+        let listType = 'all'
+        if(active === 'completed') {
+            listType = 'completed';
+        }
+
+        dispatch({
+            type: 'getTasks',
+            listType: listType
+        });
+
+        setView(active);
+    }
 
     const createSection = (value) => {
         closeSectionNew();
@@ -48,8 +64,10 @@ export default function Tasks() {
                 <Row className={'tasks-header'}>
                     <Col sm={8}>
                         <div className={'tasks-container'}>
-                            <Tabs setActionView={setView}
-                                  activeView={view}
+                            <Tabs
+                                onChange={onChange}
+                                activeView={view}
+                                options={options}
                             />
                         </div>
                     </Col>
@@ -61,19 +79,26 @@ export default function Tasks() {
                 </Row>
 
                 {
-                    isShowSectionNew ?
-                        <div className={'tasks-container'}>
-                            <SectionNew
-                                save={createSection}
-                                closeSectionNew={closeSectionNew}
-                            />
+                    view === 'tasks' ?
+                        <div>
+                            {
+                                isShowSectionNew ?
+                                    <div className={'tasks-container'}>
+                                        <SectionNew
+                                            save={createSection}
+                                            closeSectionNew={closeSectionNew}
+                                        />
+                                    </div>
+                                    :
+                                    null
+                            }
+
+                            <TasksList list={state.tasks} />
+                            <TasksFooter showSectionNew={showSectionNew}/>
                         </div>
                         :
-                        null
+                        <TasksList list={state.tasks} />
                 }
-
-                <TasksList list={state.tasks} />
-                <TasksFooter showSectionNew={showSectionNew}/>
             </aside>
         )
     }

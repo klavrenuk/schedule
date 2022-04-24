@@ -1,9 +1,13 @@
 const Task = require('./Task');
 
 const Tasks = {
-    getList() {
+    getList(type) {
         return new Promise((resolve, reject) => {
-            Task.ModelTask.find({}, (err, list) => {
+            const filter = {
+                isChecked: type === 'completed' ? true : false
+            };
+
+            Task.ModelTask.find(filter, (err, list) => {
                 if(err) {
                     reject(err);
                     return false;
