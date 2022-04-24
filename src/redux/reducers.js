@@ -13,6 +13,10 @@ const initState = {
 
 const reducers = (state = initState, action) => {
     switch(action.type) {
+        case 'getTasksCompleted':
+            SocketTasks.getTasksCompleted();
+            return state;
+
         case 'setError':
             return {
                 ...state,

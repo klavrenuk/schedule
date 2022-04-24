@@ -24,21 +24,31 @@ module.exports = (io) => {
 
         socket.on('editTask', (task) => editTask(task));
 
-        const sendTasks = async() => {
+        socket.on('getTasksCompleted', () => sendTasks(true));
+
+        const sendTasks = async(isCompleted) => {
             let list = [];
 
             try {
                 const sections = await Sections.getList();
                 const tasks = await Tasks.getList();
 
-                list = sections.map((section) => {
-                    return {
+                sections.forEach((section) => {
+                    const itemSection = {
                         ...section._doc,
                         tasks: tasks.filter((task) => {
                             if(section._id.toString() === task.sectionId.toString()) {
-                                return task;
+                                if(isCompleted && task.isChecked) {
+                                    return task;
+                                } else if(!task.isChecked) {
+                                    return task;
+                                }
                             }
                         })
+                    }
+
+                    if(itemSection.tasks && itemSection.tasks.length > 0) {
+                        list.push(itemSection);
                     }
                 });
 

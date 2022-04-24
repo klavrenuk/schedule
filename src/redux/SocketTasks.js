@@ -80,6 +80,10 @@ const SocketTasks = {
             console.log(err);
             processingError();
         }
+    },
+
+    getTasksCompleted() {
+        socket.emit('getTasksCompleted');
     }
 }
 
