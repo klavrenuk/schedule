@@ -1,11 +1,11 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {Row, Col, Button} from "reactstrap";
 
 import Tabs from './Tabs';
-import TasksFooter from './TasksFooter';
+import Loading from "../general/Loading";
+import ContainerTasksInWork from "./ContainerTasksInWork";
 import TasksList from "./TasksList";
-import SectionNew from "./SectionNew";
 
 import './css/tasks.min.css';
 
@@ -13,10 +13,21 @@ const options = ['tasks', 'completed'];
 
 export default function Tasks() {
     const [view, setView] = useState('tasks');
-    const [isShowSectionNew, setIsShowSectionNew] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const state = useSelector(state => state);
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        if(isLoading) {
+            setIsLoading(false);
+        }
+
+        return () => {
+            setIsLoading(false);
+        }
+
+    }, [state]);
 
     const onChange = (active) => {
         let listType = 'all'
@@ -24,31 +35,13 @@ export default function Tasks() {
             listType = 'completed';
         }
 
+        setView(active);
+        setIsLoading(true);
+
         dispatch({
             type: 'getTasks',
             listType: listType
         });
-
-        setView(active);
-    }
-
-    const createSection = (value) => {
-        closeSectionNew();
-        dispatch({
-            type: 'createSection',
-            section: value
-        });
-    }
-
-    const closeSectionNew = () => setIsShowSectionNew(false);
-
-    const showSectionNew = () => {
-        const taskListElem = document.querySelector('#TaskList');
-        if(taskListElem) {
-            taskListElem.scroll(0,0);
-        }
-
-        setIsShowSectionNew(true);
     }
 
     const onCloseModalTasks = () => dispatch({
@@ -79,25 +72,13 @@ export default function Tasks() {
                 </Row>
 
                 {
-                    view === 'tasks' ?
+                    isLoading ? <Loading /> :
                         <div>
                             {
-                                isShowSectionNew ?
-                                    <div className={'tasks-container'}>
-                                        <SectionNew
-                                            save={createSection}
-                                            closeSectionNew={closeSectionNew}
-                                        />
-                                    </div>
-                                    :
-                                    null
+                                view === 'tasks' ? <ContainerTasksInWork tasks={state.tasks} /> :
+                                    <TasksList list={state.tasks} />
                             }
-
-                            <TasksList list={state.tasks} />
-                            <TasksFooter showSectionNew={showSectionNew}/>
                         </div>
-                        :
-                        <TasksList list={state.tasks} />
                 }
             </aside>
         )
