@@ -2,7 +2,7 @@ import React from 'react';
 
 import LoaderImg from './images/loader.gif';
 
-import './styles/loader.min.css';
+import './styles/loading.min.css';
 
 export default function Loading(props) {
     let classNames = 'loading';

@@ -76,7 +76,7 @@ export default function Tasks() {
                 </Row>
 
                 {
-                    isLoading ? <Loading /> :
+                    isLoading ? <Loading type={'tasks'} /> :
                         <div>
                             {
                                 view === 'tasks' ? <ContainerTasksInWork tasks={state.tasks} /> :
