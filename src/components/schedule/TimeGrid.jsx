@@ -1,25 +1,31 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 
-export default function TimeGrid() {
+import Hour from './Hour';
 
-    function getHours() {
-        let arr = [];
+function getHours() {
+    let arr = [];
 
-        for(let i = 0; i < 24; i++) {
-            arr.push(i + '0:00');
-        }
-
-        return arr;
+    for(let i = 0; i < 24; i++) {
+        arr.push(i);
     }
 
-    const listHours = getHours();
+    return arr;
+}
 
+const hoursDefault = getHours();
+
+export default function TimeGrid() {
+    const [hours, setHours] = useState(hoursDefault);
 
     return (
         <div>
             {
-                listHours.map((hour) => {
-                    <div key={hour}>Hello from hour {{hour}}</div>
+                hours.map((hour) => {
+                    return (
+                        <Hour key={hour}
+                              hour={hour}
+                        />
+                    )
                 })
             }
         </div>
