@@ -30,6 +30,10 @@ export default function Tasks() {
     }, [state]);
 
     const onChange = (active) => {
+        if(view === active) {
+            return false;
+        }
+
         let listType = 'all'
         if(active === 'completed') {
             listType = 'completed';
