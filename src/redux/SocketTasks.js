@@ -68,7 +68,7 @@ const SocketTasks = {
         try {
             socket.emit('createTask', task);
         } catch (err) {
-            console.log(err);
+            console.error(err);
             processingError();
         }
     },
@@ -77,7 +77,7 @@ const SocketTasks = {
         try {
             socket.emit('editTask', task);
         } catch (err) {
-            console.log(err);
+            console.error(err);
             processingError();
         }
     },
