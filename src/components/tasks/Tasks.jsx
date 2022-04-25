@@ -14,6 +14,7 @@ const options = ['tasks', 'completed'];
 export default function Tasks() {
     const [view, setView] = useState('tasks');
     const [isLoading, setIsLoading] = useState(false);
+    const [isQuery, setIsQuery] = useState(true);
 
     const state = useSelector(state => state);
     const dispatch = useDispatch();
@@ -23,11 +24,20 @@ export default function Tasks() {
             setIsLoading(false);
         }
 
+        if(isQuery) {
+            setIsLoading(true);
+            setIsQuery(false);
+
+            dispatch({
+                type: 'getTasks',
+                listType: 'all'
+            });
+        }
+
         return () => {
             setIsLoading(false);
         }
-
-    }, [state]);
+    }, [state])
 
     const onChange = (active) => {
         if(view === active) {
@@ -76,11 +86,16 @@ export default function Tasks() {
                 </Row>
 
                 {
-                    isLoading ? <Loading type={'tasks'} /> :
+                    isQuery ? null :
                         <div>
                             {
-                                view === 'tasks' ? <ContainerTasksInWork tasks={state.tasks} /> :
-                                    <TasksList list={state.tasks} />
+                                isLoading ? <Loading type={'tasks'} /> :
+                                    <div>
+                                        {
+                                            view === 'tasks' ? <ContainerTasksInWork tasks={state.tasks} /> :
+                                                <TasksList list={state.tasks} />
+                                        }
+                                    </div>
                             }
                         </div>
                 }

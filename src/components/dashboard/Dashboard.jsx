@@ -28,7 +28,7 @@ const Dashboard = () => {
             <main className={'dashboard-main'}>
                 <Aside />
                 <Schedule />
-                <Tasks />
+                { state.isShowModalTasks ? <Tasks /> : null }
             </main>
 
             <AlertError ref={AlertErrorRef} />

@@ -114,7 +114,5 @@ module.exports = (io) => {
                 sendErrorSocket(err, socket);
             }
         }
-
-        sendTasks();
     });
 }
