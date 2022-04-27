@@ -14,7 +14,7 @@ export default function Hour(props) {
     return (
         <div className={'hour'}>
             <div className={'hour-left_side'}>
-                <span className={'left_side-hour'}>
+                <span className={'left_side-title'}>
                     {renderHourToString(props.hour)}
                 </span>
             </div>

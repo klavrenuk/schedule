@@ -1,8 +1,10 @@
-@borderColor: #ccc;
+@borderColor: rgba(204,204,204, .5);
+@hourHeight: 55px;
 
 .hour {
-  height: 70px;
+  height: @hourHeight;
   border-bottom: 1px solid @borderColor;
+  font-size: 11px;
   background: #fff;
 
   &:first-child {
@@ -10,6 +12,23 @@
   }
 
   & .hour-left_side {
-    
+    position: relative;
+    width: @hourHeight;
+    height: @hourHeight;
+    border-right: 1px solid @borderColor;
+
+    & .left_side-title {
+      position: absolute;
+      top: -9px;
+      right: 0;
+      width: 100%;
+      padding-right: 10px;
+      text-align: right;
+      color: #333;
+      background: #fff;
+    }
+  }
+
+  & .hour-line {
   }
 }
