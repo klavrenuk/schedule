@@ -17,7 +17,7 @@ const DashboardHeader = () => {
     });
 
     return (
-        <header className={'dashboard_header'}>
+        <header id={'DashboardHeader'} className={'dashboard_header'}>
             <Row className={'flex flex--align_center dashboard_header-row'}>
                 <Col sm={8}><NavigationDays /></Col>
 

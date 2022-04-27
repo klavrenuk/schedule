@@ -7,8 +7,8 @@ import TimeGrid from "./TimeGrid";
 const Schedule = () => {
     return (
         <div className={'schedule'}>
-            <div>Day</div>
-            <div>Tasks for all day</div>
+            <div id={'ScheduleDay'}>Day</div>
+            <div id={'TasksAllDay'}>Tasks for all day</div>
             <TimeGrid />
         </div>
     )
