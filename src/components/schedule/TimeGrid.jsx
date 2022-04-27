@@ -43,7 +43,7 @@ export default function TimeGrid() {
     }, []);
 
     return (
-        <div className={'time_grid'}
+        <div className={'time_grid custom_scrollbar'}
              style={{'height': gridHeight}}
         >
             {

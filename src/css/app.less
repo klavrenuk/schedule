@@ -113,3 +113,19 @@ input {
     background: #E5E5E5;
   }
 }
+
+.custom_scrollbar {
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #fff;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border: 3px solid #CCCCCC;
+    border-radius: 20px;
+    background-color: #CCCCCC;
+  }
+}
