@@ -1,30 +1,11 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const SchemaEvent = require('../schemas/Event');
 const {validationItem, isObject} = require('./../middlewares/validation');
 
-const ModelEvent = mongoose.model('Event', new Schema({
-    name: {
-        type: String,
-        required: true
-    },
-    description: {
-        type: String,
-        required: false
-    },
-    date: {
-        type: Date,
-        required: true
-    },
-    isDeleted: {
-        type: Boolean,
-        required: true
-    }
-}));
 
 const Event = {
     edit(event) {
         return new Promise((resolve, reject) => {
-            ModelEvent.findOneAndUpdate(
+            SchemaEvent.findOneAndUpdate(
                 {_id: event._id},
                 event, (err) => {
                     if(err) {
@@ -75,7 +56,7 @@ const Event = {
                 throw new Error(validation.message);
             }
 
-            const event = new ModelEvent({
+            const event = new SchemaEvent({
                 name: request.body.name,
                 description: request.body.description || '',
                 date: request.body.date,
@@ -104,4 +85,4 @@ const Event = {
     },
 }
 
-module.exports = Event;
+module.exports = {Event};

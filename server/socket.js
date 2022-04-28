@@ -1,5 +1,6 @@
 const Section = require('./modules/Section').Section;
 const Task = require('./modules/Task').Task;
+
 const Tasks = require('./modules/Tasks');
 const Sections = require('./modules/Sections');
 const {sendErrorSocket} = require('./middlewares/error');
@@ -23,6 +24,9 @@ module.exports = (io) => {
         socket.on('deleteTask', (task) => deleteTask(task));
 
         socket.on('editTask', (task) => editTask(task));
+
+        socket.on('sendEvents', () => sendEvetns())
+
 
         const sendTasks = async(type) => {
             let list = [];
@@ -49,11 +53,10 @@ module.exports = (io) => {
                     } else {
                         list.push(itemSection);
                     }
-
                 });
 
             } catch(err) {
-                console.error(err);
+                console.log(err);
 
             } finally {
                 socket.emit('listTasksUpdated', list);
