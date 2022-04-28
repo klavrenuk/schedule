@@ -1,6 +1,5 @@
-const SchemaEvent = require('../schemas/Event');
+const SchemaEvent = require('../schemas/SchemaEvent');
 const {validationItem, isObject} = require('./../middlewares/validation');
-
 
 const Event = {
     edit(event) {

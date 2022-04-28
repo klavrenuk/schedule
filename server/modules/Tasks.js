@@ -1,4 +1,4 @@
-const Task = require('./Task');
+const SchemaTask = require('./../schemas/SchemaTask');
 
 const Tasks = {
     getList(type) {
@@ -7,7 +7,7 @@ const Tasks = {
                 isChecked: type === 'completed' ? true : false
             };
 
-            Task.ModelTask.find(filter, (err, list) => {
+            SchemaTask.find(filter, (err, list) => {
                 if(err) {
                     reject(err);
                     return false;

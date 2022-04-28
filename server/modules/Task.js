@@ -1,20 +1,5 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const SchemaTask = require('./../schemas/SchemaTask');
 const {validationItem} = require('./../middlewares/validation');
-
-const ModelTask = mongoose.model('Task', new Schema({
-    name: {
-        type: String,
-        required: true
-    },
-    sectionId: {
-        type: Schema.ObjectId,
-        required: true
-    },
-    isChecked: {
-        type: Boolean
-    }
-}));
 
 const validationTask = (task) => {
     const requiredOptions = [
@@ -61,7 +46,7 @@ const Task = {
                 return false;
             }
 
-            const task = new ModelTask({
+            const task = new SchemaTask({
                 name: item.name,
                 sectionId: item.sectionId,
                 isChecked: item.isChecked || false
@@ -84,7 +69,7 @@ const Task = {
                 return false;
             }
 
-            ModelTask.findByIdAndDelete({_id: task._id}, (err) => {
+            SchemaTask.findByIdAndDelete({_id: task._id}, (err) => {
                 if(err) {
                     reject(err);
                     return false;
@@ -108,7 +93,7 @@ const Task = {
                 return false;
             }
 
-            ModelTask.findOneAndUpdate(
+            SchemaTask.findOneAndUpdate(
                 {_id: task._id}, task, (err) =>
                 {
                     if(err) {
@@ -122,4 +107,4 @@ const Task = {
     }
 }
 
-module.exports = {Task, ModelTask};
+module.exports = Task;

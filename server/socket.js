@@ -1,8 +1,8 @@
-const Section = require('./modules/Section').Section;
-const Task = require('./modules/Task').Task;
-
+const Section = require('./modules/Section');
+const Task = require('./modules/Task');
 const Tasks = require('./modules/Tasks');
 const Sections = require('./modules/Sections');
+
 const {sendErrorSocket} = require('./middlewares/error');
 
 module.exports = (io) => {

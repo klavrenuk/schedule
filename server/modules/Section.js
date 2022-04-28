@@ -1,18 +1,10 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
-
-const ModelSection = mongoose.model('Section', new Schema({
-    name: {
-        type: String,
-        required: true
-    }
-}));
+const SchemaSection = require('./../schemas/SchemaSection');
 
 const Section = {
     create(name) {
         return new Promise((resolve, reject) => {
 
-            const section = new ModelSection({
+            const section = new SchemaSection({
                 name: name
             });
             section.save((err) => {
@@ -33,7 +25,7 @@ const Section = {
                 return false;
             }
 
-            ModelSection.findByIdAndDelete(
+            SchemaSection.findByIdAndDelete(
                 {_id: id}, (err) => {
                     if(err) {
                         reject(err);
@@ -47,4 +39,4 @@ const Section = {
     }
 }
 
-module.exports = {Section, ModelSection};
+module.exports = Section;

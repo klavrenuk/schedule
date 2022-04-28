@@ -1,9 +1,9 @@
-const Section = require('./Section');
+const SchemaSection = require('./../schemas/SchemaSection')
 
 const Sections = {
     getList() {
         return new Promise((resolve, reject) => {
-            Section.ModelSection.find({}, (err, arr) => {
+            SchemaSection.find({}, (err, arr) => {
                 if(err) {
                     console.error(err);
                     reject(err);
