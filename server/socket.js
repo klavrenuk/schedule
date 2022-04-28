@@ -2,8 +2,10 @@ const Section = require('./modules/Section');
 const Task = require('./modules/Task');
 const Tasks = require('./modules/Tasks');
 const Sections = require('./modules/Sections');
+const Events = require('./modules/Events');
 
 const {sendErrorSocket} = require('./middlewares/error');
+const {createListTasks} = require('./middlewares/create-list');
 
 module.exports = (io) => {
     io.on('connection', (socket) => {
@@ -17,7 +19,7 @@ module.exports = (io) => {
 
         socket.on('deleteSection', (id) => deleteSection(id));
 
-        socket.on('getTasks', (type) => sendTasks(type));
+        socket.on('getTasks', (type) => sendList('tasks', type));
 
         socket.on('createTask', (task) => createTask(task));
 
@@ -25,49 +27,41 @@ module.exports = (io) => {
 
         socket.on('editTask', (task) => editTask(task));
 
-        socket.on('sendEvents', () => sendEvetns())
+        socket.on('sendEvents', () => sendList('events'));
 
 
-        const sendTasks = async(type) => {
-            let list = [];
+        const sendList = async (type, subType) => {
+            let list = [],
+                eventName = null;
 
             try {
-                const sections = await Sections.getList();
-                const tasks = await Tasks.getList(type);
+                switch (type) {
+                    case 'events':
+                        list = await Events.getList();
+                        break;
 
-                sections.forEach((section) => {
-                    const itemSection = {
-                        ...section._doc,
-                        tasks: tasks.filter((task) => {
-                            if(section._id.toString() === task.sectionId.toString()) {
-                                return task;
-                            }
-                        })
-                    }
+                    case 'tasks':
+                        const sections = await Sections.getList();
+                        const tasks = await Tasks.getList(type);
 
-                    if(type === 'completed') {
-                        if(itemSection.tasks && itemSection.tasks.length > 0) {
-                            list.push(itemSection);
-                        }
+                        list = createListTasks(sections, tasks, subType);
+                        eventName = 'listTasksUpdated';
+                        break;
 
-                    } else {
-                        list.push(itemSection);
-                    }
-                });
-
+                }
             } catch(err) {
                 console.log(err);
-
             } finally {
-                socket.emit('listTasksUpdated', list);
+                if(eventName) {
+                    socket.emit(eventName, list);
+                }
             }
-
-        };
+        }
 
         const createSection = async (name) => {
             try {
                 await Section.create(name);
-                sendTasks();
+                sendList('tasks');
 
             } catch (err) {
                 console.log(err);
@@ -78,7 +72,7 @@ module.exports = (io) => {
         const deleteSection = async (id) => {
             try {
                 await Section.delete(id);
-                sendTasks();
+                sendList('tasks');
 
             } catch (err) {
                 console.log(err);
@@ -89,7 +83,7 @@ module.exports = (io) => {
         const createTask = async (task) => {
             try {
                 await Task.create(task);
-                sendTasks();
+                sendList('tasks');
 
             } catch (err) {
                 console.log(err);
@@ -100,7 +94,7 @@ module.exports = (io) => {
         const deleteTask = async(task) => {
             try {
                 await Task.delete(task);
-                sendTasks()
+                sendList('tasks');
 
             } catch (err) {
                 console.log(err);
