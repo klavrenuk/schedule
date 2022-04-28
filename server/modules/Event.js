@@ -12,7 +12,7 @@ const ModelEvent = mongoose.model('Event', new Schema({
         required: false
     },
     date: {
-        type: Number,
+        type: Date,
         required: true
     },
     isDeleted: {
