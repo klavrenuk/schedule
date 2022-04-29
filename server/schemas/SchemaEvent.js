@@ -17,6 +17,11 @@ const SchemaEvent = mongoose.model('Event', new Schema({
     isDeleted: {
         type: Boolean,
         required: true
+    },
+    isAllDay: {
+        type: Boolean,
+        required: false,
+        default: false
     }
 }));
 

@@ -1,53 +1,60 @@
-import SocketTasks from './SocketTasks';
+import SocketController from './SocketController';
 
 const initState = {
     event: {
         date: new Date().getTime()
     },
     user: {},
+    events: SocketController.events(),
     isShowModalTasks: false,
-    tasks: SocketTasks.tasks(),
+    tasks: SocketController.tasks(),
     error: null
 };
 
 
 const reducers = (state = initState, action) => {
     switch(action.type) {
+        case 'eventsUpdated':
+            return {
+                ...state,
+                events: SocketController.events()
+            };
+
         case 'tasksUpdated':
             return {
                 ...state,
-                tasks: SocketTasks.tasks()
+                tasks: SocketController.tasks()
             };
 
         case 'getTasks':
-            SocketTasks.getTasks(action.listType);
+            SocketController.getTasks(action.listType);
             return state;
 
         case 'setError':
             return {
                 ...state,
-                tasks: SocketTasks.getTasks(),
+                tasks: SocketController.getTasks(),
                 error: action.value
             };
 
         case 'editTask':
-             SocketTasks.editItem(action.task);
+             SocketController.editItem(action.task);
              return state;
 
         case 'createTask':
-            SocketTasks.createTask(action.task);
+            SocketController.createTask(action.task);
             return state;
 
         case 'deleteTask':
-            SocketTasks.deleteTask(action.task);
+            SocketController.deleteTask(action.task);
             return state;
 
         case 'createSection':
-            SocketTasks.createSection(action.section);
+            SocketController.createSection(action.section);
             return state;
 
         case 'deleteSection':
-            SocketTasks.deleteSection(action.id);
+            SocketController.deleteSection(action.id);
             return state;
 
         case 'toggleModalTasks':

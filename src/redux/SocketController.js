@@ -3,6 +3,7 @@ import store from './store';
 
 const socket = io('ws://');
 let tasks = [],
+    events = [],
     isConnected = false;
 
 const processingError = (message) => {
@@ -27,9 +28,16 @@ socket.on('connect', () => {
         });
     });
 
+    socket.on('eventsUpdated', (list) => {
+        events = list;
+        store.dispatch({
+            type: 'eventsUpdated'
+        });
+    });
+
     socket.on('connect_error', (err) => {
         isConnected = false;
-        console.log('error', err);
+        console.log('connect_error', err);
     });
 
     socket.on('disconnect', () => {
@@ -42,7 +50,11 @@ socket.on('connect', () => {
     });
 });
 
-const SocketTasks = {
+const SocketController = {
+    events() {
+        return events;
+    },
+
     tasks() {
         return tasks;
     },
@@ -87,4 +99,4 @@ const SocketTasks = {
     }
 }
 
-export default SocketTasks;
+export default SocketController;

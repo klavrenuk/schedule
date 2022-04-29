@@ -38,6 +38,7 @@ module.exports = (io) => {
                 switch (type) {
                     case 'events':
                         list = await Events.getList();
+                        eventName = 'eventsUpdated';
                         break;
 
                     case 'tasks':
@@ -111,5 +112,7 @@ module.exports = (io) => {
                 sendErrorSocket(err, socket);
             }
         }
+
+        sendList('events');
     });
 }
