@@ -1,17 +1,18 @@
 import React, {useEffect, useState} from 'react';
 import {useSelector} from "react-redux";
 
-import './schedule.min.css';
-
 import TimeGrid from "./TimeGrid";
+import EventsForDay from "./EventsForDay";
+
+import './schedule.min.css';
 
 const Schedule = () => {
     const state = useSelector(state => state);
-    const [eventsAllDay, setEventsAllDay] = useState([]);
+    const [eventsForDay, setEventsForDay] = useState([]);
 
     useEffect(() => {
         const arr = getEventsAllDay();
-        setEventsAllDay(arr);
+        setEventsForDay(arr);
 
     }, [state]);
 
@@ -26,7 +27,7 @@ const Schedule = () => {
     return (
         <div className={'schedule'}>
             <div id={'ScheduleDay'}>Day</div>
-            <div id={'TasksAllDay'}>Tasks for all day</div>
+            <EventsForDay events={eventsForDay} />
             <TimeGrid />
         </div>
     )
