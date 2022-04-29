@@ -1,8 +1,9 @@
+@import "config";
 @borderColor: rgba(204,204,204, .5);
 @hourHeight: 55px;
 
 .hour {
-  height: @hourHeight;
+  height: @leftSideSize;
   border-bottom: 1px solid @borderColor;
   font-size: 11px;
   background: #fff;
@@ -17,8 +18,8 @@
 
   & .hour-left_side {
     position: relative;
-    width: @hourHeight;
-    height: @hourHeight;
+    width: @leftSideSize;
+    height: @leftSideSize;
     border-right: 1px solid @borderColor;
 
     & .left_side-title {
@@ -31,8 +32,5 @@
       color: #333;
       background: #fff;
     }
-  }
-
-  & .hour-line {
   }
 }
