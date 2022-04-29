@@ -9,7 +9,9 @@ export default function EventsForDay(props) {
                 {
                     props.events.map((event) => {
                         return (
-                            <li key={event._id}>{ event.name}</li>
+                            <li key={event._id}
+                                className={'events_for_day-event'}
+                            >{ event.name}</li>
                         )
                     })
                 }
