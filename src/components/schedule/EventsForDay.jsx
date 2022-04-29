@@ -1,17 +1,19 @@
 import React from 'react';
 
+import Event from "./Event";
+
 import './css/events_for_day.min.css';
 
 export default function EventsForDay(props) {
     return (
         <div className={'events_for_day'}>
-            <ul>
+            <ul className={'events_for_day-list'}>
                 {
                     props.events.map((event) => {
                         return (
-                            <li key={event._id}
-                                className={'events_for_day-event'}
-                            >{ event.name}</li>
+                            <li key={event._id}>
+                                <Event event={event} />
+                            </li>
                         )
                     })
                 }
