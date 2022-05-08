@@ -3,6 +3,7 @@ import {useSelector} from "react-redux";
 
 import TimeGrid from "./TimeGrid";
 import EventsForDay from "./EventsForDay";
+import Day from './Day';
 
 import './schedule.min.css';
 
@@ -26,7 +27,7 @@ const Schedule = () => {
 
     return (
         <div className={'schedule'}>
-            <div id={'ScheduleDay'}>Day</div>
+            <Day />
             <EventsForDay events={eventsForDay} />
             <TimeGrid />
         </div>
