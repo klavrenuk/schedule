@@ -2,9 +2,15 @@
 
 .events_for_day {
   min-height: 50px;
-  padding: 0 10px 0 @leftSideSize;
+  margin-left: calc(@leftSideSize - 1px);
+  padding: @cellPaddingTop 15px @cellPaddingTop @cellPaddingLeft;
+  border-left: @borderHour;
 
   & .events_for_day-list li {
     margin-bottom: .2rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 }

@@ -1,5 +1,10 @@
+@import "config";
+
 .day {
-  padding-right: 15px;
+  margin-left: calc(@leftSideSize - 1px);
+  padding: @cellPaddingTop 15px @cellPaddingTop @cellPaddingLeft;
+  border-left: @borderHour;
+  border-bottom: @borderHour;
   color: #999;
   display: flex;
   align-items: start;

@@ -1,1 +1,1 @@
-.events_for_day{min-height:50px;padding:0 10px 0 50px}.events_for_day .events_for_day-list li{margin-bottom:.2rem}
+.events_for_day{min-height:50px;margin-left:calc(50px - 1px);padding:.3rem 15px .3rem .5rem;border-left:1px solid rgba(204,204,204,.5)}.events_for_day .events_for_day-list li{margin-bottom:.2rem}.events_for_day .events_for_day-list li:last-child{margin-bottom:0}

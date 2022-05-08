@@ -1,15 +1,14 @@
 @import "config";
-@borderColor: rgba(204,204,204, .5);
 @hourHeight: 55px;
 
 .hour {
   height: @leftSideSize;
-  border-bottom: 1px solid @borderColor;
+  border-bottom: @borderHour;
   font-size: 11px;
   background: #fff;
 
   &:first-child {
-    border-top: 1px solid @borderColor;
+    border-top: @borderHour;
 
     & .hour-left_side .left_side-title {
       display: none;
@@ -20,7 +19,7 @@
     position: relative;
     width: @leftSideSize;
     height: @leftSideSize;
-    border-right: 1px solid @borderColor;
+    border-right: @borderHour;
 
     & .left_side-title {
       position: absolute;
