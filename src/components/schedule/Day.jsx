@@ -1,11 +1,13 @@
 import React, {useState} from 'react';
 
+import './css/day.min.css';
+
 export default function Day() {
     const [day, setDay] = useState(new Date());
 
     const getDayName = () => {
         return day.toLocaleString('default',{
-            weekday: 'long'
+            weekday: 'short'
         });
     }
 
