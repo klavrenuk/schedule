@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useLayoutEffect} from 'react';
 import {useSelector} from "react-redux";
 
 import TimeGrid from "./TimeGrid";
@@ -7,15 +7,45 @@ import Day from './Day';
 
 import './schedule.min.css';
 
+const marginBottom = 16;
+
 const Schedule = () => {
     const state = useSelector(state => state);
     const [eventsForDay, setEventsForDay] = useState([]);
+    const [height, setHeight] = useState(0);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         const arr = getEventsAllDay();
         setEventsForDay(arr);
 
     }, [state]);
+
+    useEffect(() => {
+        calcHeight();
+        window.addEventListener('resize', calcHeight);
+
+        return () => {
+            window.removeEventListener('resize', calcHeight);
+        }
+    }, []);
+
+    const calcHeight = () => {
+        const elms = ['DashboardHeader'];
+        const docHeight = window.innerHeight;
+
+        let item = null,
+            sumElms = marginBottom || 0;
+
+        for(let elem of elms) {
+            item = document.querySelector(`#${elem}`);
+
+            if(item) {
+                sumElms += item.clientHeight;
+            }
+        }
+
+        setHeight(docHeight - sumElms);
+    }
 
     const getEventsAllDay = () => {
         return state.events.filter((event) => {
@@ -26,7 +56,12 @@ const Schedule = () => {
     }
 
     return (
-        <div className={'schedule'}>
+        <div className={'schedule custom_scrollbar'}
+             style={{
+                 'height': height,
+                 'marginBottom': marginBottom
+             }}
+        >
             <Day />
             <EventsForDay events={eventsForDay} />
             <TimeGrid />
