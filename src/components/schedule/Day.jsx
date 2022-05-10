@@ -11,8 +11,10 @@ export default function Day() {
         });
     }
 
+    const dayClassNames = `day ${ [6,0].includes(day.getDay()) ? 'day-off' : '' }`;
+
     return (
-        <div className={'day'}>
+        <div className={dayClassNames}>
             <span className={'day-number'}>{ day.getDate() }</span>
             <span className={'day-name'}>{getDayName()}</span>
         </div>
