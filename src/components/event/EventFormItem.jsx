@@ -9,7 +9,10 @@ import './css/event_form_item.min.css';
 export default function EventFormItem(props) {
     const dispatch = useDispatch();
     const [isShowDescription, setIsShowDescription] = useState(false);
-    const [startDate, setStartDate] = useState(new Date());
+    const [date, setDate] = useState({
+        start: new Date().setHours(0,0,0,0),
+        end: new Date().setHours(23,59,59,59)
+    });
     const data = props.data;
 
     function renderWithFromGroup(content) {
@@ -38,16 +41,22 @@ export default function EventFormItem(props) {
         });
     }
 
-    const onChangeDate = (date) => {
+    const onChangeDate = (value, type) => {
+        setDate({
+            ...date,
+            [type]: value
+        })
         setStartDate(date);
 
         console.log('onChangeDAte', date)
 
-        dispatch({
-            type: 'event',
-            prop: data.name,
-            value: new Date(date).getTime()
-        });
+        return false;
+
+        // dispatch({
+        //     type: 'event',
+        //     prop: data.name,
+        //     value: new Date(date).getTime()
+        // });
     }
 
     const toggleViewDescription = () => setIsShowDescription(true);
@@ -87,13 +96,35 @@ export default function EventFormItem(props) {
 
         case 'date':
             return renderWithFromGroup(
-                <DatePicker
-                    format="dd/MM/YYYY HH:mm:ss"
-                    onChange={(date) => onChangeDate(date)}
-                    plugins={[
-                        <TimePicker position="bottom" />
-                    ]}
-                />
+                <div>
+                    <Row className={'flex flex--align_center'}>
+                        <Col sm={5}>
+                            <DatePicker
+                                value={date.start}
+                                format="dd/MM/YYYY HH:mm:ss"
+                                onChange={(date) => onChangeDate(dateStart, 'start')}
+                                plugins={[
+                                    <TimePicker position="bottom" />
+                                ]}
+                            />
+                        </Col>
+                        <Col sm={2} className={'text-center'}>-</Col>
+                        <Col sm={5}>
+                            <DatePicker
+                                value={date.end}
+                                format="dd/MM/YYYY HH:mm:ss"
+                                onChange={(date) => onChangeDate(dateEnd, 'end')}
+                                plugins={[
+                                    <TimePicker position="bottom" />
+                                ]}
+                            />
+                        </Col>
+
+                    </Row>
+
+
+                </div>
+
             )
 
         default:

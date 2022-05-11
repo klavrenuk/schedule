@@ -74,7 +74,7 @@ const ModalEvent = forwardRef((props, ref) => {
     const toggle = () => setIsShowModal(!isShowModal);
 
     return (
-        <Modal isOpen={isShowModal} toggle={toggle}>
+        <Modal isOpen={isShowModal} toggle={toggle} size={'lg'}>
             {
                 isLoading ?
                     <Loading type="modal" />
