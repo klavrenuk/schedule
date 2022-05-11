@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import {FormGroup, Input, Label, Button, Row, Col} from "reactstrap";
-import DatePicker from 'react-datepicker';
+import DatePicker from "react-multi-date-picker"
+import TimePicker from "react-multi-date-picker/plugins/time_picker";
 import {useDispatch} from 'react-redux';
 
-import 'react-datepicker/dist/react-datepicker.css';
 import './css/event_form_item.min.css';
 
 export default function EventFormItem(props) {
@@ -40,6 +40,8 @@ export default function EventFormItem(props) {
 
     const onChangeDate = (date) => {
         setStartDate(date);
+
+        console.log('onChangeDAte', date)
 
         dispatch({
             type: 'event',
@@ -85,12 +87,12 @@ export default function EventFormItem(props) {
 
         case 'date':
             return renderWithFromGroup(
-                <DatePicker 
-                    id={data.type}
-                    selected={startDate}
-                    dateFormat="dd/MM/yyyy"
-                    onChange={(date) => onChangeDate(date)} 
-                    showTimeSelect
+                <DatePicker
+                    format="dd/MM/YYYY HH:mm:ss"
+                    onChange={(date) => onChangeDate(date)}
+                    plugins={[
+                        <TimePicker position="bottom" />
+                    ]}
                 />
             )
 
