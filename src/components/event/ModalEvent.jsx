@@ -4,8 +4,26 @@ import {useSelector} from "react-redux";
 import axios from 'axios';
 import Swal from 'sweetalert2'
 
-import EventForm from './EventForm';
 import Loading from "../general/Loading";
+import EventFormItem from './EventFormItem';
+
+const options = [
+    {
+        type: 'name',
+        name: 'name',
+        value: ''
+    },
+    {
+        type: 'description',
+        name: 'description',
+        value: ''
+    },
+    {
+        type: 'date',
+        name: 'date',
+        value: new Date()
+    }
+];
 
 const ModalEvent = forwardRef((props, ref) => {
     const [isShowModal, setIsShowModal] = useState(false);
@@ -64,10 +82,16 @@ const ModalEvent = forwardRef((props, ref) => {
                     null
             }
 
-            <ModalHeader toggle={toggle}>Event</ModalHeader>
+            <ModalHeader toggle={toggle}>New event</ModalHeader>
 
             <ModalBody>
-                <EventForm />
+                {
+                    options.map((option) => {
+                        return <EventFormItem key={option.type}
+                                              data={option}
+                        />
+                    })
+                }
             </ModalBody>
 
             <ModalFooter>

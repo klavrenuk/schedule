@@ -3,8 +3,8 @@ import {FormGroup, Input, Label, Button, Row, Col} from "reactstrap";
 import DatePicker from 'react-datepicker';
 import {useDispatch} from 'react-redux';
 
-import "react-datepicker/dist/react-datepicker.css";
-
+import 'react-datepicker/dist/react-datepicker.css';
+import './css/event_form_item.min.css';
 
 export default function EventFormItem(props) {
     const dispatch = useDispatch();
