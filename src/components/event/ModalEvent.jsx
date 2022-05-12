@@ -1,13 +1,12 @@
 import React, {useState, useImperativeHandle, forwardRef} from 'react'
 import {Modal, ModalHeader, ModalBody, ModalFooter, Button} from "reactstrap";
-import {useSelector} from "react-redux";
 import axios from 'axios';
-import Swal from 'sweetalert2'
 
 import Loading from "../general/Loading";
 import EventFormItem from './EventFormItem';
+import ErrorMessageLine from "../general/ErrorMessageLine";
 
-const optionsDefault = [
+const options = [
     {
         name: 'name',
         value: ''
@@ -28,12 +27,12 @@ const optionsDefault = [
 const ModalEvent = forwardRef((props, ref) => {
     const [isShowModal, setIsShowModal] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const [options, setOptions] = useState(optionsDefault);
     const [errorMessage, setErrorMessage] = useState(null);
 
     useImperativeHandle(ref, () => ({
         show() {
             setIsShowModal(true);
+            setErrorMessage(null);
         }
     }))
 
@@ -48,8 +47,6 @@ const ModalEvent = forwardRef((props, ref) => {
         setErrorMessage(null);
 
         for(let option of options) {
-            console.log('loop option', option);
-
             if(option.name === 'name') {
                 if(!option.value || option.value.trim() === '') {
                     showError(`Please, fill option Name`);
@@ -113,7 +110,8 @@ const ModalEvent = forwardRef((props, ref) => {
                         })
                     }
                 </div>
-                <div className={'modal_event-error_message'}>{ errorMessage }</div>
+
+                <ErrorMessageLine message={errorMessage} />
             </ModalBody>
 
             <ModalFooter>
