@@ -42,10 +42,6 @@ const Event = {
                 {
                     prop: 'name',
                     type: 'String'
-                },
-                {
-                    prop: 'date',
-                    type: 'Number'
                 }
             ];
             const validation = validationItem(requiredOptions, request.body);
@@ -55,11 +51,28 @@ const Event = {
                 throw new Error(validation.message);
             }
 
+            if(!request.body.date.start) {
+                status = 400;
+                throw new Error('Date start is undefined');
+            }
+
+            if(request.body.date.isAllDay) {
+                request.body.date.end = request.body.date.start;
+
+            } else {
+                if(!request.body.date.end) {
+                    status = 400;
+                    throw new Error('Date end is undefined');
+                }
+            }
+
             const event = new SchemaEvent({
                 name: request.body.name,
                 description: request.body.description || '',
-                date: request.body.date,
-                isDeleted: false
+                start: request.body.date.start,
+                end: request.body.date.end,
+                isDeleted: false,
+                isAllDay: request.body.isAllDay || false
             });
 
             if(request.method === 'POST') {
@@ -73,8 +86,8 @@ const Event = {
         } catch(err) {
             console.error(err);
 
-            if(err === 200) {
-                err = 500;
+            if(status === 200) {
+                status = 500;
             }
 
             response.status(status).json({
@@ -84,4 +97,4 @@ const Event = {
     },
 }
 
-module.exports = {Event};
+module.exports = Event;

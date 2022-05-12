@@ -10,7 +10,11 @@ const SchemaEvent = mongoose.model('Event', new Schema({
         type: String,
         required: false
     },
-    date: {
+    start: {
+        type: Date,
+        required: true
+    },
+    end: {
         type: Date,
         required: true
     },
@@ -25,4 +29,4 @@ const SchemaEvent = mongoose.model('Event', new Schema({
     }
 }));
 
-module.exports = {SchemaEvent};
+module.exports = SchemaEvent;
