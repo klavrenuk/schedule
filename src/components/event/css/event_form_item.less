@@ -23,19 +23,44 @@
   }
 
   &.event_item--date {
+    margin-bottom: .5rem;
+
     & .rmdp-input {
       .inputStyles();
+
+      width: 100%;
       height: 33px;
       padding-left: 12px;
       padding-right: 12px;
       border: 1px solid rgb(153, 153, 153) !important;
       border-radius: 4px;
     }
+
+    & .disabled {
+      & .rmdp-input,
+      & .icon-tabler {
+        cursor: default !important;
+      }
+
+      & .rmdp-input {
+        background: rgba(204,204,204, .2);
+      }
+    }
   }
 
   &.event_item--all_day {
     & input {
       margin-right: .5rem;
+      box-shadow: none !important;
+
+      &:checked {
+        border-color: #0066FF;
+        background-color: #0066FF;
+      }
+    }
+
+    & label {
+      font-size: 14px;
     }
   }
 }

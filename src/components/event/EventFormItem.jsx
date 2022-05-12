@@ -104,7 +104,9 @@ export default function EventFormItem(props) {
 
         case 'date':
             return renderWithFromGroup(
-                <div>
+                <div className={
+                    state.event.isAllDay ? 'disabled' : ''
+                }>
                     <Row className={'flex flex--align_center'}>
                         <Col sm={5}>
                             <DatePicker
@@ -115,7 +117,7 @@ export default function EventFormItem(props) {
                                 onChange={(value) => onChangeDate(value, 'start')}
                                 value={data.value.start}
                                 plugins={[
-                                    <TimePicker position="bottom" />
+                                    <TimePicker position="bottom" hideSeconds  />
                                 ]}
                                 render={<InputIcon/>}
                             />
@@ -130,7 +132,7 @@ export default function EventFormItem(props) {
                                 onChange={(value) => onChangeDate(value, 'end')}
                                 value={data.value.end}
                                 plugins={[
-                                    <TimePicker position="bottom" />
+                                    <TimePicker position="bottom" hideSeconds  />
                                 ]}
                                 render={<InputIcon/>}
                                 mobileLabels={{
