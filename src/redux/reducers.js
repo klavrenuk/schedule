@@ -5,12 +5,24 @@ const initState = {
     events: SocketController.events(),
     isShowModalTasks: false,
     tasks: SocketController.tasks(),
-    error: null
+    error: null,
+    event: {
+        isAllDay: false
+    }
 };
 
 
 const reducers = (state = initState, action) => {
     switch(action.type) {
+        case 'event':
+            return {
+                ...state,
+                event: {
+                    ...state.event,
+                    [action.option]: action.value
+                }
+            };
+
         case 'eventsUpdated':
             return {
                 ...state,

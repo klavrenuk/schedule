@@ -1,11 +1,16 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {FormGroup, Input, Label, Button, Row, Col} from "reactstrap";
 import DatePicker from "react-multi-date-picker"
 import TimePicker from "react-multi-date-picker/plugins/time_picker";
+import InputIcon from "react-multi-date-picker/components/input_icon"
+import {useDispatch, useSelector} from "react-redux";
 
 import './css/event_form_item.min.css';
 
 export default function EventFormItem(props) {
+    const dispatch = useDispatch();
+    const state = useSelector(state => state);
+
     const [isShowDescription, setIsShowDescription] = useState(false);
     const data = props.data;
 
@@ -33,7 +38,38 @@ export default function EventFormItem(props) {
 
     const toggleViewDescription = () => setIsShowDescription(true);
 
+    const onChangeAllDay = (event) => {
+        console.log('onChangeAllDay', event.target.checked);
+        dispatch( {
+            type: 'event',
+            option: 'isAllDay',
+            value: event.target.checked
+        })
+    }
+
     switch (data.name) {
+        case 'allDay':
+            return (
+                <div className={'event_item event_item--all_day'}>
+                    <Row>
+                        <Col sm={{
+                            size: 6,
+                            offset: 4
+                        }}>
+                            <Input id={data.name.toUpperCase()}
+                                   name={data.name}
+                                   type={'checkbox'}
+                                   placeholder={'Enter text'}
+                                   onChange={(event) => onChangeAllDay(event)}
+                            />
+                            <Label for={data.name.toUpperCase()}>All day</Label>
+                        </Col>
+                    </Row>
+
+                </div>
+            )
+
+
         case 'name':
             const input = <Input id={data.name.toUpperCase()}
                                  name={data.name}
@@ -72,21 +108,35 @@ export default function EventFormItem(props) {
                     <Row className={'flex flex--align_center'}>
                         <Col sm={5}>
                             <DatePicker
-                                format="dd/MM/YYYY HH:mm:ss"
+                                disabled={state.event.isAllDay}
+                                weekStartDayIndex={1}
+                                editable={false}
+                                format="DD/MM/YYYY HH:mm"
                                 onChange={(value) => onChangeDate(value, 'start')}
+                                value={data.value.start}
                                 plugins={[
                                     <TimePicker position="bottom" />
                                 ]}
+                                render={<InputIcon/>}
                             />
                         </Col>
                         <Col sm={2} className={'text-center'}>-</Col>
                         <Col sm={5}>
                             <DatePicker
-                                format="dd/MM/YYYY HH:mm:ss"
+                                disabled={state.event.isAllDay}
+                                weekStartDayIndex={1}
+                                editable={false}
+                                format="DD/MM/YYYY HH:mm"
                                 onChange={(value) => onChangeDate(value, 'end')}
+                                value={data.value.end}
                                 plugins={[
                                     <TimePicker position="bottom" />
                                 ]}
+                                render={<InputIcon/>}
+                                mobileLabels={{
+                                    OK: "Accept",
+                                    CANCEL: "Close",
+                                }}
                             />
                         </Col>
                     </Row>

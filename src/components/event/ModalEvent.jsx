@@ -18,9 +18,13 @@ const options = [
     {
         name: 'date',
         value: {
-            start: null,
-            end: null
+            start: new Date(),
+            end: new Date()
         }
+    },
+    {
+        name: 'allDay',
+        value: false
     }
 ];
 
@@ -46,41 +50,54 @@ const ModalEvent = forwardRef((props, ref) => {
         setIsLoading(true);
         setErrorMessage(null);
 
-        for(let option of options) {
-            if(option.name === 'name') {
-                if(!option.value || option.value.trim() === '') {
-                    showError(`Please, fill option Name`);
-                    return;
-                }
-            }
+        //const data = {};
+        // for(let option of options) {
+        //     if(option.name === 'name') {
+        //         if(!option.value || option.value.trim() === '') {
+        //             showError(`Please, fill option Name`);
+        //             return;
+        //         }
+        //     }
+        //
+        //     if(option.name === 'date') {
+        //         if(!option.value.start) {
+        //             showError(`Please, fill option Start Date`);
+        //             return;
+        //         }
+        //
+        //         if(!option.value.end) {
+        //             showError(`Please, fill option End Date`);
+        //             return;
+        //         }
+        //     }
+        //
+        //     data[option.name] = option.value;
+        // }
 
-            if(option.name === 'date') {
-                if(!option.value.start) {
-                    showError(`Please, fill option Start Date`);
-                    return;
-                }
 
-                if(!option.value.end) {
-                    showError(`Please, fill option End Date`);
-                    return;
-                }
-            }
-        }
+        const data = {
+            "name": "new Event#1",
+            "description": "description",
+            "date": {
+                "start": 1652334545000,
+                "end": 1652334546000
+            },
+            isAllDay: true
+        };
+
+        console.log(data);
+
 
         axios({
             method: 'POST',
             url: '/api/event',
-            data: {
-                name: state.event.name,
-                description: state.event.description || null,
-                date: state.event.date
-            }
+            data: data
         }).then(() => {
             setIsLoading(false);
             setTimeout(() => toggle(), 600);
 
         }).catch(() => {
-            setErrorMessage('Saving error');
+            showError('Saving error');
         })
     }
 
