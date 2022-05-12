@@ -65,7 +65,6 @@ export default function EventFormItem(props) {
                             <Label for={data.name.toUpperCase()}>All day</Label>
                         </Col>
                     </Row>
-
                 </div>
             )
 
@@ -108,8 +107,6 @@ export default function EventFormItem(props) {
                 classNameWrap = 'disabled';
                 data.value.end = data.value.start;
             }
-
-            console.log('datePicker', data.value.end);
 
             return renderWithFromGroup(
                 <div className={classNameWrap}>

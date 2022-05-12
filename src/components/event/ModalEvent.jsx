@@ -39,17 +39,14 @@ const ModalEvent = forwardRef((props, ref) => {
 
     useImperativeHandle(ref, () => ({
         show() {
-            console.log('optionsDefault', optionsDefault);
-
             setOptions(JSON.parse(JSON.stringify(optionsDefault)));
-
-            console.log('options', options);
 
             dispatch( {
                 type: 'event',
                 option: 'isAllDay',
                 value: false
             });
+
             setIsShowModal(true);
             setErrorMessage(null);
         }
