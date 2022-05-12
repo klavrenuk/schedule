@@ -11,11 +11,11 @@ const SchemaEvent = mongoose.model('Event', new Schema({
         required: false
     },
     start: {
-        type: Date,
+        type: Number,
         required: true
     },
     end: {
-        type: Date,
+        type: Number,
         required: true
     },
     isDeleted: {

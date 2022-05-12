@@ -69,8 +69,8 @@ const Event = {
             const event = new SchemaEvent({
                 name: request.body.name,
                 description: request.body.description || '',
-                start: request.body.date.start,
-                end: request.body.date.end,
+                start: new Date(request.body.date.start).getTime(),
+                end: new Date(request.body.date.end).getTime(),
                 isDeleted: false,
                 isAllDay: request.body.isAllDay || false
             });
