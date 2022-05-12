@@ -1,9 +1,6 @@
 import SocketController from './SocketController';
 
 const initState = {
-    event: {
-        date: new Date().getTime()
-    },
     user: {},
     events: SocketController.events(),
     isShowModalTasks: false,
@@ -74,15 +71,6 @@ const reducers = (state = initState, action) => {
                 ...state,
                 user: action.user
             }
-
-        case 'event':
-            return {
-                ...state,
-                event: {
-                    ...state.event,
-                    [action.prop]: action.value
-                }
-            };
 
         default:
             return state;

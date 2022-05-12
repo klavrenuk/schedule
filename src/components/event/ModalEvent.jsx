@@ -7,28 +7,29 @@ import Swal from 'sweetalert2'
 import Loading from "../general/Loading";
 import EventFormItem from './EventFormItem';
 
-const options = [
+const optionsDefault = [
     {
-        type: 'name',
         name: 'name',
         value: ''
     },
     {
-        type: 'description',
         name: 'description',
         value: ''
     },
     {
-        type: 'date',
         name: 'date',
-        value: new Date()
+        value: {
+            start: null,
+            end: null
+        }
     }
 ];
 
 const ModalEvent = forwardRef((props, ref) => {
     const [isShowModal, setIsShowModal] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const state = useSelector(state => state);
+    const [options, setOptions] = useState(optionsDefault);
+    const [errorMessage, setErrorMessage] = useState(null);
 
     useImperativeHandle(ref, () => ({
         show() {
@@ -36,20 +37,37 @@ const ModalEvent = forwardRef((props, ref) => {
         }
     }))
 
+
+    const showError = (message) => {
+        setErrorMessage(message);
+        setIsLoading(false);
+    }
+
     const onSave = () => {
         setIsLoading(true);
+        setErrorMessage(null);
 
-        let incorrectOption = null;
+        for(let option of options) {
+            console.log('loop option', option);
 
-        if(!state.event.name) {
-            incorrectOption = 'Name';
-        } else if(!state.event.date) {
-            incorrectOption = 'Date';
-        }
+            if(option.name === 'name') {
+                if(!option.value || option.value.trim() === '') {
+                    showError(`Please, fill option Name`);
+                    return;
+                }
+            }
 
-        if(incorrectOption) {
-            Swal.fire(`Please, enter option "${incorrectOption}"`);
-            return false;
+            if(option.name === 'date') {
+                if(!option.value.start) {
+                    showError(`Please, fill option Start Date`);
+                    return;
+                }
+
+                if(!option.value.end) {
+                    showError(`Please, fill option End Date`);
+                    return;
+                }
+            }
         }
 
         axios({
@@ -62,19 +80,20 @@ const ModalEvent = forwardRef((props, ref) => {
             }
         }).then(() => {
             setIsLoading(false);
-            Swal.fire('Success!');
             setTimeout(() => toggle(), 600);
 
         }).catch(() => {
-            setIsLoading(false);
-            Swal.fire('Error! Please, check form and try later');
+            setErrorMessage('Saving error');
         })
     }
 
     const toggle = () => setIsShowModal(!isShowModal);
 
     return (
-        <Modal isOpen={isShowModal} toggle={toggle} size={'lg'}>
+        <Modal className={'modal_event'}
+               isOpen={isShowModal}
+               toggle={toggle} size={'lg'}
+        >
             {
                 isLoading ?
                     <Loading type="modal" />
@@ -85,13 +104,16 @@ const ModalEvent = forwardRef((props, ref) => {
             <ModalHeader toggle={toggle}>New event</ModalHeader>
 
             <ModalBody>
-                {
-                    options.map((option) => {
-                        return <EventFormItem key={option.type}
-                                              data={option}
-                        />
-                    })
-                }
+                <div>
+                    {
+                        options.map((option) => {
+                            return <EventFormItem key={option.name}
+                                                  data={option}
+                            />
+                        })
+                    }
+                </div>
+                <div className={'modal_event-error_message'}>{ errorMessage }</div>
             </ModalBody>
 
             <ModalFooter>

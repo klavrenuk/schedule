@@ -10,7 +10,7 @@ export default function EventFormItem(props) {
     const data = props.data;
 
     function renderWithFromGroup(content) {
-        const itemClassName = 'event_item event_item--' + data.type;
+        const itemClassName = 'event_item event_item--' + data.name;
 
         return (
             <FormGroup className={itemClassName}>
@@ -18,7 +18,7 @@ export default function EventFormItem(props) {
                     <Col sm={4} className={'text-right'}>
                         <Label
                             className={'event_item-label'}
-                            for={data.type}
+                            for={data.name.toUpperCase()}
                         >{data.name}</Label>
                     </Col>
                     <Col sm={6}>{content}</Col>
@@ -29,13 +29,13 @@ export default function EventFormItem(props) {
 
     const onChangeItem = (event) => data.value = event.target.value;
 
-    const onChangeDate = (value, type) => data[type] = value.unix * 1000;
+    const onChangeDate = (value, type) => data.value[type] = value.unix * 1000;
 
     const toggleViewDescription = () => setIsShowDescription(true);
 
-    switch (data.type) {
+    switch (data.name) {
         case 'name':
-            const input = <Input id={data.type}
+            const input = <Input id={data.name.toUpperCase()}
                                  name={data.name}
                                  placeholder={'Enter text'}
                                  onChange={(event) => onChangeItem(event)}
@@ -57,7 +57,7 @@ export default function EventFormItem(props) {
 
             } else {
                 return renderWithFromGroup(
-                    <Input id={data.type}
+                    <Input id={data.name.toUpperCase()}
                            name={data.name}
                            type="textarea"
                            rows="4"
