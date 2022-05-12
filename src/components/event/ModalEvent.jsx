@@ -5,8 +5,9 @@ import axios from 'axios';
 import Loading from "../general/Loading";
 import EventFormItem from './EventFormItem';
 import ErrorMessageLine from "../general/ErrorMessageLine";
+import {useDispatch} from "react-redux";
 
-const options = [
+const optionsDefault = [
     {
         name: 'name',
         value: ''
@@ -29,12 +30,26 @@ const options = [
 ];
 
 const ModalEvent = forwardRef((props, ref) => {
+    const dispatch = useDispatch();
+
     const [isShowModal, setIsShowModal] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState(null);
+    const [options, setOptions] = useState(JSON.parse(JSON.stringify(optionsDefault)));
 
     useImperativeHandle(ref, () => ({
         show() {
+            console.log('optionsDefault', optionsDefault);
+
+            setOptions(JSON.parse(JSON.stringify(optionsDefault)));
+
+            console.log('options', options);
+
+            dispatch( {
+                type: 'event',
+                option: 'isAllDay',
+                value: false
+            });
             setIsShowModal(true);
             setErrorMessage(null);
         }
@@ -50,43 +65,29 @@ const ModalEvent = forwardRef((props, ref) => {
         setIsLoading(true);
         setErrorMessage(null);
 
-        //const data = {};
-        // for(let option of options) {
-        //     if(option.name === 'name') {
-        //         if(!option.value || option.value.trim() === '') {
-        //             showError(`Please, fill option Name`);
-        //             return;
-        //         }
-        //     }
-        //
-        //     if(option.name === 'date') {
-        //         if(!option.value.start) {
-        //             showError(`Please, fill option Start Date`);
-        //             return;
-        //         }
-        //
-        //         if(!option.value.end) {
-        //             showError(`Please, fill option End Date`);
-        //             return;
-        //         }
-        //     }
-        //
-        //     data[option.name] = option.value;
-        // }
+        const data = {};
+        for(let option of options) {
+            if(option.name === 'name') {
+                if(!option.value || option.value.trim() === '') {
+                    showError(`Please, fill option Name`);
+                    return;
+                }
+            }
 
+            if(option.name === 'date') {
+                if(!option.value.start) {
+                    showError(`Please, fill option Start Date`);
+                    return;
+                }
 
-        const data = {
-            "name": "new Event#1",
-            "description": "description",
-            "date": {
-                "start": 1652334545000,
-                "end": 1652334546000
-            },
-            isAllDay: true
-        };
+                if(!option.value.end) {
+                    showError(`Please, fill option End Date`);
+                    return;
+                }
+            }
 
-        console.log(data);
-
+            data[option.name] = option.value;
+        }
 
         axios({
             method: 'POST',

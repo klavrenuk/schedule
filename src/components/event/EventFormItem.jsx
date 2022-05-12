@@ -39,12 +39,12 @@ export default function EventFormItem(props) {
     const toggleViewDescription = () => setIsShowDescription(true);
 
     const onChangeAllDay = (event) => {
-        console.log('onChangeAllDay', event.target.checked);
         dispatch( {
             type: 'event',
             option: 'isAllDay',
             value: event.target.checked
-        })
+        });
+        data.value = event.target.checked;
     }
 
     switch (data.name) {
@@ -68,7 +68,6 @@ export default function EventFormItem(props) {
 
                 </div>
             )
-
 
         case 'name':
             const input = <Input id={data.name.toUpperCase()}
@@ -103,10 +102,17 @@ export default function EventFormItem(props) {
             }
 
         case 'date':
+            let classNameWrap = '';
+
+            if(state.event.isAllDay) {
+                classNameWrap = 'disabled';
+                data.value.end = data.value.start;
+            }
+
+            console.log('datePicker', data.value.end);
+
             return renderWithFromGroup(
-                <div className={
-                    state.event.isAllDay ? 'disabled' : ''
-                }>
+                <div className={classNameWrap}>
                     <Row className={'flex flex--align_center'}>
                         <Col sm={5}>
                             <DatePicker
