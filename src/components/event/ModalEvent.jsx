@@ -1,33 +1,14 @@
 import React, {useState, useImperativeHandle, forwardRef} from 'react'
 import {Modal, ModalHeader, ModalBody, ModalFooter, Button} from "reactstrap";
 import axios from 'axios';
+import EventController from './event-controller';
 
 import Loading from "../general/Loading";
 import EventFormItem from './EventFormItem';
 import ErrorMessageLine from "../general/ErrorMessageLine";
 import {useDispatch} from "react-redux";
 
-const optionsDefault = [
-    {
-        name: 'name',
-        value: ''
-    },
-    {
-        name: 'description',
-        value: ''
-    },
-    {
-        name: 'date',
-        value: {
-            start: new Date(),
-            end: new Date()
-        }
-    },
-    {
-        name: 'allDay',
-        value: true
-    }
-];
+const optionsDefault = EventController.options;
 
 const ModalEvent = forwardRef((props, ref) => {
     const dispatch = useDispatch();
