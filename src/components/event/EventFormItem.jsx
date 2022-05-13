@@ -61,6 +61,7 @@ export default function EventFormItem(props) {
                                    type={'checkbox'}
                                    placeholder={'Enter text'}
                                    onChange={(event) => onChangeAllDay(event)}
+                                   checked={data.value}
                             />
                             <Label for={data.name.toUpperCase()}>All day</Label>
                         </Col>

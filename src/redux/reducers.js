@@ -7,7 +7,7 @@ const initState = {
     tasks: SocketController.tasks(),
     error: null,
     event: {
-        isAllDay: false
+        isAllDay: true
     }
 };
 

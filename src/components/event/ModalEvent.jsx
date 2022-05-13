@@ -25,7 +25,7 @@ const optionsDefault = [
     },
     {
         name: 'allDay',
-        value: false
+        value: true
     }
 ];
 
@@ -44,7 +44,7 @@ const ModalEvent = forwardRef((props, ref) => {
             dispatch( {
                 type: 'event',
                 option: 'isAllDay',
-                value: false
+                value: true
             });
 
             setIsShowModal(true);
