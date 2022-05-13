@@ -8,10 +8,15 @@
   margin-bottom: 1rem;
 
   & .event_item-label {
+    width: 100%;
     padding-top: 5px;
     color: #999;
     font-size: 13px;
     text-transform: capitalize;
+
+    @media all and (min-width: 760px) {
+      text-align: right;
+    }
   }
 
   & .form-control {
@@ -24,6 +29,16 @@
 
   &.event_item--date {
     margin-bottom: .5rem;
+
+    @media all and (max-width: 720px) {
+      & .rmdp-container {
+        margin-bottom: .5rem;
+      }
+
+      & .event_item--date-arrow {
+        display: none;
+      }
+    }
 
     & .rmdp-input {
       .inputStyles();

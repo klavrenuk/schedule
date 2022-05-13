@@ -18,7 +18,7 @@ const Aside = () => {
                     onClick={createEvent}
             >Create event</Button>
 
-            <Event ref={ModalEventRef} type={'modal'} />
+            <Event ref={ModalEventRef} type={'page'} />
         </aside>
     )
 }

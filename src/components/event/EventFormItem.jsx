@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import {FormGroup, Input, Label, Button, Row, Col} from "reactstrap";
 import DatePicker from "react-multi-date-picker"
 import TimePicker from "react-multi-date-picker/plugins/time_picker";
-import InputIcon from "react-multi-date-picker/components/input_icon"
 import {useDispatch, useSelector} from "react-redux";
 
 import './css/event_form_item.min.css';
@@ -20,13 +19,13 @@ export default function EventFormItem(props) {
         return (
             <FormGroup className={itemClassName}>
                 <Row>
-                    <Col sm={4} className={'text-right'}>
+                    <Col sm={12} md={4}>
                         <Label
                             className={'event_item-label'}
                             for={data.name.toUpperCase()}
                         >{data.name}</Label>
                     </Col>
-                    <Col sm={6}>{content}</Col>
+                    <Col sm={12} md={6}>{content}</Col>
                 </Row>
             </FormGroup>
         )
@@ -53,9 +52,13 @@ export default function EventFormItem(props) {
                 <div className={'event_item event_item--all_day'}>
                     <Row>
                         <Col sm={{
-                            size: 6,
-                            offset: 4
-                        }}>
+                            size: 12
+                        }}
+                             md={{
+                                 size: 6,
+                                 offset: 4
+                             }}
+                        >
                             <Input id={data.name.toUpperCase()}
                                    name={data.name}
                                    type={'checkbox'}
@@ -123,10 +126,9 @@ export default function EventFormItem(props) {
                                 plugins={[
                                     <TimePicker position="bottom" hideSeconds  />
                                 ]}
-                                render={<InputIcon/>}
                             />
                         </Col>
-                        <Col sm={2} className={'text-center'}>-</Col>
+                        <Col sm={2} className={'text-center event_item--date-arrow'}>-</Col>
                         <Col sm={5}>
                             <DatePicker
                                 disabled={state.event.isAllDay}
@@ -138,7 +140,6 @@ export default function EventFormItem(props) {
                                 plugins={[
                                     <TimePicker position="bottom" hideSeconds  />
                                 ]}
-                                render={<InputIcon/>}
                                 mobileLabels={{
                                     OK: "Accept",
                                     CANCEL: "Close",

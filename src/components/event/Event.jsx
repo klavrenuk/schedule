@@ -103,7 +103,7 @@ const Event = forwardRef((props, ref) => {
 
 
     return (
-        <div className={'event'}>
+        <div>
             {
                 props.type === 'modal' ?
                     <EventModal

@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
 import {Button} from 'reactstrap';
 
-import './css/event.min.css';
+import './css/schedule-event.min.css';
 
-export default function Event(props) {
+export default function ScheduleEvent(props) {
     if(!props.event) {
         return false;
     }
