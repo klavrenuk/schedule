@@ -4,6 +4,14 @@ import LoaderImg from './images/loader.gif';
 
 import './styles/loading.min.css';
 
+/*
+    Types:
+        - page
+        - modal
+        - tasks
+*/
+
+
 export default function Loading(props) {
     let classNames = 'loading';
 
