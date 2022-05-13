@@ -1,7 +1,7 @@
 import React, {useRef} from 'react';
 import {Button} from 'reactstrap';
 
-import ModalEvent from '../event/ModalEvent';
+import Event from '../event/Event';
 
 import './aside.min.css';
 
@@ -18,7 +18,7 @@ const Aside = () => {
                     onClick={createEvent}
             >Create event</Button>
 
-            <ModalEvent ref={ModalEventRef} />
+            <Event ref={ModalEventRef} type={'modal'} />
         </aside>
     )
 }

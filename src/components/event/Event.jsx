@@ -1,19 +1,37 @@
-import React, {useState, useImperativeHandle, forwardRef} from 'react'
-import {Modal, ModalHeader, ModalBody, ModalFooter, Button} from "reactstrap";
+import React, {useState, useImperativeHandle, forwardRef, useRef} from 'react'
 import axios from 'axios';
-import EventController from './event-controller';
-
-import Loading from "../general/Loading";
-import EventFormItem from './EventFormItem';
-import ErrorMessageLine from "../general/ErrorMessageLine";
 import {useDispatch} from "react-redux";
 
-const optionsDefault = EventController.options;
+import EventModal from "./EventModal";
+import EventPage from './EventPage';
 
-const ModalEvent = forwardRef((props, ref) => {
+const optionsDefault = [
+    {
+        name: 'name',
+        value: ''
+    },
+    {
+        name: 'description',
+        value: ''
+    },
+    {
+        name: 'date',
+        value: {
+            start: new Date(),
+            end: new Date()
+        }
+    },
+    {
+        name: 'allDay',
+        value: true
+    }
+];
+
+const Event = forwardRef((props, ref) => {
     const dispatch = useDispatch();
+    const RefEventModal = useRef();
+    const RefEventPage = useRef();
 
-    const [isShowModal, setIsShowModal] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState(null);
     const [options, setOptions] = useState(JSON.parse(JSON.stringify(optionsDefault)));
@@ -21,15 +39,18 @@ const ModalEvent = forwardRef((props, ref) => {
     useImperativeHandle(ref, () => ({
         show() {
             setOptions(JSON.parse(JSON.stringify(optionsDefault)));
-
+            setErrorMessage(null);
             dispatch( {
                 type: 'event',
                 option: 'isAllDay',
                 value: true
             });
 
-            setIsShowModal(true);
-            setErrorMessage(null);
+            if(props.type === 'page') {
+                RefEventPage.current.show();
+            } else {
+                RefEventModal.current.show();
+            }
         }
     }))
 
@@ -80,42 +101,29 @@ const ModalEvent = forwardRef((props, ref) => {
         })
     }
 
-    const toggle = () => setIsShowModal(!isShowModal);
 
     return (
-        <Modal className={'modal_event'}
-               isOpen={isShowModal}
-               toggle={toggle} size={'lg'}
-        >
+        <div className={'event'}>
             {
-                isLoading ?
-                    <Loading type="modal" />
+                props.type === 'modal' ?
+                    <EventModal
+                        ref={RefEventModal}
+                        isLoading={isLoading}
+                        errorMessage={errorMessage}
+                        options={options}
+                        onSave={onSave}
+                    />
                     :
-                    null
+                    <EventPage
+                        ref={RefEventPage}
+                        isLoading={isLoading}
+                        errorMessage={errorMessage}
+                        options={options}
+                        onSave={onSave}
+                    />
             }
-
-            <ModalHeader toggle={toggle}>New event</ModalHeader>
-
-            <ModalBody>
-                <div>
-                    {
-                        options.map((option) => {
-                            return <EventFormItem key={option.name}
-                                                  data={option}
-                            />
-                        })
-                    }
-                </div>
-
-                <ErrorMessageLine message={errorMessage} />
-            </ModalBody>
-
-            <ModalFooter>
-                <Button color="link" onClick={toggle}>cancel</Button>
-                <Button color="primary" onClick={onSave}>save</Button>
-            </ModalFooter>
-        </Modal>
+        </div>
     )
 });
 
-export default ModalEvent;
+export default Event;

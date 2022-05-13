@@ -1,7 +1,8 @@
 @import "config";
 
 .events_for_day {
-  min-height: 50px;
+  position: relative;
+  min-height: 25px;
   margin-left: calc(@leftSideSize - 1px);
   padding: @cellPaddingTop 15px @cellPaddingTop @cellPaddingLeft;
   border-left: @borderHour;
@@ -12,5 +13,13 @@
     &:last-child {
       margin-bottom: 0;
     }
+  }
+
+  & .events_for_day-link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
   }
 }
